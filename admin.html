@@ -303,86 +303,103 @@ footer { padding: 24px 20px; text-align: center; border-top: 1px solid var(--brd
   .wrap, .wrap-sm, .wrap-xs { padding: 0 14px; }
   .card { border-radius: 14px; padding: 18px; }
 }
-
 body{display:flex;flex-direction:column;overflow:hidden}
 .layout{display:flex;flex:1;height:100vh;overflow:hidden}
-.sb{width:228px;background:var(--s1);border-right:1px solid var(--brd);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sb{width:232px;background:var(--s1);border-right:1px solid var(--brd);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
 .sb-brand{padding:18px 16px;border-bottom:1px solid var(--brd);display:flex;align-items:center;gap:10px}
 .sb-ic{width:32px;height:32px;background:linear-gradient(135deg,var(--blue),var(--blue2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
-.sb-nm{font-weight:800;font-size:.9rem;color:var(--w)}
-.sb-nm span{color:var(--blue2)}
+.sb-nm{font-weight:800;font-size:.9rem;color:var(--w)}.sb-nm span{color:var(--blue2)}
 .sb-sub{font-size:.6rem;color:var(--t3);margin-top:1px}
 .sb-nav{padding:10px 8px;flex:1}
 .sb-grp{font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);padding:10px 8px 6px}
 .sb-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--t2);transition:all .2s;margin-bottom:2px}
-.sb-item:hover{background:var(--s2);color:var(--t1)}
-.sb-item.active{background:var(--blue-a);color:var(--blue2);border:1px solid rgba(79,122,255,.15)}
-.sb-item .ic{font-size:.88rem;width:18px;text-align:center}
+.sb-item:hover{background:var(--s2);color:var(--t1)}.sb-item.active{background:var(--blue-a);color:var(--blue2);border:1px solid rgba(79,122,255,.15)}
+.sb-item .ic{font-size:.9rem;width:20px;text-align:center;flex-shrink:0}
 .sb-foot{padding:12px 8px;border-top:1px solid var(--brd);display:flex;flex-direction:column;gap:4px}
-.sb-back{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;font-size:.78rem;font-weight:600;color:var(--t3);transition:all .2s;cursor:pointer}
-.sb-back:hover{background:var(--s2);color:var(--t1)}
-.sb-logout{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;font-size:.78rem;font-weight:600;color:var(--red);transition:all .2s;cursor:pointer}
-.sb-logout:hover{background:rgba(248,113,113,.08)}
+.sb-back,.sb-logout{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;font-size:.78rem;font-weight:600;transition:all .2s;cursor:pointer}
+.sb-back{color:var(--t3)}.sb-back:hover{background:var(--s2);color:var(--t1)}
+.sb-logout{color:var(--red)}.sb-logout:hover{background:rgba(248,113,113,.08)}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .topbar{height:56px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:var(--nav-bg);backdrop-filter:blur(16px);flex-shrink:0}
-.tb-left{display:flex;align-items:center;gap:12px}
-.tb-title{font-size:.95rem;font-weight:700;color:var(--w)}
-.tb-clock{font-size:.72rem;color:var(--t3)}
 .menu-toggle{background:var(--s1);border:1px solid var(--brd);color:var(--t2);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:.9rem;display:none;font-family:inherit}
 .content{flex:1;overflow-y:auto;padding:24px}
-.panel{display:none;animation:fadeUp .3s both}
-.panel.on{display:block}
+.panel{display:none;animation:fadeUp .3s both}.panel.on{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .pane-title{font-size:1.1rem;font-weight:800;color:var(--w);margin-bottom:3px}
-.pane-sub{font-size:.78rem;color:var(--t3);margin-bottom:22px}
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
-.stat-card{background:var(--s1);border:1px solid var(--brd);border-radius:16px;padding:20px;position:relative;overflow:hidden}
+.pane-sub{font-size:.78rem;color:var(--t3);margin-bottom:20px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:var(--s1);border:1px solid var(--brd);border-radius:16px;padding:18px;position:relative;overflow:hidden}
 .stat-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0}
-.sc-blue::after{background:linear-gradient(90deg,var(--blue),var(--blue2))}
-.sc-red::after{background:linear-gradient(90deg,var(--red),#f97316)}
-.sc-green::after{background:linear-gradient(90deg,var(--green),#34d399)}
-.sc-gold::after{background:linear-gradient(90deg,var(--gold),#fbbf24)}
-.stat-num{font-size:1.7rem;font-weight:800;line-height:1}
-.sc-blue .stat-num{color:var(--blue2)}.sc-red .stat-num{color:var(--red)}.sc-green .stat-num{color:var(--green)}.sc-gold .stat-num{color:var(--gold)}
-.stat-lbl{font-size:.68rem;font-weight:600;letter-spacing:.5px;color:var(--t3);text-transform:uppercase;margin-top:6px}
+.sc-blue::after{background:linear-gradient(90deg,var(--blue),var(--blue2))}.sc-red::after{background:linear-gradient(90deg,var(--red),#f97316)}.sc-green::after{background:linear-gradient(90deg,var(--green),#34d399)}.sc-gold::after{background:linear-gradient(90deg,var(--gold),#fbbf24)}
+.stat-num{font-size:1.6rem;font-weight:800;line-height:1}
+.sc-blue .stat-num{color:var(--blue2)}.sc-red .stat-num{color:var(--red)}.sc-green .stat-num{color:var(--green)}.sc-gold .stat-num{color:var(--gold);font-size:.9rem}
+.stat-lbl{font-size:.66rem;font-weight:600;letter-spacing:.5px;color:var(--t3);text-transform:uppercase;margin-top:5px}
 .acard{background:var(--s1);border:1px solid var(--brd);border-radius:16px;padding:20px;margin-bottom:14px}
-.acard-head{font-size:.88rem;font-weight:700;color:var(--w);margin-bottom:14px}
+.acard-head{font-size:.88rem;font-weight:700;color:var(--w);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
 .btn-save{background:var(--blue);color:#fff;font-family:inherit;font-weight:700;font-size:.82rem;padding:10px 22px;border:none;border-radius:10px;cursor:pointer;transition:all .2s}
-.btn-save:hover{background:var(--blue2)}
-.btn-save:disabled{opacity:.6;cursor:not-allowed}
+.btn-save:hover{background:var(--blue2)}.btn-save:disabled{opacity:.6;cursor:not-allowed}
 .btn-filt{background:var(--s2);color:var(--t2);border:1px solid var(--brd2);padding:7px 14px;border-radius:10px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
 .btn-filt:hover{background:var(--s3);color:var(--t1)}
 .alert{border-radius:10px;padding:10px 14px;font-size:.76rem;font-weight:500;margin-top:10px;display:none}
 .alert-success{background:var(--green-a);border:1px solid rgba(34,197,94,.22);color:var(--green)}
 .alert-error{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);color:var(--red)}
-.qris-preview{max-width:150px;border-radius:10px;border:2px solid var(--brd2);display:none;margin-top:10px}
-.fb-setup-warn{background:var(--gold-a);border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:14px 16px;margin-bottom:16px;font-size:.78rem;color:var(--t2);line-height:1.7}
-.fb-setup-warn strong{color:var(--gold)}
+.tbl-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--brd)}
+table{width:100%;border-collapse:collapse}
+th{font-size:.62rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--t3);padding:11px 14px;text-align:left;background:var(--s2);border-bottom:1px solid var(--brd)}
+td{padding:11px 14px;border-bottom:1px solid var(--brd);font-size:.82rem;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--blue-b)}
+/* DESC MANAGER */
+.desc-item{background:var(--s2);border:1px solid var(--brd2);border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.desc-body{font-size:.8rem;color:var(--t1);white-space:pre-wrap;word-break:break-word;line-height:1.6;margin-bottom:8px}
+.desc-actions{display:flex;gap:6px}
+.btn-edit-sm{background:var(--blue-a);color:var(--blue2);border:1px solid rgba(79,122,255,.2);padding:4px 10px;border-radius:7px;font-size:.72rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-edit-sm:hover{background:var(--blue);color:#fff}
+.btn-del-sm{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.2);padding:4px 10px;border-radius:7px;font-size:.72rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-del-sm:hover{background:var(--red);color:#fff}
+.desc-stock-badge{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--green-a)}
+/* POPUP */
+.popup{display:none;position:fixed;inset:0;z-index:998;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px}
+.popup.open{display:flex;animation:fadeUp .2s both}
+.popup-box{background:var(--s1);border:1px solid var(--brd2);border-radius:20px;padding:24px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto}
+.popup-title{font-size:.95rem;font-weight:700;color:var(--w);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.popup-close{background:var(--s2);border:none;color:var(--t2);width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:.85rem;font-family:inherit}
+.dr{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--brd)}
+.dr:last-child{border-bottom:none}
+.dk{font-size:.76rem;color:var(--t3);flex-shrink:0}
+.dv{font-size:.8rem;font-weight:600;color:var(--t1);text-align:right;max-width:65%;word-break:break-all}
+.dv.mono{font-family:monospace;color:var(--blue2);font-size:.72rem}
+/* LIGHTBOX */
+.lightbox{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.92);align-items:center;justify-content:center;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92vw;max-height:88vh;border-radius:10px;object-fit:contain}
+/* OVERLAY */
 .sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:98}
-@media(max-width:900px){
-  .sb{position:fixed;left:-240px;top:0;z-index:99;height:100vh;transition:left .3s}
-  .sb.open{left:0}
-  .sb-overlay.open{display:block}
-  .menu-toggle{display:block}
-  .stats-row{grid-template-columns:1fr 1fr}
-  .f-row{grid-template-columns:1fr}
-  .content{padding:14px}
-}
+@media(max-width:900px){.sb{position:fixed;left:-240px;top:0;z-index:99;height:100vh;transition:left .3s}.sb.open{left:0}.sb-overlay.open{display:block}.menu-toggle{display:block}.stats-row{grid-template-columns:1fr 1fr}.content{padding:14px}}
 </style>
 </head>
 <body>
 <script>
-// AUTH GUARD — harus sebelum apapun render
-
-(function(){
-  const TOKEN='adminyokotofxownerfynixorstudi';
-  const sess=sessionStorage.getItem('yoko_admin_sess');
-  if(sess!=='ok_'+btoa(TOKEN).slice(0,12)){
-    window.location.replace('admin_login.html');
-  }
-})();
-
+(function(){var TOKEN='adminyokotofxownerfynixorstudi';if(sessionStorage.getItem('yoko_admin_sess')!=='ok_'+btoa(TOKEN).slice(0,12)){window.location.replace('admin_login.html');}})();
+const THEME_KEY="yoko_theme";
+function applyTheme(t){document.documentElement.setAttribute("data-theme",t);localStorage.setItem(THEME_KEY,t);var btn=document.getElementById("themeBtn");if(btn)btn.textContent=t==="dark"?"☀️":"🌙";}
+function toggleTheme(){applyTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");}
+(function(){applyTheme(localStorage.getItem(THEME_KEY)||"dark");})();
 </script>
+
 <div class="sb-overlay" id="sbo" onclick="closeSb()"></div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox"><img id="lbImg" src="" alt="Bukti"></div>
+
+<!-- ORDER DETAIL POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-box">
+    <div class="popup-title">Detail Order <button class="popup-close" onclick="closePopup()">✕</button></div>
+    <div id="popupContent"></div>
+  </div>
+</div>
+
 <div class="layout">
   <div class="sb" id="sb">
     <div class="sb-brand">
@@ -394,12 +411,13 @@ body{display:flex;flex-direction:column;overflow:hidden}
       <div class="sb-item active" onclick="showPanel('dashboard',this)"><span class="ic">📊</span>Dashboard</div>
       <div class="sb-grp">Kelola</div>
       <div class="sb-item" onclick="showPanel('orders',this)"><span class="ic">📦</span>Monitoring Order</div>
-      <div class="sb-item" onclick="showPanel('products',this)"><span class="ic">🛒</span>Produk & Harga</div>
+      <div class="sb-item" onclick="showPanel('categories',this)"><span class="ic">📂</span>Kategori</div>
+      <div class="sb-item" onclick="showPanel('products',this)"><span class="ic">🛒</span>Produk & Stok</div>
       <div class="sb-grp">Pengaturan</div>
-      <div class="sb-item" onclick="showPanel('settings',this)"><span class="ic">⚙️</span>Pengaturan Site</div>
-      <div class="sb-item" onclick="showPanel('qris',this)"><span class="ic">📱</span>QRIS Bayar</div>
-      <div class="sb-item" onclick="showPanel('links',this)"><span class="ic">🔗</span>Kelola Link</div>
-      <div class="sb-item" onclick="showPanel('firebase',this)"><span class="ic">🔥</span>Firebase Setup</div>
+      <div class="sb-item" onclick="showPanel('settings',this)"><span class="ic">⚙️</span>Pengaturan</div>
+      <div class="sb-item" onclick="showPanel('qris',this)"><span class="ic">📱</span>QRIS</div>
+      <div class="sb-item" onclick="showPanel('email',this)"><span class="ic">✉️</span>Email</div>
+      <div class="sb-item" onclick="showPanel('firebase',this)"><span class="ic">🔥</span>Firebase</div>
     </nav>
     <div class="sb-foot">
       <a href="index.html" class="sb-back">← Kembali ke Toko</a>
@@ -409,13 +427,13 @@ body{display:flex;flex-direction:column;overflow:hidden}
 
   <div class="main">
     <div class="topbar">
-      <div class="tb-left">
+      <div style="display:flex;align-items:center;gap:12px">
         <button class="menu-toggle" onclick="openSb()">☰</button>
-        <div class="tb-title" id="pageTitle">Dashboard</div>
+        <div style="font-size:.95rem;font-weight:700;color:var(--w)" id="pageTitle">Dashboard</div>
       </div>
       <div style="display:flex;align-items:center;gap:10px">
-        <div class="tb-clock" id="clock"></div>
-        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" style="width:34px;height:34px;border-radius:8px;background:var(--s2);border:1px solid var(--brd2);font-size:.88rem;cursor:pointer;display:flex;align-items:center;justify-content:center">🌙</button>
+        <span style="font-size:.72rem;color:var(--t3)" id="clock"></span>
+        <button id="themeBtn" onclick="toggleTheme()" style="width:34px;height:34px;border-radius:8px;background:var(--s2);border:1px solid var(--brd2);font-size:.88rem;cursor:pointer">🌙</button>
       </div>
     </div>
 
@@ -424,18 +442,18 @@ body{display:flex;flex-direction:column;overflow:hidden}
       <!-- DASHBOARD -->
       <div class="panel on" id="panel-dashboard">
         <div class="pane-title">Dashboard</div>
-        <div class="pane-sub">Ringkasan aktivitas toko kamu.</div>
+        <div class="pane-sub">Ringkasan aktivitas toko.</div>
         <div class="stats-row">
           <div class="stat-card sc-blue"><div class="stat-num" id="statTotal">—</div><div class="stat-lbl">Total Order</div></div>
           <div class="stat-card sc-red"><div class="stat-num" id="statPending">—</div><div class="stat-lbl">Pending</div></div>
           <div class="stat-card sc-green"><div class="stat-num" id="statDone">—</div><div class="stat-lbl">Selesai</div></div>
-          <div class="stat-card sc-gold"><div class="stat-num" id="statRevenue" style="font-size:.95rem">—</div><div class="stat-lbl">Revenue</div></div>
+          <div class="stat-card sc-gold"><div class="stat-num" id="statRevenue">—</div><div class="stat-lbl">Revenue</div></div>
         </div>
         <div class="acard">
           <div class="acard-head">Order Terbaru</div>
           <div class="tbl-wrap"><table>
-            <thead><tr><th>ID</th><th>Layanan</th><th>Nama</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
-            <tbody id="dashBody"><tr><td colspan="6" style="text-align:center;color:var(--t3);padding:24px">⏳ Memuat...</td></tr></tbody>
+            <thead><tr><th>ID</th><th>Produk</th><th>Nama</th><th>Total</th><th>Status</th></tr></thead>
+            <tbody id="dashBody"><tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">⏳ Memuat...</td></tr></tbody>
           </table></div>
         </div>
       </div>
@@ -443,63 +461,95 @@ body{display:flex;flex-direction:column;overflow:hidden}
       <!-- ORDERS -->
       <div class="panel" id="panel-orders">
         <div class="pane-title">Monitoring Order</div>
-        <div class="pane-sub">Pantau dan kelola semua transaksi.</div>
+        <div class="pane-sub">Klik baris untuk lihat detail & bukti bayar.</div>
         <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
           <button class="btn-filt" onclick="filterOrders('all')">Semua</button>
           <button class="btn-filt" style="background:var(--gold-a);color:var(--gold);border-color:rgba(245,158,11,.2)" onclick="filterOrders('pending')">Pending</button>
           <button class="btn-filt" style="background:var(--green-a);color:var(--green);border-color:rgba(34,197,94,.2)" onclick="filterOrders('done')">Selesai</button>
           <button class="btn-filt" onclick="loadOrders()">↻ Refresh</button>
         </div>
-        <div class="acard" style="padding:0;overflow:hidden">
-          <div class="tbl-wrap"><table>
-            <thead><tr><th>ID</th><th>Layanan</th><th>Nama</th><th>Email</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
-            <tbody id="ordersBody"><tr><td colspan="7" style="text-align:center;color:var(--t3);padding:24px">Memuat...</td></tr></tbody>
-          </table></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>ID</th><th>Produk</th><th>Nama</th><th>Email</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
+          <tbody id="ordersBody"><tr><td colspan="7" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr></tbody>
+        </table></div>
+      </div>
+
+      <!-- CATEGORIES -->
+      <div class="panel" id="panel-categories">
+        <div class="pane-title">Kategori</div>
+        <div class="pane-sub">Kategori tampil sebagai tab di halaman Welcome. Disimpan di Firebase.</div>
+        <div class="acard">
+          <div class="acard-head">Tambah Kategori Baru</div>
+          <div class="f-row">
+            <div class="f-group"><label class="f-label">Nama Kategori *</label><input class="f-input" id="catName" placeholder="Signal, WhatsApp Reaction..."></div>
+            <div class="f-group"><label class="f-label">Emoji Icon</label><input class="f-input" id="catIcon" placeholder="📶" maxlength="4"></div>
+            <div class="f-group" style="grid-column:1/-1"><label class="f-label">Deskripsi</label><input class="f-input" id="catDesc" placeholder="Deskripsi singkat kategori ini"></div>
+          </div>
+          <button class="btn-save" id="addCatBtn" onclick="addCategory()">+ Tambah Kategori</button>
+          <div class="alert alert-success" id="catAlert">✅ Kategori disimpan!</div>
+          <div class="alert alert-error" id="catErr">❌ Gagal. Cek Firebase.</div>
         </div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Icon</th><th>Nama</th><th>Deskripsi</th><th>Aksi</th></tr></thead>
+          <tbody id="catsBody"><tr><td colspan="4" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr></tbody>
+        </table></div>
       </div>
 
       <!-- PRODUCTS -->
       <div class="panel" id="panel-products">
-        <div class="pane-title">Produk & Harga</div>
-        <div class="pane-sub">Tambah dan hapus produk. Disimpan di Firebase.</div>
+        <div class="pane-title">Produk & Stok</div>
+        <div class="pane-sub">Tambah produk, lalu klik "Kelola Stok" untuk add/edit/hapus deskripsi per item.</div>
         <div class="acard">
           <div class="acard-head">Tambah Produk Baru</div>
           <div class="f-row">
-            <div class="f-group"><label class="f-label">Nama Produk</label><input class="f-input" id="pN" placeholder="TikTok Views Premium"></div>
-            <div class="f-group"><label class="f-label">Platform</label>
-              <select class="f-input" id="pPl" style="cursor:pointer">
-                <option value="tiktok">TikTok</option><option value="instagram">Instagram</option>
-                <option value="telegram">Telegram</option><option value="whatsapp">WhatsApp</option>
-                <option value="facebook">Facebook</option><option value="lainnya">Lainnya</option>
-              </select>
-            </div>
-            <div class="f-group"><label class="f-label">Harga (Rp)</label><input class="f-input" id="pPr" type="number" placeholder="2000"></div>
-            <div class="f-group"><label class="f-label">Min Order</label><input class="f-input" id="pMn" type="number" placeholder="1000"></div>
-            <div class="f-group"><label class="f-label">Max Order</label><input class="f-input" id="pMx" type="number" placeholder="1000000"></div>
-            <div class="f-group"><label class="f-label">Deskripsi</label><input class="f-input" id="pDs" placeholder="Deskripsi singkat"></div>
+            <div class="f-group"><label class="f-label">Nama Produk *</label><input class="f-input" id="pN" placeholder="WhatsApp Reaction Pack"></div>
+            <div class="f-group"><label class="f-label">Kategori *</label><select class="f-input" id="pCat" style="cursor:pointer"><option value="">-- Pilih Kategori --</option></select></div>
+            <div class="f-group"><label class="f-label">Harga (Rp) *</label><input class="f-input" id="pPr" type="number" placeholder="15000"></div>
+            <div class="f-group"><label class="f-label">Emoji Icon</label><input class="f-input" id="pIc" placeholder="📲" maxlength="4"></div>
           </div>
-          <button class="btn-save" id="addProdBtn" onclick="addProd()">+ Tambah Produk</button>
-          <div class="alert alert-success" id="prodAlert">✅ Produk disimpan ke Firebase!</div>
-          <div class="alert alert-error" id="prodErr">❌ Gagal. Cek koneksi Firebase.</div>
+          <button class="btn-save" id="addProdBtn" onclick="addProduct()">+ Tambah Produk</button>
+          <div class="alert alert-success" id="prodAlert">✅ Produk ditambahkan!</div>
+          <div class="alert alert-error" id="prodErr">❌ Gagal.</div>
         </div>
-        <div class="acard" style="padding:0;overflow:hidden">
-          <div class="tbl-wrap"><table>
-            <thead><tr><th>Nama</th><th>Platform</th><th>Harga</th><th>Min</th><th>Max</th><th>Aksi</th></tr></thead>
-            <tbody id="prodsBody"><tr><td colspan="6" style="text-align:center;color:var(--t3);padding:24px">Memuat...</td></tr></tbody>
-          </table></div>
+
+        <!-- STOK / DESC MANAGER -->
+        <div class="acard" id="descMgrCard" style="display:none;border-color:rgba(79,122,255,.25)">
+          <div class="acard-head">
+            <span id="descMgrTitle">📝 Stok</span>
+            <span class="desc-stock-badge" id="descStockBadge">0 stok</span>
+          </div>
+          <div class="f-group">
+            <label class="f-label">Deskripsi / Konten Stok</label>
+            <textarea class="f-input" id="descContent" rows="5" style="resize:vertical;font-family:monospace;font-size:.8rem" placeholder="Isi lengkap item ini:&#10;Username: xxxxx&#10;Password: xxxxx&#10;Cara pakai: xxxxx&#10;&#10;Setiap item = 1 stok. Customer dapat 1 item random saat beli."></textarea>
+            <div class="f-hint">Tiap item = 1 stok. Tambahkan satu per satu. Customer dapat 1 secara random saat beli.</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-save" id="descSaveBtn" onclick="saveDesc()">➕ Tambah Stok</button>
+            <button class="btn-filt" onclick="closeDescMgr()">✕ Tutup</button>
+          </div>
+          <div class="alert alert-success" id="descAlert">✅ Tersimpan!</div>
+          <div style="margin-top:16px">
+            <div style="font-size:.76rem;font-weight:600;color:var(--t2);margin-bottom:8px">Daftar Stok</div>
+            <div id="descList"></div>
+          </div>
         </div>
+
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Produk</th><th>Kategori</th><th>Harga</th><th>Aksi</th></tr></thead>
+          <tbody id="prodsBody"><tr><td colspan="4" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr></tbody>
+        </table></div>
       </div>
 
       <!-- SETTINGS -->
       <div class="panel" id="panel-settings">
-        <div class="pane-title">Pengaturan Site</div>
-        <div class="pane-sub">Disimpan di Firebase — tampil sama di semua perangkat.</div>
+        <div class="pane-title">Pengaturan</div>
+        <div class="pane-sub">Semua disimpan ke Firebase — berlaku di semua perangkat.</div>
         <div class="acard">
           <div class="acard-head">Identitas & Telegram Bot</div>
           <div class="f-group"><label class="f-label">Nama Website</label><input class="f-input" id="sNm" placeholder="YOKO STORE"></div>
           <div class="f-row">
             <div class="f-group"><label class="f-label">Bot Token Telegram</label><input class="f-input" id="sBt" placeholder="123456789:ABCdef..."></div>
-            <div class="f-group"><label class="f-label">Chat ID / Channel ID</label><input class="f-input" id="sCi" placeholder="-100xxxxxxxxx"></div>
+            <div class="f-group"><label class="f-label">Chat ID Admin</label><input class="f-input" id="sCi" placeholder="-100xxxxxxxxx"></div>
           </div>
         </div>
         <div class="acard">
@@ -508,9 +558,11 @@ body{display:flex;flex-direction:column;overflow:hidden}
             <div class="f-group"><label class="f-label">Link WhatsApp CS</label><input class="f-input" id="sWa" placeholder="https://wa.me/628..."></div>
             <div class="f-group"><label class="f-label">Username Telegram CS</label><input class="f-input" id="sTg" placeholder="@cs_username"></div>
             <div class="f-group"><label class="f-label">Email CS</label><input class="f-input" id="sEm" type="email" placeholder="cs@toko.id"></div>
+            <div class="f-group"><label class="f-label">Link Bot CS</label><input class="f-input" id="sBotLink" placeholder="https://t.me/yokostore_bot"></div>
+            <div class="f-group" style="grid-column:1/-1"><label class="f-label">Link Layanan Lain</label><input class="f-input" id="sOther" placeholder="https://t.me/yokostore_cs"></div>
           </div>
-          <button class="btn-save" id="saveSettBtn" onclick="saveSettings()">💾 Simpan ke Firebase</button>
-          <div class="alert alert-success" id="settingsAlert">✅ Pengaturan disimpan ke Firebase!</div>
+          <button class="btn-save" id="saveSettBtn" onclick="saveSettings()">💾 Simpan Pengaturan</button>
+          <div class="alert alert-success" id="settingsAlert">✅ Pengaturan tersimpan ke Firebase!</div>
           <div class="alert alert-error" id="settingsErr">❌ Gagal. Cek koneksi Firebase.</div>
         </div>
       </div>
@@ -518,44 +570,42 @@ body{display:flex;flex-direction:column;overflow:hidden}
       <!-- QRIS -->
       <div class="panel" id="panel-qris">
         <div class="pane-title">QRIS Pembayaran</div>
-        <div class="pane-sub">Disimpan di Firebase — otomatis muncul di halaman order semua user.</div>
-        <div class="acard" style="max-width:460px">
-          <div class="acard-head">Gambar QRIS</div>
+        <div class="pane-sub">Disimpan di Firebase — muncul otomatis di semua halaman order.</div>
+        <div class="acard" style="max-width:440px">
           <div class="f-group"><label class="f-label">Upload File QRIS</label><input class="f-input" id="qFile" type="file" accept="image/*" style="padding:9px;cursor:pointer" onchange="prevQRIS(this)"></div>
-          <img id="qPrev" class="qris-preview" alt="Preview QRIS">
-          <div class="f-group" style="margin-top:14px"><label class="f-label">Atau URL Gambar QRIS</label><input class="f-input" id="qUrl" type="url" placeholder="https://..."></div>
+          <img id="qPrev" src="" style="max-width:160px;border-radius:10px;border:2px solid var(--brd2);display:none;margin:10px 0">
+          <div class="f-group"><label class="f-label">Atau URL Gambar QRIS</label><input class="f-input" id="qUrl" type="url" placeholder="https://..."></div>
           <div class="f-group"><label class="f-label">Nama Penerima</label><input class="f-input" id="qNm" placeholder="YOKO STORE"></div>
-          <button class="btn-save" id="saveQrisBtn" onclick="saveQRIS()">💾 Simpan QRIS ke Firebase</button>
-          <div class="alert alert-success" id="qrisAlert">✅ QRIS disimpan ke Firebase!</div>
-          <div class="alert alert-error" id="qrisErr">❌ Gagal. Cek koneksi Firebase.</div>
+          <button class="btn-save" id="saveQrisBtn" onclick="saveQRIS()">💾 Simpan QRIS</button>
+          <div class="alert alert-success" id="qrisAlert">✅ QRIS tersimpan!</div>
+          <div class="alert alert-error" id="qrisErr">❌ Gagal.</div>
         </div>
       </div>
 
-      <!-- LINKS -->
-      <div class="panel" id="panel-links">
-        <div class="pane-title">Kelola Link</div>
-        <div class="pane-sub">Disimpan di Firebase.</div>
-        <div class="acard">
-          <div class="f-row">
-            <div class="f-group"><label class="f-label">Link Layanan Lainnya</label><input class="f-input" id="lOt" placeholder="https://t.me/..."></div>
-            <div class="f-group"><label class="f-label">Link Bot CS Telegram</label><input class="f-input" id="lBt" placeholder="https://t.me/...bot"></div>
-            <div class="f-group"><label class="f-label">Link Channel Telegram</label><input class="f-input" id="lCh" placeholder="https://t.me/..."></div>
-            <div class="f-group"><label class="f-label">Link Instagram</label><input class="f-input" id="lIg" placeholder="https://instagram.com/..."></div>
+      <!-- EMAIL -->
+      <div class="panel" id="panel-email">
+        <div class="pane-title">Email (Opsional)</div>
+        <div class="pane-sub">Jika diisi, deskripsi produk akan dikirim ke email customer otomatis via EmailJS.</div>
+        <div class="acard" style="max-width:500px">
+          <div style="background:var(--blue-a);border:1px solid rgba(79,122,255,.2);border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:.76rem;color:var(--t2);line-height:1.75">
+            💡 Daftar gratis di <strong style="color:var(--blue2)">emailjs.com</strong> (200 email/bulan).<br>
+            Buat Email Service → Buat Template dengan variabel: <code style="background:var(--s2);padding:1px 6px;border-radius:4px">to_email</code>, <code style="background:var(--s2);padding:1px 6px;border-radius:4px">product_name</code>, <code style="background:var(--s2);padding:1px 6px;border-radius:4px">desc_content</code>
           </div>
-          <button class="btn-save" onclick="saveLinks()">💾 Simpan Link ke Firebase</button>
-          <div class="alert alert-success" id="linksAlert">✅ Link disimpan!</div>
-          <div class="alert alert-error" id="linksErr">❌ Gagal.</div>
+          <div class="f-row">
+            <div class="f-group"><label class="f-label">Public Key</label><input class="f-input" id="ejPk" placeholder="user_xxxxxx"></div>
+            <div class="f-group"><label class="f-label">Service ID</label><input class="f-input" id="ejSv" placeholder="service_xxxxxx"></div>
+            <div class="f-group" style="grid-column:1/-1"><label class="f-label">Template ID</label><input class="f-input" id="ejTm" placeholder="template_xxxxxx"></div>
+          </div>
+          <button class="btn-save" onclick="saveEmail()">💾 Simpan</button>
+          <div class="alert alert-success" id="emailAlert">✅ Config email disimpan!</div>
+          <div class="alert alert-error" id="emailErr">❌ Gagal.</div>
         </div>
       </div>
 
-      <!-- FIREBASE SETUP -->
+      <!-- FIREBASE -->
       <div class="panel" id="panel-firebase">
         <div class="pane-title">Firebase Setup</div>
-        <div class="pane-sub">Ini satu-satunya config yang disimpan di browser (diperlukan untuk connect pertama kali).</div>
-        <div class="fb-setup-warn">
-          💡 <strong>Cara ambil config:</strong> Firebase Console → Project Settings → General → scroll ke bawah → Firebase SDK snippet → pilih <strong>Config</strong> → copy semua field.
-          <br><br>⚠️ Pastikan Firebase Rules sudah diset: <code style="background:var(--s2);padding:2px 6px;border-radius:4px;font-size:.72rem">orders</code> dan <code style="background:var(--s2);padding:2px 6px;border-radius:4px;font-size:.72rem">config</code> harus punya <code style="background:var(--s2);padding:2px 6px;border-radius:4px;font-size:.72rem">".indexOn": ["timestamp"]</code>
-        </div>
+        <div class="pane-sub">Config ini disimpan di browser lokal. Isi sekali, semua fitur aktif.</div>
         <div class="acard">
           <div class="f-row">
             <div class="f-group"><label class="f-label">API Key</label><input class="f-input" id="fbAk" placeholder="AIzaSy..."></div>
@@ -567,33 +617,20 @@ body{display:flex;flex-direction:column;overflow:hidden}
             <div class="f-group" style="grid-column:1/-1"><label class="f-label">App ID</label><input class="f-input" id="fbAi" placeholder="1:123456789:web:abc..."></div>
           </div>
           <button class="btn-save" onclick="saveFB()">💾 Simpan Firebase Config</button>
-          <div class="alert alert-success" id="fbAlert">✅ Firebase config disimpan! Refresh halaman untuk reconnect.</div>
+          <div class="alert alert-success" id="fbAlert">✅ Disimpan! Reload halaman untuk reconnect.</div>
         </div>
-        <!-- FIREBASE RULES HELPER -->
         <div class="acard">
-          <div class="acard-head">Rules Firebase (copy-paste ke Firebase Console)</div>
-          <pre style="background:var(--s2);border:1px solid var(--brd2);border-radius:10px;padding:16px;font-size:.72rem;color:var(--t1);overflow-x:auto;line-height:1.7">{
+          <div class="acard-head">Firebase Rules</div>
+          <pre style="background:var(--s2);border:1px solid var(--brd2);border-radius:10px;padding:14px;font-size:.7rem;color:var(--t1);overflow-x:auto;line-height:1.7">{
   "rules": {
     ".read": false,
     ".write": false,
-    "orders": {
-      ".read": true,
-      ".write": true,
-      ".indexOn": ["timestamp"]
-    },
-    "config": {
-      ".read": true,
-      ".write": true
-    },
-    "testimonials": {
-      ".read": true,
-      ".write": true,
-      ".indexOn": ["timestamp"]
-    },
-    "products": {
-      ".read": true,
-      ".write": true
-    }
+    "orders":       { ".read":true, ".write":true, ".indexOn":["timestamp"] },
+    "config":       { ".read":true, ".write":true },
+    "testimonials": { ".read":true, ".write":true, ".indexOn":["timestamp"] },
+    "products":     { ".read":true, ".write":true },
+    "categories":   { ".read":true, ".write":true },
+    "descriptions": { ".read":true, ".write":true }
   }
 }</pre>
         </div>
@@ -604,262 +641,457 @@ body{display:flex;flex-direction:column;overflow:hidden}
 </div>
 
 <script>
-const THEME_KEY="yoko_theme";
-function applyTheme(t){document.documentElement.setAttribute("data-theme",t);localStorage.setItem(THEME_KEY,t);const btn=document.getElementById("themeBtn");if(btn)btn.textContent=t==="dark"?"☀️":"🌙";}
-function toggleTheme(){applyTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");}
-(function(){applyTheme(localStorage.getItem(THEME_KEY)||"dark");})();
-
-// ─── FIREBASE HELPERS ─────────────────────────────────────────────────────────
-let _db=null, _cfg=null;
-
-async function getDB(){
-  if(_db) return _db;
-  const fc=JSON.parse(localStorage.getItem('yoko_firebase_config')||'null');
-  if(!fc||!fc.databaseURL) return null;
-  try{
-    const{initializeApp,getApps}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
-    const{getDatabase}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-    const app=getApps().find(a=>a.name==='yoko')||initializeApp(fc,'yoko');
-    _db=getDatabase(app); return _db;
-  }catch(e){return null;}
-}
-
-async function getCfg(){
-  if(_cfg) return _cfg;
-  try{
-    const db=await getDB(); if(!db) return {};
-    const{ref,get}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-    const snap=await get(ref(db,'config'));
-    _cfg=snap.exists()?snap.val():{};
-    return _cfg;
-  }catch(e){return {};}
-}
-
-async function updateCfg(data){
-  const db=await getDB(); if(!db) return false;
-  const{ref,update}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-  await update(ref(db,'config'),data);
-  _cfg=null; return true;
-}
-
-
-// ─── CLOCK ────────────────────────────────────────────────────────────────────
-setInterval(()=>document.getElementById('clock').textContent=new Date().toLocaleTimeString('id-ID'),1000);
-
-// ─── SIDEBAR ──────────────────────────────────────────────────────────────────
+// ── CLOCK & UI ───────────────────────────────────────────────────────────────
+setInterval(function(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('id-ID');},1000);
 function openSb(){document.getElementById('sb').classList.add('open');document.getElementById('sbo').classList.add('open');}
 function closeSb(){document.getElementById('sb').classList.remove('open');document.getElementById('sbo').classList.remove('open');}
 function doLogout(){sessionStorage.removeItem('yoko_admin_sess');window.location.replace('admin_login.html');}
+function showAlert(id,dur){var e=document.getElementById(id);if(!e)return;e.style.display='block';setTimeout(function(){e.style.display='none';},dur||3000);}
 
-// ─── PANELS ───────────────────────────────────────────────────────────────────
-const TITLES={dashboard:'Dashboard',orders:'Monitoring Order',products:'Produk & Harga',settings:'Pengaturan Site',qris:'QRIS Bayar',links:'Kelola Link',firebase:'Firebase Setup'};
+// ── PANELS ───────────────────────────────────────────────────────────────────
+var TITLES={dashboard:'Dashboard',orders:'Monitoring Order',categories:'Kategori',products:'Produk & Stok',settings:'Pengaturan',qris:'QRIS',email:'Email',firebase:'Firebase'};
 function showPanel(id,el){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.sb-item').forEach(function(i){i.classList.remove('active');});
   document.getElementById('panel-'+id).classList.add('on');
   if(el)el.classList.add('active');
   document.getElementById('pageTitle').textContent=TITLES[id]||id;
   if(id==='orders')loadOrders();
-  if(id==='products')loadProds();
+  if(id==='products'){loadProducts();loadCatSelect();}
+  if(id==='categories')loadCategories();
   if(id==='dashboard')loadDash();
   if(id==='settings')loadSettings();
   if(id==='qris')loadQris();
-  if(id==='links')loadLinks();
+  if(id==='email')loadEmail();
   closeSb();
 }
 
-// ─── ALERT HELPERS ────────────────────────────────────────────────────────────
-function showAlert(id,isErr=false){const e=document.getElementById(id);if(!e)return;e.style.display='block';setTimeout(()=>e.style.display='none',3000);}
+// ── FIREBASE ──────────────────────────────────────────────────────────────────
+var _db=null,_cfg=null;
+async function getDB(){
+  if(_db)return _db;
+  var fc=JSON.parse(localStorage.getItem('yoko_firebase_config')||'null');
+  if(!fc||!fc.databaseURL)return null;
+  try{
+    var m1=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
+    var m2=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    var app=m1.getApps().find(function(a){return a.name==='yoko';})||m1.initializeApp(fc,'yoko');
+    _db=m2.getDatabase(app);return _db;
+  }catch(e){return null;}
+}
+async function getCfg(){
+  if(_cfg)return _cfg;
+  try{
+    var db=await getDB();if(!db)return{};
+    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    var snap=await m.get(m.ref(db,'config'));
+    _cfg=snap.exists()?snap.val():{};return _cfg;
+  }catch(e){return{};}
+}
+async function setCfg(data){
+  try{
+    var db=await getDB();if(!db)throw new Error('Firebase belum setup');
+    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    await m.update(m.ref(db,'config'),data);
+    _cfg=null;return true;
+  }catch(e){console.error('setCfg error:',e);return false;}
+}
+function saveFB(){
+  var fb={
+    apiKey:document.getElementById('fbAk').value.trim(),
+    authDomain:document.getElementById('fbAd').value.trim(),
+    databaseURL:document.getElementById('fbDu').value.trim(),
+    projectId:document.getElementById('fbPi').value.trim(),
+    storageBucket:document.getElementById('fbSb').value.trim(),
+    messagingSenderId:document.getElementById('fbMs').value.trim(),
+    appId:document.getElementById('fbAi').value.trim()
+  };
+  localStorage.setItem('yoko_firebase_config',JSON.stringify(fb));
+  _db=null;_cfg=null;showAlert('fbAlert');
+}
+function initFBFields(){
+  var fb=JSON.parse(localStorage.getItem('yoko_firebase_config')||'null');if(!fb)return;
+  var fv=function(id,v){var e=document.getElementById(id);if(e&&v)e.value=v;};
+  fv('fbAk',fb.apiKey);fv('fbAd',fb.authDomain);fv('fbDu',fb.databaseURL);
+  fv('fbPi',fb.projectId);fv('fbSb',fb.storageBucket);fv('fbMs',fb.messagingSenderId);fv('fbAi',fb.appId);
+}
 
-// ─── SETTINGS (Firebase) ──────────────────────────────────────────────────────
+// ── SETTINGS ─────────────────────────────────────────────────────────────────
 async function loadSettings(){
-  const cfg=await getCfg();
-  const sv=(id,v)=>{const e=document.getElementById(id);if(e&&v)e.value=v;};
-  sv('sNm',cfg.siteName);sv('sBt',cfg.botToken);sv('sCi',cfg.chatId);
-  sv('sWa',cfg.csWa);sv('sTg',cfg.csTg);sv('sEm',cfg.csEmail);
+  var cfg=await getCfg();
+  var fv=function(id,v){var e=document.getElementById(id);if(e&&v!=null)e.value=v;};
+  fv('sNm',cfg.siteName);fv('sBt',cfg.botToken);fv('sCi',cfg.chatId);
+  fv('sWa',cfg.csWa);fv('sTg',cfg.csTg);fv('sEm',cfg.csEmail);
+  fv('sBotLink',cfg.linkBot);fv('sOther',cfg.linkOther);
 }
 async function saveSettings(){
-  const btn=document.getElementById('saveSettBtn');btn.disabled=true;btn.textContent='Menyimpan...';
-  try{
-    await updateCfg({siteName:document.getElementById('sNm').value,botToken:document.getElementById('sBt').value,chatId:document.getElementById('sCi').value,csWa:document.getElementById('sWa').value,csTg:document.getElementById('sTg').value,csEmail:document.getElementById('sEm').value});
-    showAlert('settingsAlert');
-  }catch(e){showAlert('settingsErr',true);}
-  btn.disabled=false;btn.textContent='💾 Simpan ke Firebase';
+  var btn=document.getElementById('saveSettBtn');btn.disabled=true;btn.textContent='Menyimpan...';
+  var ok=await setCfg({
+    siteName:document.getElementById('sNm').value.trim()||'YOKO STORE',
+    botToken:document.getElementById('sBt').value.trim(),
+    chatId:document.getElementById('sCi').value.trim(),
+    csWa:document.getElementById('sWa').value.trim(),
+    csTg:document.getElementById('sTg').value.trim(),
+    csEmail:document.getElementById('sEm').value.trim(),
+    linkBot:document.getElementById('sBotLink').value.trim(),
+    linkOther:document.getElementById('sOther').value.trim()
+  });
+  showAlert(ok?'settingsAlert':'settingsErr');
+  btn.disabled=false;btn.textContent='💾 Simpan';
 }
 
-// ─── QRIS (Firebase) ──────────────────────────────────────────────────────────
+// ── QRIS ─────────────────────────────────────────────────────────────────────
 async function loadQris(){
-  const cfg=await getCfg();
-  if(cfg.qrisImage){const p=document.getElementById('qPrev');p.src=cfg.qrisImage;p.style.display='block';}
+  var cfg=await getCfg();
+  if(cfg.qrisImage){var p=document.getElementById('qPrev');p.src=cfg.qrisImage;p.style.display='block';}
   if(cfg.qrisName)document.getElementById('qNm').value=cfg.qrisName;
-  if(cfg.qrisUrl)document.getElementById('qUrl').value=cfg.qrisUrl;
 }
-function prevQRIS(input){
-  const r=new FileReader();
-  r.onload=e=>{const p=document.getElementById('qPrev');p.src=e.target.result;p.style.display='block';};
-  r.readAsDataURL(input.files[0]);
+function prevQRIS(inp){
+  var r=new FileReader();
+  r.onload=function(e){var p=document.getElementById('qPrev');p.src=e.target.result;p.style.display='block';};
+  r.readAsDataURL(inp.files[0]);
 }
 async function saveQRIS(){
-  const btn=document.getElementById('saveQrisBtn');btn.disabled=true;btn.textContent='Menyimpan...';
+  var btn=document.getElementById('saveQrisBtn');btn.disabled=true;btn.textContent='Menyimpan...';
   try{
-    const file=document.getElementById('qFile').files[0];
-    const url=document.getElementById('qUrl').value;
-    let imgData=url||'';
-    if(file){imgData=await new Promise(res=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.readAsDataURL(file);});}
-    await updateCfg({qrisImage:imgData,qrisName:document.getElementById('qNm').value,qrisUrl:url});
+    var file=document.getElementById('qFile').files[0];
+    var url=document.getElementById('qUrl').value.trim();
+    var img=url||'';
+    if(file)img=await new Promise(function(res){var r=new FileReader();r.onload=function(e){res(e.target.result);};r.readAsDataURL(file);});
+    await setCfg({qrisImage:img,qrisName:document.getElementById('qNm').value.trim()});
     showAlert('qrisAlert');
-  }catch(e){showAlert('qrisErr',true);}
-  btn.disabled=false;btn.textContent='💾 Simpan QRIS ke Firebase';
+  }catch(e){showAlert('qrisErr');}
+  btn.disabled=false;btn.textContent='💾 Simpan';
 }
 
-// ─── LINKS (Firebase) ─────────────────────────────────────────────────────────
-async function loadLinks(){
-  const cfg=await getCfg();
-  const sv=(id,v)=>{const e=document.getElementById(id);if(e&&v)e.value=v;};
-  sv('lOt',cfg.linkOther);sv('lBt',cfg.linkBot);sv('lCh',cfg.linkChannel);sv('lIg',cfg.linkIg);
+// ── EMAIL ─────────────────────────────────────────────────────────────────────
+async function loadEmail(){
+  var cfg=await getCfg();
+  var fv=function(id,v){var e=document.getElementById(id);if(e&&v)e.value=v;};
+  fv('ejPk',cfg.ejPk);fv('ejSv',cfg.ejSv);fv('ejTm',cfg.ejTm);
 }
-async function saveLinks(){
-  try{
-    await updateCfg({linkOther:document.getElementById('lOt').value,linkBot:document.getElementById('lBt').value,linkChannel:document.getElementById('lCh').value,linkIg:document.getElementById('lIg').value});
-    showAlert('linksAlert');
-  }catch(e){showAlert('linksErr',true);}
+async function saveEmail(){
+  var ok=await setCfg({ejPk:document.getElementById('ejPk').value.trim(),ejSv:document.getElementById('ejSv').value.trim(),ejTm:document.getElementById('ejTm').value.trim()});
+  showAlert(ok?'emailAlert':'emailErr');
 }
 
-// ─── PRODUCTS (Firebase) ──────────────────────────────────────────────────────
-async function loadProds(){
-  const b=document.getElementById('prodsBody');
-  b.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--t3);padding:20px">⏳ Memuat...</td></tr>';
+// ── CATEGORIES ────────────────────────────────────────────────────────────────
+async function loadCategories(){
+  var b=document.getElementById('catsBody');
+  b.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr>';
   try{
-    const db=await getDB();if(!db){b.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--gold);padding:20px">⚠️ Firebase belum setup</td></tr>';return;}
-    const{ref,get}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-    const snap=await get(ref(db,'products'));
-    if(!snap.exists()){b.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--t3);padding:20px">Belum ada produk</td></tr>';return;}
-    const items=[];snap.forEach(c=>items.push({key:c.key,...c.val()}));
-    b.innerHTML=items.map(p=>`<tr><td>${p.name}</td><td style="text-transform:capitalize">${p.platform}</td><td style="color:var(--gold);font-weight:700">Rp ${(p.price||0).toLocaleString('id')}</td><td>${(p.min||0).toLocaleString('id')}</td><td>${(p.max||0).toLocaleString('id')}</td><td><button class="btn-danger" onclick="delProd('${p.key}')">Hapus</button></td></tr>`).join('');
-  }catch(e){b.innerHTML=`<tr><td colspan="6" style="text-align:center;color:var(--red);padding:20px">❌ ${e.message}</td></tr>`;}
+    var db=await getDB();
+    if(!db){b.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--gold);padding:20px">Firebase belum setup</td></tr>';return;}
+    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    var snap=await m.get(m.ref(db,'categories'));
+    if(!snap.exists()){b.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--t3);padding:20px">Belum ada kategori</td></tr>';return;}
+    var rows='';
+    snap.forEach(function(c){
+      var cat=c.val();
+      var key=c.key;
+      rows+='<tr>';
+      rows+='<td style="font-size:1.2rem">'+(cat.icon||'📦')+'</td>';
+      rows+='<td style="font-weight:600;color:var(--w)">'+cat.name+'</td>';
+      rows+='<td style="color:var(--t2);font-size:.78rem">'+(cat.desc||'—')+'</td>';
+      rows+='<td><button class="btn-danger" onclick="delCat(\''+key+'\')">Hapus</button></td>';
+      rows+='</tr>';
+    });
+    b.innerHTML=rows;
+  }catch(e){b.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--red);padding:20px">Error: '+e.message+'</td></tr>';}
 }
-async function addProd(){
-  const n=document.getElementById('pN').value.trim();
-  const pr=parseInt(document.getElementById('pPr').value)||0;
-  if(!n||!pr){alert('Nama dan harga wajib!');return;}
-  const btn=document.getElementById('addProdBtn');btn.disabled=true;btn.textContent='Menyimpan...';
+async function addCategory(){
+  var name=document.getElementById('catName').value.trim();
+  if(!name){alert('Nama kategori wajib!');return;}
+  var btn=document.getElementById('addCatBtn');btn.disabled=true;btn.textContent='Menyimpan...';
   try{
-    const db=await getDB();if(!db)throw new Error('Firebase belum setup');
-    const{ref,push}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-    await push(ref(db,'products'),{name:n,platform:document.getElementById('pPl').value,price:pr,min:parseInt(document.getElementById('pMn').value)||0,max:parseInt(document.getElementById('pMx').value)||0,desc:document.getElementById('pDs').value,timestamp:Date.now()});
-    showAlert('prodAlert');
-    ['pN','pPr','pMn','pMx','pDs'].forEach(id=>document.getElementById(id).value='');
-    loadProds();
-  }catch(e){showAlert('prodErr',true);}
-  btn.disabled=false;btn.textContent='+ Tambah Produk';
+    var db=await getDB();if(!db)throw new Error('Firebase belum setup');
+    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    await m.push(m.ref(db,'categories'),{
+      name:name,
+      icon:document.getElementById('catIcon').value||'📦',
+      desc:document.getElementById('catDesc').value,
+      timestamp:Date.now()
+    });
+    document.getElementById('catName').value='';
+    document.getElementById('catIcon').value='';
+    document.getElementById('catDesc').value='';
+    showAlert('catAlert');loadCategories();
+  }catch(e){showAlert('catErr');}
+  btn.disabled=false;btn.textContent='+ Tambah';
 }
-async function delProd(key){
-  if(!confirm('Hapus produk ini?'))return;
-  const db=await getDB();if(!db)return;
-  const{ref,remove}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-  await remove(ref(db,'products/'+key));
-  loadProds();
+async function delCat(key){
+  if(!confirm('Hapus kategori ini?'))return;
+  var db=await getDB();
+  var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  await m.remove(m.ref(db,'categories/'+key));
+  loadCategories();
+}
+async function loadCatSelect(){
+  var sel=document.getElementById('pCat');
+  sel.innerHTML='<option value="">-- Pilih Kategori --</option>';
+  try{
+    var db=await getDB();if(!db)return;
+    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    var snap=await m.get(m.ref(db,'categories'));
+    if(snap.exists())snap.forEach(function(c){
+      var o=document.createElement('option');
+      o.value=c.key;
+      o.textContent=(c.val().icon||'')+' '+c.val().name;
+      sel.appendChild(o);
+    });
+  }catch(e){}
 }
 
-// ─── ORDERS ───────────────────────────────────────────────────────────────────
-let allOrders=[];
+// ── PRODUCTS ──────────────────────────────────────────────────────────────────
+var allCatsMap={};
+async function loadProducts(){
+  var b=document.getElementById('prodsBody');
+  b.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr>';
+  try{
+    var db=await getDB();if(!db){b.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--gold);padding:20px">Firebase belum setup</td></tr>';return;}
+    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    var pSnap=await m.get(m.ref(db,'products'));
+    var catSnap=await m.get(m.ref(db,'categories'));
+    var descSnap=await m.get(m.ref(db,'descriptions'));
+    allCatsMap={};
+    if(catSnap.exists())catSnap.forEach(function(c){allCatsMap[c.key]=c.val();});
+    if(!pSnap.exists()){b.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--t3);padding:20px">Belum ada produk</td></tr>';return;}
+    var rows='';
+    pSnap.forEach(function(p){
+      var prod=p.val();var key=p.key;
+      var stock=0;
+      if(descSnap&&descSnap.exists()&&descSnap.child(key).exists())descSnap.child(key).forEach(function(){stock++;});
+      var cat=allCatsMap[prod.categoryId];
+      var sc=stock===0?'badge-red':stock<3?'badge-gold':'badge-green';
+      var safeName=prod.name.replace(/\\/g,'').replace(/'/g,'');
+      rows+='<tr>';
+      rows+='<td><div style="font-weight:600;color:var(--w)">'+(prod.icon||'📦')+' '+prod.name+'</div></td>';
+      rows+='<td style="color:var(--t2);font-size:.78rem">'+(cat?(cat.icon||'')+' '+cat.name:'—')+'</td>';
+      rows+='<td style="font-weight:700;color:var(--gold)">Rp '+(prod.price||0).toLocaleString('id')+'</td>';
+      rows+='<td style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">';
+      rows+='<span class="badge '+sc+'">'+stock+' stok</span>';
+      rows+='<button class="btn-confirm" style="font-size:.72rem;padding:5px 10px" onclick="openDescMgr(\''+key+'\',\''+safeName+'\')">📝 Kelola Stok</button>';
+      rows+='<button class="btn-danger" style="font-size:.72rem;padding:5px 10px" onclick="delProduct(\''+key+'\')">Hapus</button>';
+      rows+='</td></tr>';
+    });
+    b.innerHTML=rows;
+  }catch(e){b.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--red);padding:20px">Error: '+e.message+'</td></tr>';}
+}
+async function addProduct(){
+  var name=document.getElementById('pN').value.trim();
+  var price=parseInt(document.getElementById('pPr').value)||0;
+  var catId=document.getElementById('pCat').value;
+  if(!name||!price||!catId){alert('Nama, harga, dan kategori wajib!');return;}
+  var btn=document.getElementById('addProdBtn');btn.disabled=true;btn.textContent='Menyimpan...';
+  try{
+    var db=await getDB();if(!db)throw new Error('Firebase belum setup');
+    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    await m.push(m.ref(db,'products'),{
+      name:name,categoryId:catId,price:price,
+      icon:document.getElementById('pIc').value||'📦',
+      timestamp:Date.now()
+    });
+    document.getElementById('pN').value='';document.getElementById('pPr').value='';document.getElementById('pIc').value='';
+    showAlert('prodAlert');loadProducts();
+  }catch(e){showAlert('prodErr');}
+  btn.disabled=false;btn.textContent='+ Tambah';
+}
+async function delProduct(key){
+  if(!confirm('Hapus produk beserta semua stoknya?'))return;
+  var db=await getDB();
+  var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  await Promise.all([m.remove(m.ref(db,'products/'+key)),m.remove(m.ref(db,'descriptions/'+key))]);
+  loadProducts();
+}
+
+// ── DESCRIPTION/STOCK MANAGER ─────────────────────────────────────────────────
+var curProdKey='',curProdName='',editingKey=null;
+function openDescMgr(prodKey,prodName){
+  curProdKey=prodKey;curProdName=prodName;editingKey=null;
+  document.getElementById('descMgrCard').style.display='block';
+  document.getElementById('descMgrTitle').textContent='📝 Stok — '+prodName;
+  document.getElementById('descContent').value='';
+  document.getElementById('descSaveBtn').textContent='➕ Tambah Stok';
+  document.getElementById('descMgrCard').scrollIntoView({behavior:'smooth'});
+  refreshDescList();
+}
+function closeDescMgr(){document.getElementById('descMgrCard').style.display='none';curProdKey='';editingKey=null;}
+async function refreshDescList(){
+  var list=document.getElementById('descList');
+  var badge=document.getElementById('descStockBadge');
+  list.innerHTML='<div style="color:var(--t3);font-size:.78rem;padding:6px">Memuat...</div>';
+  var db=await getDB();if(!db)return;
+  var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  var snap=await m.get(m.ref(db,'descriptions/'+curProdKey));
+  if(!snap.exists()){
+    list.innerHTML='<div style="color:var(--t3);font-size:.78rem;padding:6px">Belum ada stok. Tambah di atas.</div>';
+    badge.textContent='0 stok';badge.style.color='var(--red)';return;
+  }
+  var count=0;var rows='';
+  snap.forEach(function(d){
+    count++;
+    var key=d.key;
+    var content=d.val().content||'';
+    rows+='<div class="desc-item">';
+    rows+='<div class="desc-body">'+content+'</div>';
+    rows+='<div class="desc-actions">';
+    rows+='<button class="btn-edit-sm" onclick="startEditDesc(\''+key+'\')">✏️ Edit</button>';
+    rows+='<button class="btn-del-sm" onclick="delDesc(\''+key+'\')">🗑️</button>';
+    rows+='</div></div>';
+  });
+  list.innerHTML=rows;
+  badge.textContent=count+' stok';
+  badge.style.color=count===0?'var(--red)':count<3?'var(--gold)':'var(--green)';
+  // store content for editing
+  window._descData={};
+  snap.forEach(function(d){window._descData[d.key]=d.val().content||'';});
+}
+function startEditDesc(key){
+  editingKey=key;
+  document.getElementById('descContent').value=window._descData[key]||'';
+  document.getElementById('descSaveBtn').textContent='💾 Update Stok';
+  document.getElementById('descContent').focus();
+  document.getElementById('descContent').scrollIntoView({behavior:'smooth'});
+}
+async function saveDesc(){
+  var content=document.getElementById('descContent').value.trim();
+  if(!content){alert('Isi deskripsi/konten stok dulu!');return;}
+  var btn=document.getElementById('descSaveBtn');btn.disabled=true;btn.textContent='Menyimpan...';
+  var db=await getDB();if(!db){btn.disabled=false;return;}
+  var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  if(editingKey){
+    await m.update(m.ref(db,'descriptions/'+curProdKey+'/'+editingKey),{content:content,updatedAt:Date.now()});
+    editingKey=null;
+  }else{
+    await m.push(m.ref(db,'descriptions/'+curProdKey),{content:content,addedAt:Date.now()});
+  }
+  document.getElementById('descContent').value='';
+  document.getElementById('descSaveBtn').textContent='➕ Tambah Stok';
+  showAlert('descAlert');
+  await refreshDescList();
+  loadProducts();
+  btn.disabled=false;
+}
+async function delDesc(key){
+  if(!confirm('Hapus stok ini?'))return;
+  var db=await getDB();
+  var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  await m.remove(m.ref(db,'descriptions/'+curProdKey+'/'+key));
+  await refreshDescList();loadProducts();
+}
+
+// ── ORDERS ────────────────────────────────────────────────────────────────────
+var allOrders=[];
 async function loadOrders(){
-  const b=document.getElementById('ordersBody');
-  b.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--t3);padding:24px">⏳ Memuat...</td></tr>';
+  var b=document.getElementById('ordersBody');
+  b.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr>';
   try{
-    const db=await getDB();
-    if(!db){b.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--gold);padding:24px">⚠️ Firebase belum dikonfigurasi</td></tr>';return;}
-    const{ref,get,query,orderByChild}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-    const snap=await get(query(ref(db,'orders'),orderByChild('timestamp')));
-    allOrders=[];if(snap.exists())snap.forEach(c=>allOrders.unshift({key:c.key,...c.val()}));
+    var db=await getDB();if(!db){b.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--gold);padding:20px">Firebase belum setup</td></tr>';return;}
+    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    var snap=await m.get(m.query(m.ref(db,'orders'),m.orderByChild('timestamp')));
+    allOrders=[];
+    if(snap.exists())snap.forEach(function(c){allOrders.unshift(Object.assign({key:c.key},c.val()));});
     renderOrders(allOrders);
-  }catch(e){b.innerHTML=`<tr><td colspan="7" style="text-align:center;color:var(--red);padding:24px">❌ ${e.message}</td></tr>`;}
+  }catch(e){b.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--red);padding:20px">Error: '+e.message+'</td></tr>';}
 }
-function renderOrders(orders){
-  const b=document.getElementById('ordersBody');
-  if(!orders.length){b.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--t3);padding:24px">Tidak ada order</td></tr>';return;}
-  b.innerHTML=orders.map(o=>`<tr>
-    <td style="font-family:monospace;font-size:.72rem;color:var(--blue2)">${o.trxId||o.key}</td>
-    <td style="font-size:.78rem;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${o.service||'—'}</td>
-    <td>${o.name||'—'}</td>
-    <td style="font-size:.75rem;color:var(--t2)">${o.email||'—'}</td>
-    <td style="font-weight:700;color:var(--gold)">Rp ${(o.total||0).toLocaleString('id')}</td>
-    <td><span class="badge ${o.status==='done'?'badge-green':'badge-gold'}">${o.status==='done'?'✅ Selesai':'⏳ Pending'}</span></td>
-    <td style="display:flex;gap:6px">
-      ${o.status!=='done'?`<button class="btn-confirm" onclick="confirmOrder('${o.key}')">✓</button>`:''}
-      <button class="btn-danger" onclick="deleteOrder('${o.key}')">✕</button>
-    </td>
-  </tr>`).join('');
+function renderOrders(list){
+  var b=document.getElementById('ordersBody');
+  if(!list.length){b.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--t3);padding:20px">Tidak ada order</td></tr>';return;}
+  var rows='';
+  list.forEach(function(o){
+    var sc=o.status==='done'?'badge-green':o.status==='sent'?'badge-blue':'badge-gold';
+    var st=o.status==='done'?'✅ Selesai':o.status==='sent'?'📦 Terkirim':'⏳ Pending';
+    var key=o.key;
+    rows+='<tr style="cursor:pointer" onclick="openOrderDetail(\''+key+'\')">';
+    rows+='<td style="font-family:monospace;font-size:.7rem;color:var(--blue2)">'+(o.trxId||key)+'</td>';
+    rows+='<td style="font-size:.78rem;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(o.productName||o.service||'—')+'</td>';
+    rows+='<td>'+(o.name||'—')+'</td>';
+    rows+='<td style="font-size:.74rem;color:var(--t2)">'+(o.email||'—')+'</td>';
+    rows+='<td style="font-weight:700;color:var(--gold)">Rp '+(o.total||0).toLocaleString('id')+'</td>';
+    rows+='<td><span class="badge '+sc+'">'+st+'</span></td>';
+    rows+='<td onclick="event.stopPropagation()" style="display:flex;gap:5px">';
+    if(o.status==='pending')rows+='<button class="btn-confirm" style="font-size:.7rem;padding:5px 9px" onclick="event.stopPropagation();confirmOrder(\''+key+'\')">✓</button>';
+    rows+='<button class="btn-danger" style="font-size:.7rem;padding:5px 9px" onclick="event.stopPropagation();deleteOrder(\''+key+'\')">✕</button>';
+    rows+='</td></tr>';
+  });
+  b.innerHTML=rows;
 }
-function filterOrders(s){renderOrders(s==='all'?allOrders:allOrders.filter(o=>o.status===s));}
+function filterOrders(s){renderOrders(s==='all'?allOrders:allOrders.filter(function(o){return o.status===s;}));}
+function openOrderDetail(key){
+  var o=allOrders.find(function(x){return x.key===key;});if(!o)return;
+  var html='';
+  html+='<div class="dr"><div class="dk">ID Transaksi</div><div class="dv mono">'+(o.trxId||key)+'</div></div>';
+  html+='<div class="dr"><div class="dk">Produk</div><div class="dv">'+(o.productName||o.service||'—')+'</div></div>';
+  html+='<div class="dr"><div class="dk">Nama</div><div class="dv">'+(o.name||'—')+'</div></div>';
+  html+='<div class="dr"><div class="dk">Email</div><div class="dv">'+(o.email||'—')+'</div></div>';
+  html+='<div class="dr"><div class="dk">Total</div><div class="dv" style="color:var(--gold);font-weight:800">Rp '+(o.total||0).toLocaleString('id')+'</div></div>';
+  html+='<div class="dr"><div class="dk">Status</div><div class="dv"><span class="badge '+(o.status==='done'?'badge-green':o.status==='sent'?'badge-blue':'badge-gold')+'">'+(o.status==='done'?'✅ Selesai':o.status==='sent'?'📦 Terkirim':'⏳ Pending')+'</span></div></div>';
+  html+='<div class="dr"><div class="dk">Waktu</div><div class="dv" style="font-size:.72rem">'+(o.timestamp?new Date(o.timestamp).toLocaleString('id-ID'):'—')+'</div></div>';
+  if(o.descContent){html+='<div class="dr"><div class="dk">Stok terkirim</div><div class="dv" style="font-family:monospace;font-size:.72rem;white-space:pre-wrap">'+o.descContent+'</div></div>';}
+  if(o.proofUrl){html+='<div style="margin-top:12px"><div style="font-size:.74rem;color:var(--t3);margin-bottom:6px">Bukti Transfer</div><img src="'+o.proofUrl+'" style="width:100%;border-radius:10px;border:2px solid var(--brd2);cursor:zoom-in;max-height:220px;object-fit:cover" onclick="openLightbox(this.src)"></div>';}
+  html+='<div style="display:flex;gap:8px;margin-top:16px">';
+  if(o.status==='pending')html+='<button class="btn-save" style="flex:1" onclick="confirmOrder(\''+key+'\');closePopup()">✅ Konfirmasi</button>';
+  html+='<button class="btn-danger" style="flex:1;padding:10px" onclick="deleteOrder(\''+key+'\');closePopup()">🗑️ Hapus</button>';
+  html+='</div>';
+  document.getElementById('popupContent').innerHTML=html;
+  document.getElementById('popup').classList.add('open');
+}
+function closePopup(){document.getElementById('popup').classList.remove('open');}
+function openLightbox(src){document.getElementById('lbImg').src=src;document.getElementById('lightbox').classList.add('open');}
 async function confirmOrder(key){
   try{
-    const db=await getDB();
-    const{ref,update}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-    await update(ref(db,'orders/'+key),{status:'done'});
-    const o=allOrders.find(x=>x.key===key);
-    if(o){
-      o.status='done';
-      const cfg=await getCfg();
-      if(cfg.botToken&&cfg.chatId){
-        fetch('https://api.telegram.org/bot'+cfg.botToken+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:cfg.chatId,text:'✅ ORDER SELESAI\n\nID: '+(o.trxId||key)+'\nLayanan: '+o.service+'\nNama: '+o.name+'\nTotal: Rp '+(o.total||0).toLocaleString('id')})});
-      }
+    var db=await getDB();var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    await m.update(m.ref(db,'orders/'+key),{status:'done'});
+    var o=allOrders.find(function(x){return x.key===key;});if(o)o.status='done';
+    var cfg=await getCfg();
+    if(cfg.botToken&&cfg.chatId){
+      fetch('https://api.telegram.org/bot'+cfg.botToken+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:cfg.chatId,text:'ORDER SELESAI\nID: '+(o&&o.trxId?o.trxId:key)+'\nProduk: '+(o?o.productName||o.service||'—':'—')+'\nNama: '+(o?o.name||'—':'—')+'\nTotal: Rp '+(o?(o.total||0).toLocaleString('id'):'—')})});
     }
     renderOrders(allOrders);
   }catch(e){alert('Error: '+e.message);}
 }
 async function deleteOrder(key){
-  if(!confirm('Hapus order ini?'))return;
-  const db=await getDB();
-  const{ref,remove}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-  await remove(ref(db,'orders/'+key));
-  allOrders=allOrders.filter(o=>o.key!==key);
+  if(!confirm('Hapus order?'))return;
+  var db=await getDB();var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  await m.remove(m.ref(db,'orders/'+key));
+  allOrders=allOrders.filter(function(o){return o.key!==key;});
   renderOrders(allOrders);
 }
 
-// ─── DASHBOARD ────────────────────────────────────────────────────────────────
+// ── DASHBOARD ─────────────────────────────────────────────────────────────────
 async function loadDash(){
   try{
-    const db=await getDB();if(!db)return;
-    const{ref,get}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-    const snap=await get(ref(db,'orders'));
-    let total=0,pending=0,done=0,rev=0;const recent=[];
-    if(snap.exists())snap.forEach(c=>{const o=c.val();total++;if(o.status==='done'){done++;rev+=o.total||0;}else pending++;recent.unshift({key:c.key,...o});});
-    document.getElementById('statTotal').textContent=total;
-    document.getElementById('statPending').textContent=pending;
+    var db=await getDB();if(!db)return;
+    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    var snap=await m.get(m.ref(db,'orders'));
+    var tot=0,pend=0,done=0,rev=0,recent=[];
+    if(snap.exists())snap.forEach(function(c){var o=c.val();tot++;if(o.status==='done'||o.status==='sent'){done++;rev+=o.total||0;}else pend++;recent.unshift(Object.assign({key:c.key},o));});
+    document.getElementById('statTotal').textContent=tot;
+    document.getElementById('statPending').textContent=pend;
     document.getElementById('statDone').textContent=done;
     document.getElementById('statRevenue').textContent='Rp '+rev.toLocaleString('id');
-    const b=document.getElementById('dashBody');
-    const sh=recent.slice(0,5);
-    if(!sh.length){b.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--t3);padding:24px">Belum ada order</td></tr>';return;}
-    b.innerHTML=sh.map(o=>`<tr>
-      <td style="font-family:monospace;font-size:.72rem;color:var(--blue2)">${o.trxId||o.key}</td>
-      <td style="font-size:.78rem">${o.service||'—'}</td>
-      <td>${o.name||'—'}</td>
-      <td style="color:var(--gold);font-weight:700">Rp ${(o.total||0).toLocaleString('id')}</td>
-      <td><span class="badge ${o.status==='done'?'badge-green':'badge-gold'}">${o.status==='done'?'Selesai':'Pending'}</span></td>
-      <td>${o.status!=='done'?`<button class="btn-confirm" onclick="confirmOrder('${o.key}');loadDash()">✓</button>`:''}</td>
-    </tr>`).join('');
+    var b=document.getElementById('dashBody');
+    var sh=recent.slice(0,5);
+    if(!sh.length){b.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">Belum ada order</td></tr>';return;}
+    var rows='';
+    sh.forEach(function(o){
+      var key=o.key;
+      rows+='<tr style="cursor:pointer" onclick="openOrderDetail(\''+key+'\')">';
+      rows+='<td style="font-family:monospace;font-size:.7rem;color:var(--blue2)">'+(o.trxId||key)+'</td>';
+      rows+='<td style="font-size:.78rem">'+(o.productName||o.service||'—')+'</td>';
+      rows+='<td>'+(o.name||'—')+'</td>';
+      rows+='<td style="color:var(--gold);font-weight:700">Rp '+(o.total||0).toLocaleString('id')+'</td>';
+      rows+='<td><span class="badge '+(o.status==='done'?'badge-green':o.status==='sent'?'badge-blue':'badge-gold')+'">'+(o.status==='done'?'Selesai':o.status==='sent'?'Terkirim':'Pending')+'</span></td>';
+      rows+='</tr>';
+    });
+    b.innerHTML=rows;
   }catch(e){}
 }
 
-// ─── FIREBASE SETUP ───────────────────────────────────────────────────────────
-function saveFB(){
-  const fb={apiKey:document.getElementById('fbAk').value,authDomain:document.getElementById('fbAd').value,databaseURL:document.getElementById('fbDu').value,projectId:document.getElementById('fbPi').value,storageBucket:document.getElementById('fbSb').value,messagingSenderId:document.getElementById('fbMs').value,appId:document.getElementById('fbAi').value};
-  localStorage.setItem('yoko_firebase_config',JSON.stringify(fb));
-  _db=null;_cfg=null; // reset cache
-  showAlert('fbAlert');
-}
-function initFBFields(){
-  const fb=JSON.parse(localStorage.getItem('yoko_firebase_config')||'null');
-  if(!fb)return;
-  const sv=(id,v)=>{const e=document.getElementById(id);if(e&&v)e.value=v;};
-  sv('fbAk',fb.apiKey);sv('fbAd',fb.authDomain);sv('fbDu',fb.databaseURL);sv('fbPi',fb.projectId);sv('fbSb',fb.storageBucket);sv('fbMs',fb.messagingSenderId);sv('fbAi',fb.appId);
-}
-
-// ─── INIT ─────────────────────────────────────────────────────────────────────
-initFBFields();
-loadDash();
+// ── INIT ──────────────────────────────────────────────────────────────────────
+document.getElementById('popup').addEventListener('click',function(e){if(e.target===this)closePopup();});
+document.getElementById('lightbox').addEventListener('click',function(){this.classList.remove('open');});
+initFBFields();loadDash();
 </script>
 </body>
 </html>
