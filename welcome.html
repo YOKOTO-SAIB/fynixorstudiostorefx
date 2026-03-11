@@ -481,10 +481,11 @@ function applyTheme(t){document.documentElement.setAttribute('data-theme',t);loc
 function toggleTheme(){applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');}
 (function(){applyTheme(localStorage.getItem(TK)||'dark');})();
 
+var _FBCFG={apiKey:"AIzaSyCS52l1z6DrfkqIn4WB4SEOE6hdVu2mX6w",authDomain:"yokotofxport.firebaseapp.com",databaseURL:"https://yokotofxport-default-rtdb.firebaseio.com",projectId:"yokotofxport",storageBucket:"yokotofxport.firebasestorage.app",messagingSenderId:"515300744861",appId:"1:515300744861:web:01117e3f5dc7ed755cbe74"};
 var _db=null,_cfg=null;
 async function getDB(){
   if(_db)return _db;
-  var fc=JSON.parse(localStorage.getItem('yoko_firebase_config')||'null');
+  var fc=JSON.parse(localStorage.getItem('yoko_firebase_config')||'null')||_FBCFG;
   if(!fc||!fc.databaseURL)return null;
   try{
     var a=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
@@ -623,5 +624,4 @@ async function loadLinks(){
 loadLinks();
 
 </script>
-</body>
-</html>
+</body></html>
