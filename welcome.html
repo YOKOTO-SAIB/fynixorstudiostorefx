@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pilih Layanan — YOKO STORE</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   YOKO STORE — Shared Design System v3
+   Plus Jakarta Sans, Dark/Light theme
+   ═══════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* DARK theme (default) */
+:root, [data-theme="dark"] {
+  --bg:       #0d0d14;
+  --s1:       #151520;
+  --s2:       #1c1c2e;
+  --s3:       #232338;
+  --blue:     #4f7aff;
+  --blue2:    #738fff;
+  --blue-a:   rgba(79,122,255,.15);
+  --blue-b:   rgba(79,122,255,.08);
+  --green:    #22c55e;
+  --green-a:  rgba(34,197,94,.12);
+  --gold:     #f59e0b;
+  --gold-a:   rgba(245,158,11,.1);
+  --red:      #f87171;
+  --purple:   #a78bfa;
+  --w:        #ffffff;
+  --t1:       #eeeef5;
+  --t2:       #8888a8;
+  --t3:       #4a4a65;
+  --brd:      rgba(255,255,255,.07);
+  --brd2:     rgba(255,255,255,.12);
+  --nav-bg:   rgba(13,13,20,.88);
+  --shadow:   0 4px 24px rgba(0,0,0,.35);
+  --shadow-b: 0 6px 24px rgba(79,122,255,.3);
+  --card-hover-bg: #1c1c2e;
+}
+
+/* LIGHT theme */
+[data-theme="light"] {
+  --bg:       #f0f2ff;
+  --s1:       #ffffff;
+  --s2:       #f5f6ff;
+  --s3:       #eceeff;
+  --blue:     #4060f0;
+  --blue2:    #5b78ff;
+  --blue-a:   rgba(64,96,240,.1);
+  --blue-b:   rgba(64,96,240,.05);
+  --green:    #16a34a;
+  --green-a:  rgba(22,163,74,.1);
+  --gold:     #d97706;
+  --gold-a:   rgba(217,119,6,.1);
+  --red:      #dc2626;
+  --purple:   #7c3aed;
+  --w:        #0f172a;
+  --t1:       #1e293b;
+  --t2:       #475569;
+  --t3:       #94a3b8;
+  --brd:      rgba(0,0,0,.07);
+  --brd2:     rgba(0,0,0,.12);
+  --nav-bg:   rgba(240,242,255,.92);
+  --shadow:   0 4px 24px rgba(64,96,240,.1);
+  --shadow-b: 0 6px 24px rgba(64,96,240,.2);
+  --card-hover-bg: #eceeff;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--t1);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background .25s, color .25s;
+}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--s3); border-radius: 2px; }
+a { text-decoration: none; color: inherit; }
+
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 60px; display: flex; align-items: center;
+  justify-content: space-between; padding: 0 20px;
+  background: var(--nav-bg); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--brd);
+  transition: background .25s;
+}
+.nav-brand { display: flex; align-items: center; gap: 10px; }
+.nav-ic {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--blue), var(--blue2));
+  border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; font-size: .95rem;
+}
+.nav-nm { font-weight: 800; font-size: .95rem; color: var(--w); }
+.nav-nm span { color: var(--blue2); }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.nav-back {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 10px;
+  background: var(--s1); border: 1px solid var(--brd);
+  font-size: .78rem; font-weight: 600; color: var(--t2);
+  transition: all .2s; cursor: pointer;
+}
+.nav-back:hover { background: var(--s2); color: var(--t1); }
+.theme-btn {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--s1); border: 1px solid var(--brd2);
+  font-size: .95rem; cursor: pointer; transition: all .2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.theme-btn:hover { background: var(--s2); transform: scale(1.08); }
+
+/* AMBIENT */
+.amb { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.a-orb { position: absolute; border-radius: 50%; filter: blur(110px); }
+
+/* PAGE & WRAP */
+.page { padding: 72px 0 60px; min-height: 100vh; }
+.wrap    { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.wrap-sm { max-width: 680px;  margin: 0 auto; padding: 0 20px; }
+.wrap-xs { max-width: 520px;  margin: 0 auto; padding: 0 20px; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse  { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.4; transform:scale(.7); } }
+.anim  { animation: fadeUp .35s both; }
+.a1x   { animation-delay: .05s; }
+.a2x   { animation-delay: .12s; }
+.a3x   { animation-delay: .2s;  }
+.a4x   { animation-delay: .28s; }
+
+/* SECTION TAG */
+.section-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue-a); border: 1px solid rgba(79,122,255,.2);
+  border-radius: 20px; padding: 5px 14px;
+  font-size: .68rem; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--blue2); margin-bottom: 14px;
+}
+.section-title {
+  font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 800;
+  color: var(--w); line-height: 1.2; letter-spacing: -.3px;
+}
+.section-title .muted { color: var(--t3); }
+
+/* BADGE */
+.badge {
+  display: inline-flex; align-items: center;
+  font-size: .62rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+}
+.badge-blue   { background: var(--blue-a);              color: var(--blue2); border: 1px solid rgba(79,122,255,.2); }
+.badge-green  { background: var(--green-a);             color: var(--green); border: 1px solid rgba(34,197,94,.2);  }
+.badge-gold   { background: var(--gold-a);              color: var(--gold);  border: 1px solid rgba(245,158,11,.2); }
+.badge-purple { background: rgba(167,139,250,.1);       color: var(--purple);border: 1px solid rgba(167,139,250,.2);}
+
+/* CARD */
+.card {
+  background: var(--s1); border: 1px solid var(--brd);
+  border-radius: 18px; padding: 24px;
+  transition: background .25s, border-color .25s;
+}
+.card-hover:hover {
+  background: var(--card-hover-bg); border-color: var(--brd2);
+  transform: translateY(-2px); box-shadow: var(--shadow);
+}
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: inherit; font-weight: 700; border: none; cursor: pointer;
+  transition: all .2s; border-radius: 12px; font-size: .88rem; padding: 13px 26px;
+}
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-primary:hover { background: var(--blue2); transform: translateY(-1px); box-shadow: var(--shadow-b); }
+.btn-primary:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+.btn-ghost  { background: var(--s2); color: var(--t1); border: 1px solid var(--brd2); }
+.btn-ghost:hover { background: var(--s3); }
+.btn-full { width: 100%; }
+.btn-sm { padding: 9px 18px; font-size: .78rem; border-radius: 10px; }
+.btn-danger  { background: rgba(248,113,113,.1); color: var(--red);   border: 1px solid rgba(248,113,113,.2); padding: 7px 12px; border-radius: 8px; font-size: .73rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: all .2s; }
+.btn-danger:hover  { background: var(--red);   color: #fff; }
+.btn-confirm { background: var(--green-a);        color: var(--green); border: 1px solid rgba(34,197,94,.2);  padding: 7px 12px; border-radius: 8px; font-size: .73rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: all .2s; }
+.btn-confirm:hover { background: var(--green); color: #000; }
+.btn-back { display: block; text-align: center; margin-top: 12px; font-size: .8rem; color: var(--t3); cursor: pointer; transition: color .2s; font-weight: 500; width: 100%; }
+.btn-back:hover { color: var(--t1); }
+
+/* FORM */
+.f-group { margin-bottom: 16px; }
+.f-label { display: block; font-size: .78rem; font-weight: 600; color: var(--t2); margin-bottom: 8px; }
+.f-input {
+  width: 100%; background: var(--s2); border: 1.5px solid var(--brd2);
+  border-radius: 11px; padding: 12px 16px; color: var(--t1);
+  font-family: inherit; font-size: .88rem; outline: none;
+  transition: border-color .2s, background .25s;
+}
+.f-input:focus { border-color: var(--blue); }
+.f-input::placeholder { color: var(--t3); }
+.f-hint { font-size: .7rem; color: var(--t3); margin-top: 5px; }
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* QTY ROW */
+.qty-row { display: flex; align-items: center; gap: 10px; }
+.qty-btn {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: var(--s2); border: 1.5px solid var(--brd2);
+  color: var(--t1); font-size: 1.1rem; cursor: pointer;
+  transition: all .2s; display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0; font-family: inherit;
+}
+.qty-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-b); }
+.qty-input { flex: 1; }
+
+/* TOTAL BOX */
+.total-box {
+  background: linear-gradient(135deg, var(--blue-a), var(--blue-b));
+  border: 1.5px solid rgba(79,122,255,.22);
+  border-radius: 14px; padding: 18px 22px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 16px;
+}
+.total-lbl { font-size: .8rem; font-weight: 600; color: var(--t2); }
+.total-val { font-size: 1.5rem; font-weight: 800; color: var(--w); }
+
+/* STEPS */
+.steps-wrap {
+  background: var(--s1); border-bottom: 1px solid var(--brd);
+  padding: 0 20px; position: sticky; top: 60px; z-index: 200;
+  transition: background .25s;
+}
+.steps { max-width: 640px; margin: 0 auto; height: 52px; display: flex; align-items: center; }
+.step-i { display: flex; align-items: center; gap: 8px; }
+.step-c {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--brd2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 700; color: var(--t3);
+  flex-shrink: 0; transition: all .3s;
+}
+.step-i.active .step-c { background: var(--blue); border-color: var(--blue); color: #fff; box-shadow: 0 0 0 4px var(--blue-a); }
+.step-i.done   .step-c { background: var(--green); border-color: var(--green); color: #fff; }
+.step-l { font-size: .72rem; font-weight: 600; color: var(--t3); transition: color .3s; }
+.step-i.active .step-l { color: var(--t1); }
+.step-i.done   .step-l { color: var(--green); }
+.step-line { flex: 1; height: 2px; background: var(--brd2); margin: 0 10px; border-radius: 1px; min-width: 24px; transition: background .3s; }
+.step-i.done + .step-line { background: var(--green); }
+
+/* PANEL */
+.panel { display: none; animation: fadeUp .3s both; }
+.panel.on { display: block; }
+
+/* DETAIL CARD */
+.detail-card { background: var(--s2); border: 1px solid var(--brd2); border-radius: 14px; overflow: hidden; margin-bottom: 14px; }
+.dr { display: flex; justify-content: space-between; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--brd); }
+.dr:last-child { border-bottom: none; }
+.dk { font-size: .78rem; color: var(--t2); font-weight: 500; }
+.dv { font-size: .82rem; font-weight: 600; color: var(--t1); text-align: right; max-width: 60%; word-break: break-all; }
+.dv.gold { color: var(--gold); font-size: 1rem; font-weight: 800; }
+.dv.mono { font-family: monospace; color: var(--blue2); font-size: .75rem; }
+
+/* QRIS */
+.qris-card { background: var(--s2); border: 1px solid var(--brd2); border-radius: 16px; padding: 28px; text-align: center; margin-bottom: 16px; }
+.qris-card img { max-width: 180px; border-radius: 12px; border: 3px solid var(--s3); }
+.qris-hint { font-size: .72rem; color: var(--t3); margin-top: 10px; font-weight: 500; }
+
+/* WARN BOX */
+.warn-box { background: var(--gold-a); border: 1px solid rgba(245,158,11,.2); border-radius: 12px; padding: 12px 16px; margin-bottom: 14px; font-size: .76rem; color: var(--t2); line-height: 1.65; }
+.warn-box strong { color: var(--gold); }
+
+/* ALERT */
+.alert { border-radius: 10px; padding: 10px 14px; font-size: .76rem; font-weight: 500; margin-top: 10px; display: none; }
+.alert-success { background: var(--green-a); border: 1px solid rgba(34,197,94,.22); color: var(--green); }
+
+/* MODAL */
+.modal { display: none; position: fixed; inset: 0; z-index: 900; align-items: center; justify-content: center; padding: 20px; background: rgba(0,0,0,.65); backdrop-filter: blur(12px); }
+.modal.open { display: flex; animation: fadeUp .2s both; }
+.modal-box { background: var(--s1); border: 1px solid var(--brd2); border-radius: 20px; padding: 32px; width: 100%; max-width: 400px; }
+
+/* TABLE */
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--brd); }
+table { width: 100%; border-collapse: collapse; }
+th { font-size: .62rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--t3); padding: 11px 14px; text-align: left; background: var(--s1); border-bottom: 1px solid var(--brd); }
+td { padding: 12px 14px; border-bottom: 1px solid var(--brd); font-size: .82rem; vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--blue-b); }
+
+/* FOOTER */
+footer { padding: 24px 20px; text-align: center; border-top: 1px solid var(--brd); }
+.footer-nm  { font-weight: 800; font-size: .9rem; color: var(--w); margin-bottom: 3px; }
+.footer-nm span { color: var(--blue2); }
+.footer-cp { font-size: .7rem; color: var(--t3); }
+
+/* RESPONSIVE */
+@media(max-width: 700px) {
+  .f-row { grid-template-columns: 1fr; }
+  .wrap, .wrap-sm, .wrap-xs { padding: 0 14px; }
+  .card { border-radius: 14px; padding: 18px; }
+}
+
+.page{padding:80px 0 60px;min-height:100vh;position:relative;z-index:1}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.wh-hero{text-align:center;padding:40px 0 28px}
+.wh-chip{display:inline-flex;align-items:center;gap:8px;background:var(--s1);border:1px solid var(--brd2);border-radius:20px;padding:7px 16px;font-size:.72rem;font-weight:700;color:var(--t2);margin-bottom:20px}
+.wh-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.wh-h1{font-size:clamp(1.7rem,4vw,2.3rem);font-weight:800;color:var(--w);line-height:1.2;letter-spacing:-.3px;margin-bottom:10px}
+.wh-h1 .gr{background:linear-gradient(90deg,var(--blue),var(--blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.wh-sub{font-size:.85rem;color:var(--t2);line-height:1.7;max-width:360px;margin:0 auto}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.menu-card{background:var(--s1);border:1px solid var(--brd);border-radius:20px;padding:22px;transition:all .25s;cursor:pointer;display:block;position:relative;overflow:hidden;text-decoration:none;animation:fadeUp .3s both}
+.menu-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.mc-blue:hover{border-color:rgba(79,122,255,.3);background:var(--card-hover-bg,var(--s2))}
+.mc-green:hover{border-color:rgba(34,197,94,.25);background:var(--card-hover-bg,var(--s2))}
+.mc-gold:hover{border-color:rgba(245,158,11,.25);background:var(--card-hover-bg,var(--s2))}
+.mc-purple:hover{border-color:rgba(167,139,250,.25);background:var(--card-hover-bg,var(--s2))}
+.mc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.mc-icon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+.mc-blue .mc-icon{background:var(--blue-a)}.mc-green .mc-icon{background:var(--green-a)}.mc-gold .mc-icon{background:var(--gold-a)}.mc-purple .mc-icon{background:rgba(167,139,250,.1)}
+.mc-title{font-size:.95rem;font-weight:700;margin-bottom:5px}
+.mc-blue .mc-title{color:var(--blue2)}.mc-green .mc-title{color:var(--green)}.mc-gold .mc-title{color:var(--gold)}.mc-purple .mc-title{color:var(--purple)}
+.mc-desc{font-size:.76rem;color:var(--t2);line-height:1.6}
+.mc-arrow{font-size:.72rem;font-weight:600;color:var(--t3);margin-top:12px}
+.plat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.plat-card{background:var(--s1);border:1px solid var(--brd);border-radius:16px;padding:18px;display:block;transition:all .25s;position:relative;overflow:hidden;text-decoration:none}
+.plat-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.plat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--brd2)}
+.plat-card:hover::after{transform:scaleX(1)}
+.p-tk::after{background:linear-gradient(90deg,#010101,#ff0050,#69c9d0)}
+.p-ig::after{background:linear-gradient(90deg,#f58529,#dd2a7b,#515bd4)}
+.p-tg::after{background:linear-gradient(90deg,#0088cc,#00c6ff)}
+.p-wa::after{background:linear-gradient(90deg,#25d366,#128c7e)}
+.p-fb::after{background:linear-gradient(90deg,#1877f2,#42a5f5)}
+.p-fyp::after{background:linear-gradient(90deg,var(--gold),var(--blue),var(--gold))}
+.plat-ic{width:40px;height:40px;border-radius:11px;background:var(--s2);border:1px solid var(--brd);display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:10px}
+.plat-name{font-size:.88rem;font-weight:700;color:var(--w);margin-bottom:4px}
+.plat-desc{font-size:.7rem;color:var(--t2);line-height:1.5;margin-bottom:8px}
+.plat-price{font-size:.72rem;font-weight:700;color:var(--gold)}
+.sec-label{font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--brd)}
+.cat-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:14px;scrollbar-width:none}
+.cat-tabs::-webkit-scrollbar{display:none}
+.cat-tab{flex-shrink:0;padding:7px 14px;border-radius:20px;background:var(--s1);border:1px solid var(--brd2);font-size:.76rem;font-weight:600;color:var(--t2);cursor:pointer;transition:all .2s;white-space:nowrap;font-family:inherit}
+.cat-tab:hover{background:var(--s2);color:var(--t1)}
+.cat-tab.active{background:var(--blue-a);color:var(--blue2);border-color:rgba(79,122,255,.25)}
+.custom-prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.custom-prod-card{background:var(--s1);border:1px solid var(--brd);border-radius:14px;padding:16px;display:block;transition:all .25s;text-decoration:none;position:relative;overflow:hidden}
+.custom-prod-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--purple));transform:scaleX(0);transition:transform .3s}
+.custom-prod-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--brd2)}
+.custom-prod-card:hover::before{transform:scaleX(1)}
+.cp-ic{font-size:1.2rem;margin-bottom:8px}
+.cp-name{font-size:.86rem;font-weight:700;color:var(--w);margin-bottom:4px}
+.cp-price{font-size:.78rem;font-weight:700;color:var(--gold);margin-bottom:4px}
+.cp-stock{font-size:.68rem;font-weight:600}
+.modal{display:none;position:fixed;inset:0;z-index:900;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.65);backdrop-filter:blur(12px)}
+.modal.open{display:flex}
+.modal-box{background:var(--s1);border:1px solid var(--brd2);border-radius:20px;padding:28px;width:100%;max-width:380px}
+.star-row{display:flex;gap:10px;justify-content:center;margin-bottom:14px}
+.star-b{font-size:1.5rem;cursor:pointer;color:var(--t3);transition:color .15s;user-select:none}
+.star-b.on{color:var(--gold)}
+.btn-back-inline{padding:8px 14px;border-radius:10px;background:var(--s1);border:1px solid var(--brd);font-size:.78rem;font-weight:600;color:var(--t2);cursor:pointer;font-family:inherit;transition:all .2s;flex-shrink:0}
+.btn-back-inline:hover{color:var(--t1);border-color:var(--brd2)}
+@media(max-width:580px){.menu-grid{grid-template-columns:1fr}.plat-grid{grid-template-columns:1fr 1fr}.custom-prod-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="amb">
+  <div class="a-orb" style="width:600px;height:600px;background:radial-gradient(circle,rgba(79,122,255,.1),transparent 70%);position:absolute;top:-150px;right:-100px;border-radius:50%"></div>
+  <div class="a-orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(34,197,94,.07),transparent 70%);position:absolute;bottom:-100px;left:-50px;border-radius:50%"></div>
+</div>
+<nav class="nav">
+  <a href="index.html" class="nav-back">← Beranda</a>
+  <div class="nav-brand"><div class="nav-ic">🛍️</div><div class="nav-nm site-name">YOKO<span>STORE</span></div></div>
+  <div class="nav-right"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button></div>
+</nav>
+<div class="page">
+  <div style="max-width:520px;margin:0 auto;padding:0 20px">
+    <div class="wh-hero">
+      <div class="wh-chip"><span class="wh-dot"></span> Selamat Datang!</div>
+      <h1 class="wh-h1">Halo! Mau <span class="gr">order</span> apa hari ini?</h1>
+      <p class="wh-sub">Pilih layanan yang kamu butuhkan. Semua diproses cepat, aman, dan terjamin.</p>
+    </div>
+  </div>
+
+  <!-- WELCOME VIEW -->
+  <div style="max-width:560px;margin:0 auto;padding:0 20px" id="welcomeView">
+    <div class="sec-label">Pilih Layanan</div>
+    <div class="menu-grid">
+      <div class="menu-card mc-blue" onclick="showSosmed()" style="animation-delay:.05s">
+        <div class="mc-head"><div class="mc-icon">🚀</div><span class="badge badge-blue">Terpopuler</span></div>
+        <div class="mc-title">Suntik Sosial Media</div>
+        <div class="mc-desc">TikTok, Instagram, Telegram, WhatsApp, Facebook. Boost followers, views & engagement.</div>
+        <div class="mc-arrow">Lihat Platform →</div>
+      </div>
+      <div class="menu-card mc-purple" onclick="showProduk()" style="animation-delay:.1s">
+        <div class="mc-head"><div class="mc-icon" style="background:rgba(167,139,250,.12)">🎫</div><span class="badge badge-purple">Token Instan</span></div>
+        <div class="mc-title">Produk Digital</div>
+        <div class="mc-desc">Akun premium, token game, Signal, WhatsApp Reaction, dan produk digital lainnya.</div>
+        <div class="mc-arrow">Lihat Produk →</div>
+      </div>
+      <a id="linkOther" href="#" target="_blank" class="menu-card mc-green" style="animation-delay:.15s">
+        <div class="mc-head"><div class="mc-icon">💎</div><span class="badge badge-green">Tersedia</span></div>
+        <div class="mc-title">Layanan Lainnya</div>
+        <div class="mc-desc">Pulsa semua operator, top up game, akun premium Netflix, Spotify, YouTube, dll.</div>
+        <div class="mc-arrow">Hubungi CS →</div>
+      </a>
+      <div class="menu-card mc-gold" onclick="openTesti()" style="animation-delay:.2s">
+        <div class="mc-head"><div class="mc-icon">⭐</div><span class="badge badge-gold">Apresiasi</span></div>
+        <div class="mc-title">Beri Ulasan</div>
+        <div class="mc-desc">Sudah pernah order? Bagikan pengalaman dan rating kamu.</div>
+        <div class="mc-arrow">Tulis Ulasan →</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:10px">
+      <a id="linkBot" href="#" target="_blank" style="font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none">🤖 Customer Service 24/7 →</a>
+    </div>
+  </div>
+
+  <!-- SOSMED VIEW -->
+  <div style="max-width:560px;margin:0 auto;padding:0 20px;display:none" id="sosmedView">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+      <button onclick="backToWelcome()" class="btn-back-inline">← Kembali</button>
+      <div><div style="font-size:.92rem;font-weight:700;color:var(--w)">Pilih Platform</div><div style="font-size:.72rem;color:var(--t3)">Platform sosial media yang ingin ditingkatkan</div></div>
+    </div>
+    <div class="plat-grid">
+      <a href="suntik_tiktok.html" class="plat-card p-tk"><div class="plat-ic">📱</div><div class="plat-name">TikTok</div><div class="plat-desc">Views, likes, followers & FYP.</div><div class="plat-price">Mulai Rp 1.000</div></a>
+      <a href="suntik_instagram.html" class="plat-card p-ig"><div class="plat-ic">📷</div><div class="plat-name">Instagram</div><div class="plat-desc">Followers premium berkualitas.</div><div class="plat-price">Mulai Rp 5.000/100</div></a>
+      <a href="suntik_telegram.html" class="plat-card p-tg"><div class="plat-ic">✈️</div><div class="plat-name">Telegram</div><div class="plat-desc">Member aktif untuk channel.</div><div class="plat-price">Mulai Rp 3.000/100</div></a>
+      <a href="suntik_whatsapp.html" class="plat-card p-wa"><div class="plat-ic">📲</div><div class="plat-name">WhatsApp</div><div class="plat-desc">Members & reactions WA Channel.</div><div class="plat-price">Mulai Rp 3.000/10</div></a>
+      <a href="suntik_facebook.html" class="plat-card p-fb"><div class="plat-ic">👥</div><div class="plat-name">Facebook</div><div class="plat-desc">Followers profil & fanpage.</div><div class="plat-price">Mulai Rp 2.000/100</div></a>
+      <a href="suntik_tiktok.html?type=fyp" class="plat-card p-fyp"><div class="plat-ic">⭐</div><div class="plat-name">Paket FYP</div><div class="plat-desc">10K Views + 3K Likes + 1K Shares.</div><div class="plat-price">Rp 15.000/paket</div></a>
+    </div>
+  </div>
+
+  <!-- PRODUK VIEW -->
+  <div style="max-width:560px;margin:0 auto;padding:0 20px;display:none" id="produkView">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+      <button onclick="backToWelcome()" class="btn-back-inline">← Kembali</button>
+      <div><div style="font-size:.92rem;font-weight:700;color:var(--w)">Produk Digital</div><div style="font-size:.72rem;color:var(--t3)">Token instan — langsung dikirim otomatis</div></div>
+    </div>
+    <div class="cat-tabs" id="catTabs"><button class="cat-tab active">Semua</button></div>
+    <div id="produkList"><div style="text-align:center;padding:40px;color:var(--t3)">⏳ Memuat...</div></div>
+  </div>
+</div>
+
+<!-- MODAL TESTI -->
+<div class="modal" id="modalTesti">
+  <div class="modal-box">
+    <div id="testiContent">
+      <div style="font-size:1rem;font-weight:700;color:var(--w);margin-bottom:4px">⭐ Beri Ulasan</div>
+      <div style="font-size:.76rem;color:var(--t2);margin-bottom:18px">Bagikan pengalaman berbelanja kamu</div>
+      <div style="margin-bottom:12px"><label style="font-size:.74rem;font-weight:600;color:var(--t2);display:block;margin-bottom:6px">Nama</label><input id="tName" type="text" placeholder="@username_kamu" maxlength="50" style="width:100%;padding:10px 12px;background:var(--s2);border:1px solid var(--brd2);border-radius:10px;color:var(--t1);font-family:inherit;font-size:.84rem;outline:none"></div>
+      <div style="margin-bottom:14px"><label style="font-size:.74rem;font-weight:600;color:var(--t2);display:block;margin-bottom:6px">Komentar</label><textarea id="tComment" rows="3" maxlength="300" placeholder="Ceritakan pengalaman kamu..." style="width:100%;padding:10px 12px;background:var(--s2);border:1px solid var(--brd2);border-radius:10px;color:var(--t1);font-family:inherit;font-size:.84rem;outline:none;resize:none"></textarea></div>
+      <div style="text-align:center;margin-bottom:14px">
+        <div style="font-size:.74rem;font-weight:600;color:var(--t2);margin-bottom:8px">Rating</div>
+        <div class="star-row" id="starRow">
+          <span class="star-b on" onclick="setStar(1)">★</span><span class="star-b on" onclick="setStar(2)">★</span><span class="star-b on" onclick="setStar(3)">★</span><span class="star-b on" onclick="setStar(4)">★</span><span class="star-b on" onclick="setStar(5)">★</span>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="submitTesti()" style="width:100%;padding:12px;border:none;border-radius:10px;background:var(--blue);color:#fff;font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer">Kirim Ulasan 🎉</button>
+      <div style="text-align:center;margin-top:10px"><span style="font-size:.76rem;color:var(--t3);cursor:pointer" onclick="closeTesti()">Tutup</span></div>
+    </div>
+  </div>
+</div>
+
+<footer style="padding:24px 20px;text-align:center;border-top:1px solid var(--brd);margin-top:40px">
+  <div style="font-weight:800;font-size:.9rem;color:var(--w)" class="site-name">YOKO<span style="color:var(--blue2)">STORE</span></div>
+  <div style="font-size:.7rem;color:var(--t3);margin-top:4px">© 2025 YOKO STORE</div>
+</footer>
+
+<script>
+const TK='yoko_theme';
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem(TK,t);var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}
+function toggleTheme(){applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');}
+(function(){applyTheme(localStorage.getItem(TK)||'dark');})();
+
+var _FBCFG={apiKey:"AIzaSyCS52l1z6DrfkqIn4WB4SEOE6hdVu2mX6w",authDomain:"yokotofxport.firebaseapp.com",databaseURL:"https://yokotofxport-default-rtdb.firebaseio.com",projectId:"yokotofxport",storageBucket:"yokotofxport.firebasestorage.app",messagingSenderId:"515300744861",appId:"1:515300744861:web:01117e3f5dc7ed755cbe74"};
+var _db=null,_cfg=null;
+async function getDB(){
+  if(_db)return _db;
+  var fc=JSON.parse(localStorage.getItem('yoko_firebase_config')||'null')||_FBCFG;
+  if(!fc||!fc.databaseURL)return null;
+  try{
+    var a=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
+    var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    var app=a.getApps().find(x=>x.name==='yoko')||a.initializeApp(fc,'yoko');
+    _db=d.getDatabase(app);return _db;
+  }catch(e){return null;}
+}
+async function getCfg(){
+  if(_cfg)return _cfg;
+  var db=await getDB();if(!db)return{};
+  try{
+    var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    var s=await d.get(d.ref(db,'config'));
+    _cfg=s.exists()?s.val():{};return _cfg;
+  }catch(e){return{};}
+}
+
+var allProds=[],allCats={},curCat='all';
+
+function showSosmed(){
+  document.getElementById('welcomeView').style.display='none';
+  document.getElementById('sosmedView').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showProduk(){
+  document.getElementById('welcomeView').style.display='none';
+  document.getElementById('produkView').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+  loadCustomProds();
+}
+function backToWelcome(){
+  document.getElementById('sosmedView').style.display='none';
+  document.getElementById('produkView').style.display='none';
+  document.getElementById('welcomeView').style.display='block';
+}
+
+async function loadCustomProds(){
+  var list=document.getElementById('produkList');
+  var tabs=document.getElementById('catTabs');
+  list.innerHTML='<div style="text-align:center;padding:40px;color:var(--t3)">⏳ Memuat produk...</div>';
+  try{
+    var db=await getDB();
+    if(!db){list.innerHTML='<div style="text-align:center;padding:30px;color:var(--t3)">Firebase belum dikonfigurasi.</div>';return;}
+    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    var ps=await m.get(m.ref(db,'products'));
+    var cs=await m.get(m.ref(db,'categories'));
+    var ds=await m.get(m.ref(db,'descriptions'));
+    allCats={};
+    if(cs&&cs.exists())cs.forEach(function(c){allCats[c.key]=c.val();});
+    allProds=[];
+    if(ps&&ps.exists()){
+      ps.forEach(function(p){
+        var prod=p.val();prod._id=p.key;
+        prod._stock=0;
+        if(ds&&ds.exists()&&ds.child(p.key).exists())ds.child(p.key).forEach(function(){prod._stock++;});
+        allProds.push(prod);
+      });
+    }
+    var tabHTML='';
+    tabHTML+='<button class="cat-tab active" data-cat="all" onclick="filterCat(this)">Semua ('+allProds.length+')</button>';
+    Object.keys(allCats).forEach(function(k){
+      var cat=allCats[k];
+      var count=allProds.filter(function(p){return p.categoryId===k;}).length;
+      tabHTML+='<button class="cat-tab" data-cat="'+k+'" onclick="filterCat(this)">'+(cat.icon||'')+' '+cat.name+' ('+count+')</button>';
+    });
+    tabs.innerHTML=tabHTML;
+    renderProds(allProds);
+  }catch(e){list.innerHTML='<div style="text-align:center;padding:30px;color:var(--red)">Error: '+e.message+'</div>';}
+}
+function filterCat(btn){
+  var catId=btn.getAttribute('data-cat');
+  curCat=catId;
+  document.querySelectorAll('.cat-tab').forEach(function(t){t.classList.remove('active');});
+  btn.classList.add('active');
+  var filtered=catId==='all'?allProds:allProds.filter(function(p){return p.categoryId===catId;});
+  renderProds(filtered);
+}
+function renderProds(prods){
+  var list=document.getElementById('produkList');
+  if(!prods.length){list.innerHTML='<div style="text-align:center;padding:40px;color:var(--t3);font-size:.84rem">Belum ada produk.</div>';return;}
+  var html='<div class="custom-prod-grid">';
+  prods.forEach(function(p){
+    var soldOut=p._stock===0;
+    var stockColor=soldOut?'var(--red)':p._stock<3?'var(--gold)':'var(--green)';
+    var stockTxt=soldOut?'❌ Stok habis':p._stock+' tersedia';
+    html+='<a '+(soldOut?'href="#"':'href="order_produk.html?id='+p._id+'"')+' class="custom-prod-card"'+(soldOut?' style="opacity:.6;pointer-events:none"':'')+' >';
+    html+='<div class="cp-ic">'+(p.icon||'📦')+'</div>';
+    html+='<div class="cp-name">'+p.name+'</div>';
+    html+='<div class="cp-price">Rp '+(p.price||0).toLocaleString('id')+'</div>';
+    html+='<div class="cp-stock" style="color:'+stockColor+'">'+stockTxt+'</div>';
+    html+='</a>';
+  });
+  html+='</div>';
+  list.innerHTML=html;
+}
+
+// testimonial
+var star=5;
+function openTesti(){document.getElementById('modalTesti').classList.add('open');}
+function closeTesti(){document.getElementById('modalTesti').classList.remove('open');}
+function setStar(v){
+  star=v;
+  document.querySelectorAll('.star-b').forEach(function(s,i){s.classList.toggle('on',i<v);});
+}
+async function submitTesti(){
+  var name=document.getElementById('tName').value.trim();
+  var comment=document.getElementById('tComment').value.trim();
+  if(!name||!comment){alert('Isi nama dan komentar!');return;}
+  var btn=document.querySelector('#testiContent .btn-primary');btn.disabled=true;btn.textContent='Mengirim...';
+  var cfg=await getCfg();
+  if(cfg.botToken&&cfg.chatId){
+    try{
+      await fetch('https://api.telegram.org/bot'+cfg.botToken+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:cfg.chatId,text:'ULASAN BARU\nNama: '+name+'\nRating: '+star+'/5\nKomentar: '+comment})});
+    }catch(e){}
+  }
+  try{
+    var db=await getDB();
+    if(db){
+      var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+      await m.push(m.ref(db,'testimonials'),{name:name,comment:comment,stars:star,timestamp:Date.now()});
+    }
+  }catch(e){}
+  document.getElementById('testiContent').innerHTML='<div style="text-align:center;padding:20px 0"><div style="font-size:2.5rem;margin-bottom:14px">🎉</div><div style="font-weight:700;font-size:1rem;color:var(--w);margin-bottom:8px">Terima kasih!</div><p style="font-size:.82rem;color:var(--t2)">Ulasan kamu sangat berarti bagi kami.</p><button onclick="closeTesti()" style="margin-top:16px;padding:10px 24px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-family:inherit;font-weight:700;cursor:pointer">Tutup</button></div>';
+}
+
+async function loadLinks(){
+  var cfg=await getCfg();
+  if(cfg.linkOther)document.getElementById('linkOther').href=cfg.linkOther;
+  if(cfg.linkBot)document.getElementById('linkBot').href=cfg.linkBot;
+  if(cfg.siteName){
+    var els=document.querySelectorAll('.site-name');
+    els.forEach(function(e){e.textContent=cfg.siteName;});
+  }
+}
+loadLinks();
+
+</script>
+</body></html>
