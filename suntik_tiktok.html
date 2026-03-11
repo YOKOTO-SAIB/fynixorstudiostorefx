@@ -416,6 +416,10 @@ footer { padding: 24px 20px; text-align: center; border-top: 1px solid var(--brd
           <div class="pk-range">Min 1 · Max 100 paket</div>
         </div>
       </div>
+      <div id="customPakets" style="display:none">
+        <div style="font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin:14px 0 8px;display:flex;align-items:center;gap:8px">Paket Custom <span style="flex:1;height:1px;background:var(--brd);display:inline-block"></span></div>
+        <div class="paket-grid" id="customPaketGrid"></div>
+      </div>
       <button class="btn btn-primary btn-full anim a3x" onclick="goStep2TK()">Pilih Layanan Ini →</button>
     </div>
 
@@ -578,24 +582,88 @@ var PAKETS={
   fyp:     {price:15000,min:1,    max:100,     step:1,    label:'Jumlah Paket FYP'}
 };
 var curPaket=null;
+var customPaketData={};
 
 function selPaket(type){
   document.querySelectorAll('.pk-card').forEach(function(c){c.classList.remove('sel');});
   document.getElementById('pk-'+type).classList.add('sel');
   curPaket=PAKETS[type];
   curPaket.type=type;
+  curPaket.isCustom=false;
+}
+
+function selCustomPaket(id){
+  document.querySelectorAll('.pk-card').forEach(function(c){c.classList.remove('sel');});
+  document.getElementById('cpk-'+id).classList.add('sel');
+  var p=customPaketData[id];
+  var min=p.min||1;
+  var max=p.max||100;
+  curPaket={
+    price:p.price,min:min,max:max,step:1,
+    label:'Jumlah Paket',type:'custom',
+    name:p.name,icon:p.icon||'⭐',
+    views:p.views||0,likes:p.likes||0,shares:p.shares||0,
+    followers:p.followers||0,members:p.members||0,reactions:p.reactions||0,
+    isCustom:true,id:id
+  };
+}
+
+// Load paket custom TikTok dari Firebase
+async function loadCustomPakets(){
+  try{
+    var db=await getDB();if(!db)return;
+    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    var csSnap=await m.get(m.ref(db,'categories'));
+    var psSnap=await m.get(m.ref(db,'products'));
+    if(!csSnap.exists()||!psSnap.exists())return;
+    // Cari kategori TikTok
+    var tiktokCatIds=[];
+    csSnap.forEach(function(c){
+      var name=(c.val().name||'').toLowerCase();
+      if(name.includes('tiktok')||name.includes('tik tok'))tiktokCatIds.push(c.key);
+    });
+    if(!tiktokCatIds.length)return;
+    // Cari produk sosmed di kategori TikTok
+    customPaketData={};
+    var grid=document.getElementById('customPaketGrid');
+    var html='';
+    psSnap.forEach(function(p){
+      var prod=p.val();
+      if(prod.type!=='sosmed')return;
+      if(!tiktokCatIds.includes(prod.categoryId))return;
+      customPaketData[p.key]=prod;
+      var parts=[];
+      if(prod.views)parts.push('👁️ '+Number(prod.views).toLocaleString('id'));
+      if(prod.likes)parts.push('❤️ '+Number(prod.likes).toLocaleString('id'));
+      if(prod.shares)parts.push('🔁 '+Number(prod.shares).toLocaleString('id'));
+      if(prod.followers)parts.push('👤 '+Number(prod.followers).toLocaleString('id'));
+      if(prod.members)parts.push('👥 '+Number(prod.members).toLocaleString('id'));
+      if(prod.reactions)parts.push('⭐ '+Number(prod.reactions).toLocaleString('id'));
+      html+='<div class="pk-card" id="cpk-'+p.key+'" data-cid="'+p.key+'" onclick="selCustomPaket(this.dataset.cid)">';
+      html+='<div class="pk-top"><div class="pk-ic">'+(prod.icon||'⭐')+'</div><div class="pk-check">✓</div></div>';
+      html+='<div class="pk-name">'+prod.name+'</div>';
+      html+='<div class="pk-price">Rp '+Number(prod.price).toLocaleString('id')+' / paket</div>';
+      html+='<div class="pk-range" style="font-size:.68rem;line-height:1.5">'+parts.join(' · ')+'</div>';
+      html+='</div>';
+    });
+    if(html){
+      grid.innerHTML=html;
+      document.getElementById('customPakets').style.display='block';
+    }
+  }catch(e){}
 }
 
 function goStep2TK(){
   if(!curPaket){alert('Pilih jenis layanan terlebih dahulu!');return;}
-  document.getElementById('dataTitle').textContent='Detail Order — TikTok '+curPaket.type.charAt(0).toUpperCase()+curPaket.type.slice(1);
+  var titleName=curPaket.isCustom?curPaket.name:('TikTok '+curPaket.type.charAt(0).toUpperCase()+curPaket.type.slice(1));
+  document.getElementById('dataTitle').textContent='Detail Order — '+titleName;
   document.getElementById('qtyLabel').textContent=curPaket.label+' *';
   document.getElementById('rangeHint').textContent='Min: '+curPaket.min.toLocaleString('id')+' · Max: '+curPaket.max.toLocaleString('id');
   document.getElementById('qIn').min=curPaket.min;
   document.getElementById('qIn').max=curPaket.max;
   document.getElementById('qIn').step=curPaket.step;
   document.getElementById('qIn').value=curPaket.min;
-  document.getElementById('fypBox').style.display=curPaket.type==='fyp'?'block':'none';
+  document.getElementById('fypBox').style.display=(curPaket.type==='fyp'||curPaket.isCustom)?'block':'none';
   calcTotal();
   setStep(2);
 }
@@ -610,6 +678,15 @@ function calcTotal(){
       '<span class="fyp-chip">👁️ '+(q*10000).toLocaleString('id')+' Views</span>'
       +'<span class="fyp-chip">❤️ '+(q*3000).toLocaleString('id')+' Likes</span>'
       +'<span class="fyp-chip">🔗 '+(q*1000).toLocaleString('id')+' Shares</span>';
+  }else if(curPaket.isCustom){
+    var chips='';
+    if(curPaket.views)chips+='<span class="fyp-chip">👁️ '+(q*curPaket.views).toLocaleString('id')+' Views</span>';
+    if(curPaket.likes)chips+='<span class="fyp-chip">❤️ '+(q*curPaket.likes).toLocaleString('id')+' Likes</span>';
+    if(curPaket.shares)chips+='<span class="fyp-chip">🔁 '+(q*curPaket.shares).toLocaleString('id')+' Shares</span>';
+    if(curPaket.followers)chips+='<span class="fyp-chip">👤 '+(q*curPaket.followers).toLocaleString('id')+' Followers</span>';
+    if(curPaket.members)chips+='<span class="fyp-chip">👥 '+(q*curPaket.members).toLocaleString('id')+' Members</span>';
+    if(curPaket.reactions)chips+='<span class="fyp-chip">⭐ '+(q*curPaket.reactions).toLocaleString('id')+' Reactions</span>';
+    document.getElementById('fypItems').innerHTML=chips;
   }
   return t;
 }
@@ -628,7 +705,7 @@ async function goStep3TK(){
   var q=Math.max(curPaket.min,Math.min(curPaket.max,parseInt(document.getElementById('qIn').value)||curPaket.min));
   var total=Math.round(q/curPaket.min)*curPaket.price;
   var trxId=genTRX();
-  var svcName='TikTok '+curPaket.type.charAt(0).toUpperCase()+curPaket.type.slice(1);
+  var svcName=curPaket.isCustom?curPaket.name:('TikTok '+curPaket.type.charAt(0).toUpperCase()+curPaket.type.slice(1));
   setStep(3);
   await buildPayment(trxId,svcName,link,q,total);
 }
@@ -637,6 +714,7 @@ async function goStep3TK(){
 (function(){
   var p=new URLSearchParams(location.search);
   if(p.get('type')==='fyp'){selPaket('fyp');}
+  loadCustomPakets();
 })();
 </script>
 </body>
