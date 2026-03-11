@@ -710,8 +710,8 @@ function showPanel(id,el){
   if(el)el.classList.add('active');
   document.getElementById('pageTitle').textContent=TITLES[id]||id;
   if(id==='orders')loadOrders();
-  if(id==='products'){closeDescMgr();loadProducts();}
-  if(id==='categories')loadCategories();
+  if(id==='products'){closeDescMgr();loadCatSelect();loadProducts();}
+  if(id==='categories'){loadCategories();loadCatSelect();}
   if(id==='dashboard')loadDash();
   if(id==='settings')loadSettings();
   if(id==='qris')loadQris();
@@ -853,13 +853,13 @@ async function addCategory(){
     }else{
       await dbPush('categories',data);
     }
-    cancelEditCat();showAlert('catAlert');loadCategories();
+    cancelEditCat();showAlert('catAlert');loadCategories();loadCatSelect();
   }catch(e){showAlert('catErr');}
   btn.disabled=false;
 }
 async function delCat(key){
   if(!confirm('Hapus kategori ini? Produk di dalamnya tidak ikut terhapus.'))return;
-  await dbRemove('categories/'+key);loadCategories();
+  await dbRemove('categories/'+key);loadCategories();loadCatSelect();
 }
 async function loadCatSelect(){
   var sel=document.getElementById('pCat');
@@ -1120,6 +1120,30 @@ async function deleteOrder(key){
 }
 
 // ── DASHBOARD ─────────────────────────────────────────────────────────────────
+
+async function seedDefaultCategories(){
+  // Cek dulu apakah sudah ada data
+  var db=await getDB();if(!db)return;
+  var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  var snap=await m.get(m.ref(db,'categories'));
+  if(snap.exists())return; // Sudah ada, skip
+  // Seed kategori default
+  var defaults=[
+    {name:'TikTok',icon:'📱',desc:'Views, likes, followers, FYP',type:'sosmed'},
+    {name:'Instagram',icon:'📷',desc:'Followers premium',type:'sosmed'},
+    {name:'Telegram',icon:'✈️',desc:'Members channel',type:'sosmed'},
+    {name:'WhatsApp',icon:'📲',desc:'Members & reactions',type:'sosmed'},
+    {name:'Facebook',icon:'👥',desc:'Followers profil & fanpage',type:'sosmed'},
+    {name:'Akun Premium',icon:'💎',desc:'Netflix, Spotify, YouTube, dll',type:'digital'},
+    {name:'Signal',icon:'📶',desc:'Token & akun Signal',type:'digital'},
+    {name:'WhatsApp Reaction',icon:'⭐',desc:'Paket reaksi WhatsApp',type:'digital'},
+  ];
+  for(var i=0;i<defaults.length;i++){
+    await m.push(m.ref(db,'categories'),Object.assign({timestamp:Date.now()},defaults[i]));
+  }
+  console.log('Categories seeded');
+}
+
 async function loadDash(){
   try{
     var db=await getDB();if(!db)return;
@@ -1153,7 +1177,7 @@ async function loadDash(){
 // ── INIT ──────────────────────────────────────────────────────────────────────
 document.getElementById('popup').addEventListener('click',function(e){if(e.target===this)closePopup();});
 document.getElementById('lightbox').addEventListener('click',function(){this.classList.remove('open');});
-initFBFields();loadDash();
+initFBFields();seedDefaultCategories().then(function(){loadDash();loadCatSelect();});
 
 </script>
-</body> </html>
+</body></html>
