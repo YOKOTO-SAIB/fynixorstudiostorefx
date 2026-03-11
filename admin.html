@@ -502,10 +502,18 @@ function toggleTheme(){applyTheme(document.documentElement.getAttribute('data-th
             </div>
             <div class="f-group" style="grid-column:1/-1"><label class="f-label">Deskripsi Singkat</label><input class="f-input" id="pDs" placeholder="Yang customer dapat dari produk ini..."></div>
             <div id="sosmedFields" style="display:none;grid-column:1/-1">
+              <div style="background:var(--blue-a);border:1px solid rgba(79,122,255,.18);border-radius:10px;padding:11px 14px;margin-bottom:12px;font-size:.76rem;color:var(--t2)">
+                📱 <strong style="color:var(--blue2)">Paket Sosmed</strong> — isi detail yang customer dapat per paket. Kosongkan kalau tidak ada.
+              </div>
               <div class="f-row">
-                <div class="f-group"><label class="f-label">Min Order</label><input class="f-input" id="pMin" type="number" placeholder="100"></div>
-                <div class="f-group"><label class="f-label">Max Order</label><input class="f-input" id="pMax" type="number" placeholder="100000"></div>
-                <div class="f-group"><label class="f-label">Satuan (per berapa)</label><input class="f-input" id="pUnit" placeholder="100 members, 1000 views..."></div>
+                <div class="f-group"><label class="f-label">👁️ Views / Tayangan</label><input class="f-input" id="pViews" type="number" placeholder="10000"></div>
+                <div class="f-group"><label class="f-label">❤️ Likes</label><input class="f-input" id="pLikes" type="number" placeholder="3000"></div>
+                <div class="f-group"><label class="f-label">🔁 Shares</label><input class="f-input" id="pShares" type="number" placeholder="1000"></div>
+                <div class="f-group"><label class="f-label">👤 Followers</label><input class="f-input" id="pFollowers" type="number" placeholder="200"></div>
+                <div class="f-group"><label class="f-label">👥 Members</label><input class="f-input" id="pMembers" type="number" placeholder="0"></div>
+                <div class="f-group"><label class="f-label">⭐ Reactions</label><input class="f-input" id="pReactions" type="number" placeholder="0"></div>
+                <div class="f-group"><label class="f-label">Min Order</label><input class="f-input" id="pMin" type="number" placeholder="1"></div>
+                <div class="f-group"><label class="f-label">Max Order</label><input class="f-input" id="pMax" type="number" placeholder="100"></div>
               </div>
             </div>
           </div>
@@ -535,7 +543,7 @@ function toggleTheme(){applyTheme(document.documentElement.getAttribute('data-th
           <div style="margin-top:14px"><div style="font-size:.74rem;font-weight:600;color:var(--t2);margin-bottom:8px">Daftar Stok</div><div id="descList"></div></div>
         </div>
 
-        <div class="tbl-wrap"><table><thead><tr><th>Produk</th><th>Kategori</th><th>Harga</th><th>Stok</th><th>Aksi</th></tr></thead>
+        <div class="tbl-wrap"><table><thead><tr><th>Produk</th><th>Kategori</th><th>Harga</th><th>Info</th><th>Aksi</th></tr></thead>
         <tbody id="prodsBody"><tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr></tbody></table></div>
       </div>
 
@@ -892,19 +900,34 @@ async function loadProducts(){
     var rows='';
     pSnap.forEach(function(p){
       var prod=p.val();var key=p.key;
+      var isSosmed=prod.type==='sosmed';
       var stock=0;
-      if(dSnap&&dSnap.exists()&&dSnap.child(key).exists())dSnap.child(key).forEach(function(){stock++;});
+      if(!isSosmed&&dSnap&&dSnap.exists()&&dSnap.child(key).exists())dSnap.child(key).forEach(function(){stock++;});
       var cat=allCatsMap[prod.categoryId];
-      var sc=stock===0?'badge-red':stock<3?'badge-gold':'badge-green';
       var safeName=prod.name.replace(/'/g,'').replace(/"/g,'');
+      // Info cell
+      var infoCell='';
+      if(isSosmed){
+        var parts=[];
+        if(prod.views)parts.push('👁️ '+Number(prod.views).toLocaleString('id'));
+        if(prod.likes)parts.push('❤️ '+Number(prod.likes).toLocaleString('id'));
+        if(prod.shares)parts.push('🔁 '+Number(prod.shares).toLocaleString('id'));
+        if(prod.followers)parts.push('👤 '+Number(prod.followers).toLocaleString('id'));
+        if(prod.members)parts.push('👥 '+Number(prod.members).toLocaleString('id'));
+        if(prod.reactions)parts.push('⭐ '+Number(prod.reactions).toLocaleString('id'));
+        infoCell='<span class="badge badge-blue">📱 Sosmed</span>'+(parts.length?'<div style="font-size:.68rem;color:var(--t2);margin-top:4px">'+parts.join(' · ')+'</div>':'');
+      }else{
+        var sc=stock===0?'badge-red':stock<3?'badge-gold':'badge-green';
+        infoCell='<span class="badge '+sc+'">'+stock+' stok</span>';
+      }
       rows+='<tr>';
       rows+='<td><div style="font-weight:600;color:var(--w)">'+(prod.icon||'📦')+' '+prod.name+'</div><div style="font-size:.7rem;color:var(--t3);margin-top:2px">'+(prod.desc||'')+'</div></td>';
       rows+='<td style="color:var(--t2);font-size:.78rem">'+(cat?(cat.icon||'')+' '+cat.name:'—')+'</td>';
       rows+='<td style="font-weight:700;color:var(--gold)">Rp '+(prod.price||0).toLocaleString('id')+'</td>';
-      rows+='<td><span class="badge '+sc+'">'+stock+' stok</span></td>';
+      rows+='<td>'+infoCell+'</td>';
       rows+='<td style="display:flex;gap:5px;flex-wrap:wrap">';
       rows+='<button class="btn-confirm" style="font-size:.7rem;padding:4px 9px" data-pid="'+key+'" onclick="startEditProd(this.dataset.pid)">✏️</button>';
-      rows+='<button class="btn-confirm" style="font-size:.7rem;padding:4px 9px;background:var(--green-a);color:var(--green);border-color:rgba(34,197,94,.2)" data-pid="'+key+'" data-pname="'+safeName+'" onclick="openDescMgr(this.dataset.pid,this.dataset.pname)">📝 Stok</button>';
+      if(!isSosmed)rows+='<button class="btn-confirm" style="font-size:.7rem;padding:4px 9px;background:var(--green-a);color:var(--green);border-color:rgba(34,197,94,.2)" data-pid="'+key+'" data-pname="'+safeName+'" onclick="openDescMgr(this.dataset.pid,this.dataset.pname)">📝 Stok</button>';
       rows+='<button class="btn-danger" style="font-size:.7rem;padding:4px 9px" data-pid="'+key+'" onclick="delProduct(this.dataset.pid)">🗑️</button>';
       rows+='</td></tr>';
     });
@@ -926,8 +949,11 @@ async function startEditProd(key){
   document.getElementById('pDs').value=prod.desc||'';
   document.getElementById('pMin').value=prod.min||'';
   document.getElementById('pMax').value=prod.max||'';
-  document.getElementById('pUnit').value=prod.unit||'';
   document.getElementById('pType').value=prod.type||'token';
+  // Isi sosmed fields
+  var sfIds=['pViews','pLikes','pShares','pFollowers','pMembers','pReactions'];
+  var sfKeys=['views','likes','shares','followers','members','reactions'];
+  sfIds.forEach(function(id,i){var e=document.getElementById(id);if(e)e.value=prod[sfKeys[i]]||'';});
   toggleProdType();
   document.getElementById('addProdBtn').textContent='💾 Update Produk';
   document.getElementById('prodFormTitle').textContent='Edit Produk';
@@ -938,7 +964,9 @@ function cancelEditProd(){
   document.getElementById('pN').value='';document.getElementById('pPr').value='';
   document.getElementById('pIc').value='';document.getElementById('pDs').value='';
   document.getElementById('pMin').value='';document.getElementById('pMax').value='';
-  document.getElementById('pUnit').value='';document.getElementById('pCat').value='';
+  document.getElementById('pCat').value='';document.getElementById('pType').value='token';
+  ['pViews','pLikes','pShares','pFollowers','pMembers','pReactions'].forEach(function(id){var e=document.getElementById(id);if(e)e.value='';});
+  toggleProdType();
   document.getElementById('addProdBtn').textContent='+ Tambah Produk';
   document.getElementById('prodFormTitle').textContent='Tambah Produk Baru';
 }
@@ -954,16 +982,26 @@ async function addProduct(){
   if(!name||!price||!catId){alert('Nama, harga, dan kategori wajib!');return;}
   var btn=document.getElementById('addProdBtn');btn.disabled=true;
   try{
+    var ptype=document.getElementById('pType').value||'token';
     var data={
       name:name,categoryId:catId,price:price,
       icon:document.getElementById('pIc').value||'📦',
       desc:document.getElementById('pDs').value,
-      type:document.getElementById('pType').value||'token',
+      type:ptype,
       min:parseInt(document.getElementById('pMin').value)||0,
       max:parseInt(document.getElementById('pMax').value)||0,
-      unit:document.getElementById('pUnit').value,
       timestamp:Date.now()
     };
+    if(ptype==='sosmed'){
+      var vi=parseInt(document.getElementById('pViews').value)||0;
+      var li=parseInt(document.getElementById('pLikes').value)||0;
+      var sh=parseInt(document.getElementById('pShares').value)||0;
+      var fo=parseInt(document.getElementById('pFollowers').value)||0;
+      var me=parseInt(document.getElementById('pMembers').value)||0;
+      var re=parseInt(document.getElementById('pReactions').value)||0;
+      if(vi)data.views=vi;if(li)data.likes=li;if(sh)data.shares=sh;
+      if(fo)data.followers=fo;if(me)data.members=me;if(re)data.reactions=re;
+    }
     if(editProdKey){
       await dbUpdate('products/'+editProdKey,data);
     }else{
