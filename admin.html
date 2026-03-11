@@ -571,14 +571,26 @@ function toggleTheme(){applyTheme(document.documentElement.getAttribute("data-th
       <div class="panel" id="panel-qris">
         <div class="pane-title">QRIS Pembayaran</div>
         <div class="pane-sub">Disimpan di Firebase — muncul otomatis di semua halaman order.</div>
-        <div class="acard" style="max-width:440px">
-          <div class="f-group"><label class="f-label">Upload File QRIS</label><input class="f-input" id="qFile" type="file" accept="image/*" style="padding:9px;cursor:pointer" onchange="prevQRIS(this)"></div>
-          <img id="qPrev" src="" style="max-width:160px;border-radius:10px;border:2px solid var(--brd2);display:none;margin:10px 0">
-          <div class="f-group"><label class="f-label">Atau URL Gambar QRIS</label><input class="f-input" id="qUrl" type="url" placeholder="https://..."></div>
+        <div class="acard" style="max-width:480px">
+          <div style="background:var(--blue-a);border:1px solid rgba(79,122,255,.2);border-radius:10px;padding:11px 14px;margin-bottom:16px;font-size:.76rem;color:var(--t2);line-height:1.7">
+            💡 <strong style="color:var(--blue2)">Cara pakai:</strong> Upload gambar QRIS kamu ke <a href="https://imgbb.com" target="_blank" style="color:var(--blue2)">imgbb.com</a> (gratis) → klik kanan gambar → "Copy image address" → paste URL di bawah.
+          </div>
+          <div class="f-group">
+            <label class="f-label">URL Gambar QRIS</label>
+            <input class="f-input" id="qUrl" type="url" placeholder="https://i.ibb.co/xxxx/qris.png">
+            <div class="f-hint" style="margin-top:5px">Paste URL gambar QRIS (dari imgbb, imgur, atau hosting lain)</div>
+          </div>
+          <div id="qPrevWrap" style="display:none;margin-bottom:14px">
+            <div style="font-size:.74rem;color:var(--t3);margin-bottom:6px">Preview QRIS</div>
+            <img id="qPrev" src="" style="max-width:160px;border-radius:10px;border:2px solid var(--brd2)">
+          </div>
           <div class="f-group"><label class="f-label">Nama Penerima</label><input class="f-input" id="qNm" placeholder="YOKO STORE"></div>
-          <button class="btn-save" id="saveQrisBtn" onclick="saveQRIS()">💾 Simpan QRIS</button>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-filt" onclick="previewQRIS()">👁️ Preview</button>
+            <button class="btn-save" id="saveQrisBtn" onclick="saveQRIS()">💾 Simpan QRIS</button>
+          </div>
           <div class="alert alert-success" id="qrisAlert">✅ QRIS tersimpan!</div>
-          <div class="alert alert-error" id="qrisErr">❌ Gagal.</div>
+          <div class="alert alert-error" id="qrisErr">❌ Gagal. Cek Firebase.</div>
         </div>
       </div>
 
@@ -743,22 +755,28 @@ async function saveSettings(){
 // ── QRIS ─────────────────────────────────────────────────────────────────────
 async function loadQris(){
   var cfg=await getCfg();
-  if(cfg.qrisImage){var p=document.getElementById('qPrev');p.src=cfg.qrisImage;p.style.display='block';}
+  var url=cfg.qrisImage||'';
+  if(url){
+    document.getElementById('qUrl').value=url;
+    var p=document.getElementById('qPrev');p.src=url;
+    document.getElementById('qPrevWrap').style.display='block';
+  }
   if(cfg.qrisName)document.getElementById('qNm').value=cfg.qrisName;
 }
-function prevQRIS(inp){
-  var r=new FileReader();
-  r.onload=function(e){var p=document.getElementById('qPrev');p.src=e.target.result;p.style.display='block';};
-  r.readAsDataURL(inp.files[0]);
+function previewQRIS(){
+  var url=document.getElementById('qUrl').value.trim();
+  if(!url){alert('Isi URL gambar QRIS dulu!');return;}
+  var p=document.getElementById('qPrev');
+  p.src=url;
+  p.onerror=function(){alert('URL gambar tidak valid atau tidak bisa diakses.');};
+  document.getElementById('qPrevWrap').style.display='block';
 }
 async function saveQRIS(){
+  var url=document.getElementById('qUrl').value.trim();
+  if(!url){alert('Isi URL gambar QRIS dulu!');return;}
   var btn=document.getElementById('saveQrisBtn');btn.disabled=true;btn.textContent='Menyimpan...';
   try{
-    var file=document.getElementById('qFile').files[0];
-    var url=document.getElementById('qUrl').value.trim();
-    var img=url||'';
-    if(file)img=await new Promise(function(res){var r=new FileReader();r.onload=function(e){res(e.target.result);};r.readAsDataURL(file);});
-    await setCfg({qrisImage:img,qrisName:document.getElementById('qNm').value.trim()});
+    await setCfg({qrisImage:url,qrisName:document.getElementById('qNm').value.trim()});
     showAlert('qrisAlert');
   }catch(e){showAlert('qrisErr');}
   btn.disabled=false;btn.textContent='💾 Simpan';
