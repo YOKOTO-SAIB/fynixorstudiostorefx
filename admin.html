@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Admin Panel — YOKO STORE</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════
    YOKO STORE — Shared Design System v3
@@ -303,102 +304,90 @@ footer { padding: 24px 20px; text-align: center; border-top: 1px solid var(--brd
   .wrap, .wrap-sm, .wrap-xs { padding: 0 14px; }
   .card { border-radius: 14px; padding: 18px; }
 }
+
 body{display:flex;flex-direction:column;overflow:hidden}
 .layout{display:flex;flex:1;height:100vh;overflow:hidden}
-.sb{width:232px;background:var(--s1);border-right:1px solid var(--brd);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
-.sb-brand{padding:18px 16px;border-bottom:1px solid var(--brd);display:flex;align-items:center;gap:10px}
-.sb-ic{width:32px;height:32px;background:linear-gradient(135deg,var(--blue),var(--blue2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
-.sb-nm{font-weight:800;font-size:.9rem;color:var(--w)}.sb-nm span{color:var(--blue2)}
+.sb{width:230px;background:var(--s1);border-right:1px solid var(--brd);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sb-brand{padding:16px;border-bottom:1px solid var(--brd);display:flex;align-items:center;gap:10px}
+.sb-ic{width:30px;height:30px;background:linear-gradient(135deg,var(--blue),var(--blue2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.sb-nm{font-weight:800;font-size:.88rem;color:var(--w)}.sb-nm span{color:var(--blue2)}
 .sb-sub{font-size:.6rem;color:var(--t3);margin-top:1px}
-.sb-nav{padding:10px 8px;flex:1}
-.sb-grp{font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);padding:10px 8px 6px}
-.sb-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--t2);transition:all .2s;margin-bottom:2px}
+.sb-nav{padding:8px;flex:1}
+.sb-grp{font-size:.58rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);padding:10px 8px 5px}
+.sb-item{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:9px;cursor:pointer;font-size:.8rem;font-weight:600;color:var(--t2);transition:all .2s;margin-bottom:2px}
 .sb-item:hover{background:var(--s2);color:var(--t1)}.sb-item.active{background:var(--blue-a);color:var(--blue2);border:1px solid rgba(79,122,255,.15)}
-.sb-item .ic{font-size:.9rem;width:20px;text-align:center;flex-shrink:0}
-.sb-foot{padding:12px 8px;border-top:1px solid var(--brd);display:flex;flex-direction:column;gap:4px}
-.sb-back,.sb-logout{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;font-size:.78rem;font-weight:600;transition:all .2s;cursor:pointer}
+.sb-item .ic{font-size:.88rem;width:18px;text-align:center;flex-shrink:0}
+.sb-foot{padding:10px 8px;border-top:1px solid var(--brd);display:flex;flex-direction:column;gap:3px}
+.sb-back,.sb-logout{display:flex;align-items:center;gap:8px;padding:9px 11px;border-radius:9px;font-size:.76rem;font-weight:600;transition:all .2s;cursor:pointer;text-decoration:none}
 .sb-back{color:var(--t3)}.sb-back:hover{background:var(--s2);color:var(--t1)}
 .sb-logout{color:var(--red)}.sb-logout:hover{background:rgba(248,113,113,.08)}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.topbar{height:56px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:var(--nav-bg);backdrop-filter:blur(16px);flex-shrink:0}
-.menu-toggle{background:var(--s1);border:1px solid var(--brd);color:var(--t2);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:.9rem;display:none;font-family:inherit}
-.content{flex:1;overflow-y:auto;padding:24px}
-.panel{display:none;animation:fadeUp .3s both}.panel.on{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.pane-title{font-size:1.1rem;font-weight:800;color:var(--w);margin-bottom:3px}
-.pane-sub{font-size:.78rem;color:var(--t3);margin-bottom:20px}
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
-.stat-card{background:var(--s1);border:1px solid var(--brd);border-radius:16px;padding:18px;position:relative;overflow:hidden}
-.stat-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0}
+.topbar{height:54px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:var(--nav-bg);backdrop-filter:blur(16px);flex-shrink:0}
+.menu-toggle{background:var(--s1);border:1px solid var(--brd);color:var(--t2);padding:5px 9px;border-radius:7px;cursor:pointer;font-size:.88rem;display:none;font-family:inherit}
+.content{flex:1;overflow-y:auto;padding:20px}
+.panel{display:none;animation:fadeUp .25s both}.panel.on{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.pane-title{font-size:1.05rem;font-weight:800;color:var(--w);margin-bottom:2px}
+.pane-sub{font-size:.76rem;color:var(--t3);margin-bottom:18px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.stat-card{background:var(--s1);border:1px solid var(--brd);border-radius:14px;padding:16px;position:relative;overflow:hidden}
+.stat-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0}
 .sc-blue::after{background:linear-gradient(90deg,var(--blue),var(--blue2))}.sc-red::after{background:linear-gradient(90deg,var(--red),#f97316)}.sc-green::after{background:linear-gradient(90deg,var(--green),#34d399)}.sc-gold::after{background:linear-gradient(90deg,var(--gold),#fbbf24)}
-.stat-num{font-size:1.6rem;font-weight:800;line-height:1}
-.sc-blue .stat-num{color:var(--blue2)}.sc-red .stat-num{color:var(--red)}.sc-green .stat-num{color:var(--green)}.sc-gold .stat-num{color:var(--gold);font-size:.9rem}
-.stat-lbl{font-size:.66rem;font-weight:600;letter-spacing:.5px;color:var(--t3);text-transform:uppercase;margin-top:5px}
-.acard{background:var(--s1);border:1px solid var(--brd);border-radius:16px;padding:20px;margin-bottom:14px}
-.acard-head{font-size:.88rem;font-weight:700;color:var(--w);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.btn-save{background:var(--blue);color:#fff;font-family:inherit;font-weight:700;font-size:.82rem;padding:10px 22px;border:none;border-radius:10px;cursor:pointer;transition:all .2s}
+.stat-num{font-size:1.5rem;font-weight:800;line-height:1}
+.sc-blue .stat-num{color:var(--blue2)}.sc-red .stat-num{color:var(--red)}.sc-green .stat-num{color:var(--green)}.sc-gold .stat-num{color:var(--gold);font-size:.88rem}
+.stat-lbl{font-size:.62rem;font-weight:600;letter-spacing:.5px;color:var(--t3);text-transform:uppercase;margin-top:4px}
+.acard{background:var(--s1);border:1px solid var(--brd);border-radius:14px;padding:18px;margin-bottom:12px}
+.acard-head{font-size:.86rem;font-weight:700;color:var(--w);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.btn-save{background:var(--blue);color:#fff;font-family:inherit;font-weight:700;font-size:.8rem;padding:9px 20px;border:none;border-radius:9px;cursor:pointer;transition:all .2s}
 .btn-save:hover{background:var(--blue2)}.btn-save:disabled{opacity:.6;cursor:not-allowed}
-.btn-filt{background:var(--s2);color:var(--t2);border:1px solid var(--brd2);padding:7px 14px;border-radius:10px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-filt{background:var(--s2);color:var(--t2);border:1px solid var(--brd2);padding:7px 13px;border-radius:9px;font-size:.76rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
 .btn-filt:hover{background:var(--s3);color:var(--t1)}
-.alert{border-radius:10px;padding:10px 14px;font-size:.76rem;font-weight:500;margin-top:10px;display:none}
+.btn-cancel{background:var(--s2);color:var(--t2);border:1px solid var(--brd2);padding:9px 16px;border-radius:9px;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit}
+.alert{border-radius:9px;padding:9px 13px;font-size:.74rem;font-weight:500;margin-top:8px;display:none}
 .alert-success{background:var(--green-a);border:1px solid rgba(34,197,94,.22);color:var(--green)}
 .alert-error{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);color:var(--red)}
-.tbl-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--brd)}
+.tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--brd)}
 table{width:100%;border-collapse:collapse}
-th{font-size:.62rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--t3);padding:11px 14px;text-align:left;background:var(--s2);border-bottom:1px solid var(--brd)}
-td{padding:11px 14px;border-bottom:1px solid var(--brd);font-size:.82rem;vertical-align:middle}
+th{font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--t3);padding:10px 13px;text-align:left;background:var(--s2);border-bottom:1px solid var(--brd)}
+td{padding:10px 13px;border-bottom:1px solid var(--brd);font-size:.8rem;vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--blue-b)}
-/* DESC MANAGER */
-.desc-item{background:var(--s2);border:1px solid var(--brd2);border-radius:10px;padding:12px 14px;margin-bottom:8px}
-.desc-body{font-size:.8rem;color:var(--t1);white-space:pre-wrap;word-break:break-word;line-height:1.6;margin-bottom:8px}
-.desc-actions{display:flex;gap:6px}
-.btn-edit-sm{background:var(--blue-a);color:var(--blue2);border:1px solid rgba(79,122,255,.2);padding:4px 10px;border-radius:7px;font-size:.72rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.desc-item{background:var(--s2);border:1px solid var(--brd2);border-radius:9px;padding:11px 13px;margin-bottom:7px}
+.desc-body{font-size:.78rem;color:var(--t1);white-space:pre-wrap;word-break:break-word;line-height:1.6;margin-bottom:7px}
+.desc-actions{display:flex;gap:5px}
+.btn-edit-sm{background:var(--blue-a);color:var(--blue2);border:1px solid rgba(79,122,255,.2);padding:3px 9px;border-radius:6px;font-size:.7rem;font-weight:700;cursor:pointer;font-family:inherit}
 .btn-edit-sm:hover{background:var(--blue);color:#fff}
-.btn-del-sm{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.2);padding:4px 10px;border-radius:7px;font-size:.72rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-del-sm{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.2);padding:3px 9px;border-radius:6px;font-size:.7rem;font-weight:700;cursor:pointer;font-family:inherit}
 .btn-del-sm:hover{background:var(--red);color:#fff}
-.desc-stock-badge{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--green-a)}
-/* POPUP */
+.desc-stock-badge{font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--green-a)}
 .popup{display:none;position:fixed;inset:0;z-index:998;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px}
-.popup.open{display:flex;animation:fadeUp .2s both}
-.popup-box{background:var(--s1);border:1px solid var(--brd2);border-radius:20px;padding:24px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto}
-.popup-title{font-size:.95rem;font-weight:700;color:var(--w);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
-.popup-close{background:var(--s2);border:none;color:var(--t2);width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:.85rem;font-family:inherit}
+.popup.open{display:flex}
+.popup-box{background:var(--s1);border:1px solid var(--brd2);border-radius:18px;padding:22px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto}
+.popup-title{font-size:.92rem;font-weight:700;color:var(--w);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.popup-close{background:var(--s2);border:none;color:var(--t2);width:26px;height:26px;border-radius:7px;cursor:pointer;font-size:.82rem;font-family:inherit}
 .dr{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--brd)}
 .dr:last-child{border-bottom:none}
-.dk{font-size:.76rem;color:var(--t3);flex-shrink:0}
-.dv{font-size:.8rem;font-weight:600;color:var(--t1);text-align:right;max-width:65%;word-break:break-all}
-.dv.mono{font-family:monospace;color:var(--blue2);font-size:.72rem}
-/* LIGHTBOX */
+.dk{font-size:.74rem;color:var(--t3);flex-shrink:0}.dv{font-size:.78rem;font-weight:600;color:var(--t1);text-align:right;max-width:65%;word-break:break-all}
+.dv.mono{font-family:monospace;color:var(--blue2);font-size:.7rem}
 .lightbox{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.92);align-items:center;justify-content:center;cursor:zoom-out}
 .lightbox.open{display:flex}
 .lightbox img{max-width:92vw;max-height:88vh;border-radius:10px;object-fit:contain}
-/* OVERLAY */
 .sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:98}
-@media(max-width:900px){.sb{position:fixed;left:-240px;top:0;z-index:99;height:100vh;transition:left .3s}.sb.open{left:0}.sb-overlay.open{display:block}.menu-toggle{display:block}.stats-row{grid-template-columns:1fr 1fr}.content{padding:14px}}
+@media(max-width:900px){.sb{position:fixed;left:-235px;top:0;z-index:99;height:100vh;transition:left .3s}.sb.open{left:0}.sb-overlay.open{display:block}.menu-toggle{display:block}.stats-row{grid-template-columns:1fr 1fr}.content{padding:14px}}
 </style>
 </head>
 <body>
 <script>
-(function(){var TOKEN='adminyokotofxownerfynixorstudi';if(sessionStorage.getItem('yoko_admin_sess')!=='ok_'+btoa(TOKEN).slice(0,12)){window.location.replace('admin_login.html');}})();
-const THEME_KEY="yoko_theme";
-function applyTheme(t){document.documentElement.setAttribute("data-theme",t);localStorage.setItem(THEME_KEY,t);var btn=document.getElementById("themeBtn");if(btn)btn.textContent=t==="dark"?"☀️":"🌙";}
-function toggleTheme(){applyTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");}
-(function(){applyTheme(localStorage.getItem(THEME_KEY)||"dark");})();
+(function(){var T='adminyokotofxownerfynixorstudi';if(sessionStorage.getItem('yoko_admin_sess')!=='ok_'+btoa(T).slice(0,12))window.location.replace('admin_login.html');})();
+const TK='yoko_theme';
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem(TK,t);var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}
+function toggleTheme(){applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');}
+(function(){applyTheme(localStorage.getItem(TK)||'dark');})();
 </script>
 
 <div class="sb-overlay" id="sbo" onclick="closeSb()"></div>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox"><img id="lbImg" src="" alt="Bukti"></div>
-
-<!-- ORDER DETAIL POPUP -->
-<div class="popup" id="popup">
-  <div class="popup-box">
-    <div class="popup-title">Detail Order <button class="popup-close" onclick="closePopup()">✕</button></div>
-    <div id="popupContent"></div>
-  </div>
-</div>
+<div class="lightbox" id="lightbox"><img id="lbImg" src="" alt=""></div>
+<div class="popup" id="popup"><div class="popup-box"><div class="popup-title">Detail Order <button class="popup-close" onclick="closePopup()">✕</button></div><div id="popupContent"></div></div></div>
 
 <div class="layout">
   <div class="sb" id="sb">
@@ -427,13 +416,13 @@ function toggleTheme(){applyTheme(document.documentElement.getAttribute("data-th
 
   <div class="main">
     <div class="topbar">
-      <div style="display:flex;align-items:center;gap:12px">
-        <button class="menu-toggle" onclick="openSb()">☰</button>
-        <div style="font-size:.95rem;font-weight:700;color:var(--w)" id="pageTitle">Dashboard</div>
-      </div>
       <div style="display:flex;align-items:center;gap:10px">
-        <span style="font-size:.72rem;color:var(--t3)" id="clock"></span>
-        <button id="themeBtn" onclick="toggleTheme()" style="width:34px;height:34px;border-radius:8px;background:var(--s2);border:1px solid var(--brd2);font-size:.88rem;cursor:pointer">🌙</button>
+        <button class="menu-toggle" onclick="openSb()">☰</button>
+        <div style="font-size:.92rem;font-weight:700;color:var(--w)" id="pageTitle">Dashboard</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:.7rem;color:var(--t3)" id="clock"></span>
+        <button id="themeBtn" onclick="toggleTheme()" style="width:32px;height:32px;border-radius:7px;background:var(--s2);border:1px solid var(--brd2);font-size:.85rem;cursor:pointer">🌙</button>
       </div>
     </div>
 
@@ -441,8 +430,7 @@ function toggleTheme(){applyTheme(document.documentElement.getAttribute("data-th
 
       <!-- DASHBOARD -->
       <div class="panel on" id="panel-dashboard">
-        <div class="pane-title">Dashboard</div>
-        <div class="pane-sub">Ringkasan aktivitas toko.</div>
+        <div class="pane-title">Dashboard</div><div class="pane-sub">Ringkasan aktivitas toko hari ini.</div>
         <div class="stats-row">
           <div class="stat-card sc-blue"><div class="stat-num" id="statTotal">—</div><div class="stat-lbl">Total Order</div></div>
           <div class="stat-card sc-red"><div class="stat-num" id="statPending">—</div><div class="stat-lbl">Pending</div></div>
@@ -451,99 +439,109 @@ function toggleTheme(){applyTheme(document.documentElement.getAttribute("data-th
         </div>
         <div class="acard">
           <div class="acard-head">Order Terbaru</div>
-          <div class="tbl-wrap"><table>
-            <thead><tr><th>ID</th><th>Produk</th><th>Nama</th><th>Total</th><th>Status</th></tr></thead>
-            <tbody id="dashBody"><tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">⏳ Memuat...</td></tr></tbody>
-          </table></div>
+          <div class="tbl-wrap"><table><thead><tr><th>ID</th><th>Produk</th><th>Nama</th><th>Total</th><th>Status</th></tr></thead>
+          <tbody id="dashBody"><tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">⏳ Memuat...</td></tr></tbody></table></div>
         </div>
       </div>
 
       <!-- ORDERS -->
       <div class="panel" id="panel-orders">
-        <div class="pane-title">Monitoring Order</div>
-        <div class="pane-sub">Klik baris untuk lihat detail & bukti bayar.</div>
-        <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+        <div class="pane-title">Monitoring Order</div><div class="pane-sub">Klik baris untuk lihat detail & bukti bayar.</div>
+        <div style="display:flex;gap:7px;margin-bottom:12px;flex-wrap:wrap">
           <button class="btn-filt" onclick="filterOrders('all')">Semua</button>
           <button class="btn-filt" style="background:var(--gold-a);color:var(--gold);border-color:rgba(245,158,11,.2)" onclick="filterOrders('pending')">Pending</button>
           <button class="btn-filt" style="background:var(--green-a);color:var(--green);border-color:rgba(34,197,94,.2)" onclick="filterOrders('done')">Selesai</button>
           <button class="btn-filt" onclick="loadOrders()">↻ Refresh</button>
         </div>
-        <div class="tbl-wrap"><table>
-          <thead><tr><th>ID</th><th>Produk</th><th>Nama</th><th>Email</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
-          <tbody id="ordersBody"><tr><td colspan="7" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr></tbody>
-        </table></div>
+        <div class="tbl-wrap"><table><thead><tr><th>ID</th><th>Produk</th><th>Nama</th><th>Email</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
+        <tbody id="ordersBody"><tr><td colspan="7" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr></tbody></table></div>
       </div>
 
       <!-- CATEGORIES -->
       <div class="panel" id="panel-categories">
-        <div class="pane-title">Kategori</div>
-        <div class="pane-sub">Kategori tampil sebagai tab di halaman Welcome. Disimpan di Firebase.</div>
-        <div class="acard">
-          <div class="acard-head">Tambah Kategori Baru</div>
+        <div class="pane-title">Kategori</div><div class="pane-sub">Kategori tampil sebagai tab filter di halaman produk.</div>
+        <div class="acard" id="catFormCard">
+          <div class="acard-head"><span id="catFormTitle">Tambah Kategori Baru</span></div>
           <div class="f-row">
-            <div class="f-group"><label class="f-label">Nama Kategori *</label><input class="f-input" id="catName" placeholder="Signal, WhatsApp Reaction..."></div>
-            <div class="f-group"><label class="f-label">Emoji Icon</label><input class="f-input" id="catIcon" placeholder="📶" maxlength="4"></div>
-            <div class="f-group" style="grid-column:1/-1"><label class="f-label">Deskripsi</label><input class="f-input" id="catDesc" placeholder="Deskripsi singkat kategori ini"></div>
+            <div class="f-group"><label class="f-label">Nama *</label><input class="f-input" id="catName" placeholder="Signal, WhatsApp Reaction, TikTok..."></div>
+            <div class="f-group"><label class="f-label">Emoji</label><input class="f-input" id="catIcon" placeholder="📶" maxlength="4"></div>
+            <div class="f-group"><label class="f-label">Tipe</label>
+              <select class="f-input" id="catType" style="cursor:pointer">
+                <option value="digital">🎫 Produk Digital (token/akun)</option>
+                <option value="sosmed">📱 Sosial Media (qty based)</option>
+              </select>
+            </div>
+            <div class="f-group" style="grid-column:1/-1"><label class="f-label">Deskripsi</label><input class="f-input" id="catDesc" placeholder="Deskripsi singkat kategori"></div>
           </div>
-          <button class="btn-save" id="addCatBtn" onclick="addCategory()">+ Tambah Kategori</button>
-          <div class="alert alert-success" id="catAlert">✅ Kategori disimpan!</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-save" id="addCatBtn" onclick="addCategory()">+ Tambah Kategori</button>
+            <button class="btn-cancel" onclick="cancelEditCat()">✕ Batal</button>
+          </div>
+          <div class="alert alert-success" id="catAlert">✅ Tersimpan!</div>
           <div class="alert alert-error" id="catErr">❌ Gagal. Cek Firebase.</div>
         </div>
-        <div class="tbl-wrap"><table>
-          <thead><tr><th>Icon</th><th>Nama</th><th>Deskripsi</th><th>Aksi</th></tr></thead>
-          <tbody id="catsBody"><tr><td colspan="4" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr></tbody>
-        </table></div>
+        <div class="tbl-wrap"><table><thead><tr><th>Icon</th><th>Nama</th><th>Deskripsi</th><th>Tipe</th><th>Aksi</th></tr></thead>
+        <tbody id="catsBody"><tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr></tbody></table></div>
       </div>
 
       <!-- PRODUCTS -->
       <div class="panel" id="panel-products">
-        <div class="pane-title">Produk & Stok</div>
-        <div class="pane-sub">Tambah produk, lalu klik "Kelola Stok" untuk add/edit/hapus deskripsi per item.</div>
-        <div class="acard">
-          <div class="acard-head">Tambah Produk Baru</div>
+        <div class="pane-title">Produk & Stok</div><div class="pane-sub">Tambah/edit/hapus produk. Klik "📝 Stok" untuk kelola isi token per produk.</div>
+        <div class="acard" id="prodFormCard">
+          <div class="acard-head"><span id="prodFormTitle">Tambah Produk Baru</span></div>
           <div class="f-row">
-            <div class="f-group"><label class="f-label">Nama Produk *</label><input class="f-input" id="pN" placeholder="WhatsApp Reaction Pack"></div>
+            <div class="f-group"><label class="f-label">Nama Produk *</label><input class="f-input" id="pN" placeholder="FYP Telegram, WhatsApp Reaction..."></div>
             <div class="f-group"><label class="f-label">Kategori *</label><select class="f-input" id="pCat" style="cursor:pointer"><option value="">-- Pilih Kategori --</option></select></div>
             <div class="f-group"><label class="f-label">Harga (Rp) *</label><input class="f-input" id="pPr" type="number" placeholder="15000"></div>
-            <div class="f-group"><label class="f-label">Emoji Icon</label><input class="f-input" id="pIc" placeholder="📲" maxlength="4"></div>
+            <div class="f-group"><label class="f-label">Emoji Icon</label><input class="f-input" id="pIc" placeholder="⭐" maxlength="4"></div>
+            <div class="f-group"><label class="f-label">Tipe Produk</label>
+              <select class="f-input" id="pType" style="cursor:pointer" onchange="toggleProdType()">
+                <option value="token">🎫 Token/Digital (kirim otomatis)</option>
+                <option value="sosmed">📱 Sosmed (qty based, manual)</option>
+              </select>
+            </div>
+            <div class="f-group" style="grid-column:1/-1"><label class="f-label">Deskripsi Singkat</label><input class="f-input" id="pDs" placeholder="Yang customer dapat dari produk ini..."></div>
+            <div id="sosmedFields" style="display:none;grid-column:1/-1">
+              <div class="f-row">
+                <div class="f-group"><label class="f-label">Min Order</label><input class="f-input" id="pMin" type="number" placeholder="100"></div>
+                <div class="f-group"><label class="f-label">Max Order</label><input class="f-input" id="pMax" type="number" placeholder="100000"></div>
+                <div class="f-group"><label class="f-label">Satuan (per berapa)</label><input class="f-input" id="pUnit" placeholder="100 members, 1000 views..."></div>
+              </div>
+            </div>
           </div>
-          <button class="btn-save" id="addProdBtn" onclick="addProduct()">+ Tambah Produk</button>
-          <div class="alert alert-success" id="prodAlert">✅ Produk ditambahkan!</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-save" id="addProdBtn" onclick="addProduct()">+ Tambah Produk</button>
+            <button class="btn-cancel" onclick="cancelEditProd()">✕ Batal</button>
+          </div>
+          <div class="alert alert-success" id="prodAlert">✅ Produk disimpan!</div>
           <div class="alert alert-error" id="prodErr">❌ Gagal.</div>
         </div>
 
-        <!-- STOK / DESC MANAGER -->
-        <div class="acard" id="descMgrCard" style="display:none;border-color:rgba(79,122,255,.25)">
+        <!-- STOK MANAGER -->
+        <div class="acard" id="descMgrCard" style="display:none;border-color:rgba(79,122,255,.3)">
           <div class="acard-head">
             <span id="descMgrTitle">📝 Stok</span>
             <span class="desc-stock-badge" id="descStockBadge">0 stok</span>
           </div>
           <div class="f-group">
-            <label class="f-label">Deskripsi / Konten Stok</label>
-            <textarea class="f-input" id="descContent" rows="5" style="resize:vertical;font-family:monospace;font-size:.8rem" placeholder="Isi lengkap item ini:&#10;Username: xxxxx&#10;Password: xxxxx&#10;Cara pakai: xxxxx&#10;&#10;Setiap item = 1 stok. Customer dapat 1 item random saat beli."></textarea>
-            <div class="f-hint">Tiap item = 1 stok. Tambahkan satu per satu. Customer dapat 1 secara random saat beli.</div>
+            <label class="f-label">Isi Stok / Deskripsi</label>
+            <textarea class="f-input" id="descContent" rows="5" style="resize:vertical;font-family:monospace;font-size:.8rem" placeholder="Isi lengkap item ini:&#10;Username: xxxxx&#10;Password: xxxxx&#10;Cara pakai: xxxxx&#10;&#10;1 item = 1 stok. Customer dapat 1 item random saat beli."></textarea>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
             <button class="btn-save" id="descSaveBtn" onclick="saveDesc()">➕ Tambah Stok</button>
-            <button class="btn-filt" onclick="closeDescMgr()">✕ Tutup</button>
+            <button class="btn-cancel" onclick="closeDescMgr()">✕ Tutup</button>
           </div>
-          <div class="alert alert-success" id="descAlert">✅ Tersimpan!</div>
-          <div style="margin-top:16px">
-            <div style="font-size:.76rem;font-weight:600;color:var(--t2);margin-bottom:8px">Daftar Stok</div>
-            <div id="descList"></div>
-          </div>
+          <div class="alert alert-success" id="descAlert">✅ Stok disimpan!</div>
+          <div style="margin-top:14px"><div style="font-size:.74rem;font-weight:600;color:var(--t2);margin-bottom:8px">Daftar Stok</div><div id="descList"></div></div>
         </div>
 
-        <div class="tbl-wrap"><table>
-          <thead><tr><th>Produk</th><th>Kategori</th><th>Harga</th><th>Aksi</th></tr></thead>
-          <tbody id="prodsBody"><tr><td colspan="4" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr></tbody>
-        </table></div>
+        <div class="tbl-wrap"><table><thead><tr><th>Produk</th><th>Kategori</th><th>Harga</th><th>Stok</th><th>Aksi</th></tr></thead>
+        <tbody id="prodsBody"><tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr></tbody></table></div>
       </div>
 
       <!-- SETTINGS -->
       <div class="panel" id="panel-settings">
-        <div class="pane-title">Pengaturan</div>
-        <div class="pane-sub">Semua disimpan ke Firebase — berlaku di semua perangkat.</div>
+        <div class="pane-title">Pengaturan</div><div class="pane-sub">Disimpan ke Firebase — berlaku di semua perangkat.</div>
         <div class="acard">
           <div class="acard-head">Identitas & Telegram Bot</div>
           <div class="f-group"><label class="f-label">Nama Website</label><input class="f-input" id="sNm" placeholder="YOKO STORE"></div>
@@ -553,55 +551,45 @@ function toggleTheme(){applyTheme(document.documentElement.getAttribute("data-th
           </div>
         </div>
         <div class="acard">
-          <div class="acard-head">Info Kontak</div>
+          <div class="acard-head">Info Kontak & Link</div>
           <div class="f-row">
             <div class="f-group"><label class="f-label">Link WhatsApp CS</label><input class="f-input" id="sWa" placeholder="https://wa.me/628..."></div>
-            <div class="f-group"><label class="f-label">Username Telegram CS</label><input class="f-input" id="sTg" placeholder="@cs_username"></div>
+            <div class="f-group"><label class="f-label">Telegram CS</label><input class="f-input" id="sTg" placeholder="@cs_username"></div>
             <div class="f-group"><label class="f-label">Email CS</label><input class="f-input" id="sEm" type="email" placeholder="cs@toko.id"></div>
             <div class="f-group"><label class="f-label">Link Bot CS</label><input class="f-input" id="sBotLink" placeholder="https://t.me/yokostore_bot"></div>
             <div class="f-group" style="grid-column:1/-1"><label class="f-label">Link Layanan Lain</label><input class="f-input" id="sOther" placeholder="https://t.me/yokostore_cs"></div>
           </div>
           <button class="btn-save" id="saveSettBtn" onclick="saveSettings()">💾 Simpan Pengaturan</button>
-          <div class="alert alert-success" id="settingsAlert">✅ Pengaturan tersimpan ke Firebase!</div>
-          <div class="alert alert-error" id="settingsErr">❌ Gagal. Cek koneksi Firebase.</div>
+          <div class="alert alert-success" id="settingsAlert">✅ Tersimpan ke Firebase!</div>
+          <div class="alert alert-error" id="settingsErr">❌ Gagal. Cek Firebase.</div>
         </div>
       </div>
 
       <!-- QRIS -->
       <div class="panel" id="panel-qris">
-        <div class="pane-title">QRIS Pembayaran</div>
-        <div class="pane-sub">Disimpan di Firebase — muncul otomatis di semua halaman order.</div>
+        <div class="pane-title">QRIS Pembayaran</div><div class="pane-sub">Simpan URL gambar QRIS — muncul di semua halaman order.</div>
         <div class="acard" style="max-width:480px">
-          <div style="background:var(--blue-a);border:1px solid rgba(79,122,255,.2);border-radius:10px;padding:11px 14px;margin-bottom:16px;font-size:.76rem;color:var(--t2);line-height:1.7">
-            💡 <strong style="color:var(--blue2)">Cara pakai:</strong> Upload gambar QRIS kamu ke <a href="https://imgbb.com" target="_blank" style="color:var(--blue2)">imgbb.com</a> (gratis) → klik kanan gambar → "Copy image address" → paste URL di bawah.
+          <div style="background:var(--blue-a);border:1px solid rgba(79,122,255,.2);border-radius:9px;padding:10px 13px;margin-bottom:14px;font-size:.74rem;color:var(--t2);line-height:1.7">
+            💡 Upload foto QRIS ke <a href="https://imgbb.com" target="_blank" style="color:var(--blue2)">imgbb.com</a> → klik kanan gambar → Copy image address → paste di bawah.
           </div>
-          <div class="f-group">
-            <label class="f-label">URL Gambar QRIS</label>
-            <input class="f-input" id="qUrl" type="url" placeholder="https://i.ibb.co/xxxx/qris.png">
-            <div class="f-hint" style="margin-top:5px">Paste URL gambar QRIS (dari imgbb, imgur, atau hosting lain)</div>
-          </div>
-          <div id="qPrevWrap" style="display:none;margin-bottom:14px">
-            <div style="font-size:.74rem;color:var(--t3);margin-bottom:6px">Preview QRIS</div>
-            <img id="qPrev" src="" style="max-width:160px;border-radius:10px;border:2px solid var(--brd2)">
-          </div>
+          <div class="f-group"><label class="f-label">URL Gambar QRIS</label><input class="f-input" id="qUrl" type="url" placeholder="https://i.ibb.co/xxxx/qris.png"></div>
+          <div id="qPrevWrap" style="display:none;margin-bottom:12px"><img id="qPrev" src="" style="max-width:150px;border-radius:9px;border:2px solid var(--brd2)"></div>
           <div class="f-group"><label class="f-label">Nama Penerima</label><input class="f-input" id="qNm" placeholder="YOKO STORE"></div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <div style="display:flex;gap:8px">
             <button class="btn-filt" onclick="previewQRIS()">👁️ Preview</button>
-            <button class="btn-save" id="saveQrisBtn" onclick="saveQRIS()">💾 Simpan QRIS</button>
+            <button class="btn-save" id="saveQrisBtn" onclick="saveQRIS()">💾 Simpan</button>
           </div>
           <div class="alert alert-success" id="qrisAlert">✅ QRIS tersimpan!</div>
-          <div class="alert alert-error" id="qrisErr">❌ Gagal. Cek Firebase.</div>
+          <div class="alert alert-error" id="qrisErr">❌ Gagal.</div>
         </div>
       </div>
 
       <!-- EMAIL -->
       <div class="panel" id="panel-email">
-        <div class="pane-title">Email (Opsional)</div>
-        <div class="pane-sub">Jika diisi, deskripsi produk akan dikirim ke email customer otomatis via EmailJS.</div>
+        <div class="pane-title">Email (Opsional)</div><div class="pane-sub">Kirim token ke email customer via EmailJS setelah beli.</div>
         <div class="acard" style="max-width:500px">
-          <div style="background:var(--blue-a);border:1px solid rgba(79,122,255,.2);border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:.76rem;color:var(--t2);line-height:1.75">
-            💡 Daftar gratis di <strong style="color:var(--blue2)">emailjs.com</strong> (200 email/bulan).<br>
-            Buat Email Service → Buat Template dengan variabel: <code style="background:var(--s2);padding:1px 6px;border-radius:4px">to_email</code>, <code style="background:var(--s2);padding:1px 6px;border-radius:4px">product_name</code>, <code style="background:var(--s2);padding:1px 6px;border-radius:4px">desc_content</code>
+          <div style="background:var(--blue-a);border:1px solid rgba(79,122,255,.2);border-radius:9px;padding:10px 13px;margin-bottom:14px;font-size:.74rem;color:var(--t2);line-height:1.7">
+            Daftar di <strong style="color:var(--blue2)">emailjs.com</strong> → buat Service + Template dengan variabel: <code style="background:var(--s2);padding:1px 5px;border-radius:4px">to_email</code> <code style="background:var(--s2);padding:1px 5px;border-radius:4px">product_name</code> <code style="background:var(--s2);padding:1px 5px;border-radius:4px">desc_content</code>
           </div>
           <div class="f-row">
             <div class="f-group"><label class="f-label">Public Key</label><input class="f-input" id="ejPk" placeholder="user_xxxxxx"></div>
@@ -616,36 +604,32 @@ function toggleTheme(){applyTheme(document.documentElement.getAttribute("data-th
 
       <!-- FIREBASE -->
       <div class="panel" id="panel-firebase">
-        <div class="pane-title">Firebase Setup</div>
-        <div class="pane-sub">Config ini disimpan di browser lokal. Isi sekali, semua fitur aktif.</div>
+        <div class="pane-title">Firebase Setup</div><div class="pane-sub">Config disimpan di browser lokal sebagai override.</div>
         <div class="acard">
           <div class="f-row">
-            <div class="f-group"><label class="f-label">API Key</label><input class="f-input" id="fbAk" placeholder="AIzaSy..."></div>
-            <div class="f-group"><label class="f-label">Auth Domain</label><input class="f-input" id="fbAd" placeholder="project.firebaseapp.com"></div>
-            <div class="f-group"><label class="f-label">Database URL</label><input class="f-input" id="fbDu" placeholder="https://project-rtdb.firebaseio.com"></div>
-            <div class="f-group"><label class="f-label">Project ID</label><input class="f-input" id="fbPi" placeholder="project-id"></div>
-            <div class="f-group"><label class="f-label">Storage Bucket</label><input class="f-input" id="fbSb" placeholder="project.appspot.com"></div>
-            <div class="f-group"><label class="f-label">Messaging Sender ID</label><input class="f-input" id="fbMs" placeholder="123456789"></div>
-            <div class="f-group" style="grid-column:1/-1"><label class="f-label">App ID</label><input class="f-input" id="fbAi" placeholder="1:123456789:web:abc..."></div>
+            <div class="f-group"><label class="f-label">API Key</label><input class="f-input" id="fbAk"></div>
+            <div class="f-group"><label class="f-label">Auth Domain</label><input class="f-input" id="fbAd"></div>
+            <div class="f-group"><label class="f-label">Database URL</label><input class="f-input" id="fbDu"></div>
+            <div class="f-group"><label class="f-label">Project ID</label><input class="f-input" id="fbPi"></div>
+            <div class="f-group"><label class="f-label">Storage Bucket</label><input class="f-input" id="fbSb"></div>
+            <div class="f-group"><label class="f-label">Messaging Sender ID</label><input class="f-input" id="fbMs"></div>
+            <div class="f-group" style="grid-column:1/-1"><label class="f-label">App ID</label><input class="f-input" id="fbAi"></div>
           </div>
           <button class="btn-save" onclick="saveFB()">💾 Simpan Firebase Config</button>
-          <div class="alert alert-success" id="fbAlert">✅ Disimpan! Reload halaman untuk reconnect.</div>
+          <div class="alert alert-success" id="fbAlert">✅ Disimpan!</div>
         </div>
-        <div class="acard">
-          <div class="acard-head">Firebase Rules</div>
-          <pre style="background:var(--s2);border:1px solid var(--brd2);border-radius:10px;padding:14px;font-size:.7rem;color:var(--t1);overflow-x:auto;line-height:1.7">{
+        <div class="acard"><div class="acard-head">Firebase Rules (copy ke console)</div>
+<pre style="background:var(--s2);border:1px solid var(--brd2);border-radius:9px;padding:13px;font-size:.68rem;color:var(--t1);overflow-x:auto;line-height:1.7">{
   "rules": {
-    ".read": false,
-    ".write": false,
+    ".read": false, ".write": false,
     "orders":       { ".read":true, ".write":true, ".indexOn":["timestamp"] },
     "config":       { ".read":true, ".write":true },
-    "testimonials": { ".read":true, ".write":true, ".indexOn":["timestamp"] },
+    "testimonials": { ".read":true, ".write":true },
     "products":     { ".read":true, ".write":true },
     "categories":   { ".read":true, ".write":true },
     "descriptions": { ".read":true, ".write":true }
   }
-}</pre>
-        </div>
+}</pre></div>
       </div>
 
     </div>
@@ -653,7 +637,64 @@ function toggleTheme(){applyTheme(document.documentElement.getAttribute("data-th
 </div>
 
 <script>
-// ── CLOCK & UI ───────────────────────────────────────────────────────────────
+
+var _FBCFG={apiKey:"AIzaSyCS52l1z6DrfkqIn4WB4SEOE6hdVu2mX6w",authDomain:"yokotofxport.firebaseapp.com",databaseURL:"https://yokotofxport-default-rtdb.firebaseio.com",projectId:"yokotofxport",storageBucket:"yokotofxport.firebasestorage.app",messagingSenderId:"515300744861",appId:"1:515300744861:web:01117e3f5dc7ed755cbe74"};
+var _db=null,_cfg=null;
+async function getDB(){
+  if(_db)return _db;
+  var fc=JSON.parse(localStorage.getItem('yoko_firebase_config')||'null')||_FBCFG;
+  if(!fc||!fc.databaseURL)return null;
+  try{
+    var a=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
+    var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    var app=a.getApps().find(function(x){return x.name==='yoko';})||a.initializeApp(fc,'yoko');
+    _db=d.getDatabase(app);return _db;
+  }catch(e){return null;}
+}
+async function getCfg(){
+  if(_cfg)return _cfg;
+  var db=await getDB();if(!db)return{};
+  try{
+    var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    var s=await d.get(d.ref(db,'config'));
+    _cfg=s.exists()?s.val():{};return _cfg;
+  }catch(e){return{};}
+}
+async function setCfg(data){
+  var db=await getDB();if(!db)return false;
+  try{
+    var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    await d.update(d.ref(db,'config'),data);_cfg=null;return true;
+  }catch(e){return false;}
+}
+async function dbGet(path){
+  var db=await getDB();if(!db)return null;
+  var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  var s=await d.get(d.ref(db,path));return s.exists()?s.val():null;
+}
+async function dbSet(path,data){
+  var db=await getDB();if(!db)return false;
+  var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  await d.set(d.ref(db,path),data);return true;
+}
+async function dbUpdate(path,data){
+  var db=await getDB();if(!db)return false;
+  var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  await d.update(d.ref(db,path),data);return true;
+}
+async function dbPush(path,data){
+  var db=await getDB();if(!db)return null;
+  var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  var r=await d.push(d.ref(db,path),data);return r.key;
+}
+async function dbRemove(path){
+  var db=await getDB();if(!db)return false;
+  var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  await d.remove(d.ref(db,path));return true;
+}
+
+
+// ── CLOCK & NAV ─────────────────────────────────────────────────────────────
 setInterval(function(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('id-ID');},1000);
 function openSb(){document.getElementById('sb').classList.add('open');document.getElementById('sbo').classList.add('open');}
 function closeSb(){document.getElementById('sb').classList.remove('open');document.getElementById('sbo').classList.remove('open');}
@@ -669,64 +710,13 @@ function showPanel(id,el){
   if(el)el.classList.add('active');
   document.getElementById('pageTitle').textContent=TITLES[id]||id;
   if(id==='orders')loadOrders();
-  if(id==='products'){loadProducts();loadCatSelect();}
+  if(id==='products'){closeDescMgr();loadProducts();}
   if(id==='categories')loadCategories();
   if(id==='dashboard')loadDash();
   if(id==='settings')loadSettings();
   if(id==='qris')loadQris();
   if(id==='email')loadEmail();
   closeSb();
-}
-
-// ── FIREBASE ──────────────────────────────────────────────────────────────────
-var _FBCFG={apiKey:"AIzaSyCS52l1z6DrfkqIn4WB4SEOE6hdVu2mX6w",authDomain:"yokotofxport.firebaseapp.com",databaseURL:"https://yokotofxport-default-rtdb.firebaseio.com",projectId:"yokotofxport",storageBucket:"yokotofxport.firebasestorage.app",messagingSenderId:"515300744861",appId:"1:515300744861:web:01117e3f5dc7ed755cbe74"};
-var _db=null,_cfg=null;
-async function getDB(){
-  if(_db)return _db;
-  var fc=JSON.parse(localStorage.getItem('yoko_firebase_config')||'null')||_FBCFG;
-  if(!fc||!fc.databaseURL)return null;
-  try{
-    var m1=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
-    var m2=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-    var app=m1.getApps().find(function(a){return a.name==='yoko';})||m1.initializeApp(fc,'yoko');
-    _db=m2.getDatabase(app);return _db;
-  }catch(e){return null;}
-}
-async function getCfg(){
-  if(_cfg)return _cfg;
-  try{
-    var db=await getDB();if(!db)return{};
-    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-    var snap=await m.get(m.ref(db,'config'));
-    _cfg=snap.exists()?snap.val():{};return _cfg;
-  }catch(e){return{};}
-}
-async function setCfg(data){
-  try{
-    var db=await getDB();if(!db)throw new Error('Firebase belum setup');
-    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-    await m.update(m.ref(db,'config'),data);
-    _cfg=null;return true;
-  }catch(e){console.error('setCfg error:',e);return false;}
-}
-function saveFB(){
-  var fb={
-    apiKey:document.getElementById('fbAk').value.trim(),
-    authDomain:document.getElementById('fbAd').value.trim(),
-    databaseURL:document.getElementById('fbDu').value.trim(),
-    projectId:document.getElementById('fbPi').value.trim(),
-    storageBucket:document.getElementById('fbSb').value.trim(),
-    messagingSenderId:document.getElementById('fbMs').value.trim(),
-    appId:document.getElementById('fbAi').value.trim()
-  };
-  localStorage.setItem('yoko_firebase_config',JSON.stringify(fb));
-  _db=null;_cfg=null;showAlert('fbAlert');
-}
-function initFBFields(){
-  var fb=JSON.parse(localStorage.getItem('yoko_firebase_config')||'null')||_FBCFG;if(!fb)return;
-  var fv=function(id,v){var e=document.getElementById(id);if(e&&v)e.value=v;};
-  fv('fbAk',fb.apiKey);fv('fbAd',fb.authDomain);fv('fbDu',fb.databaseURL);
-  fv('fbPi',fb.projectId);fv('fbSb',fb.storageBucket);fv('fbMs',fb.messagingSenderId);fv('fbAi',fb.appId);
 }
 
 // ── SETTINGS ─────────────────────────────────────────────────────────────────
@@ -756,30 +746,21 @@ async function saveSettings(){
 // ── QRIS ─────────────────────────────────────────────────────────────────────
 async function loadQris(){
   var cfg=await getCfg();
-  var url=cfg.qrisImage||'';
-  if(url){
-    document.getElementById('qUrl').value=url;
-    var p=document.getElementById('qPrev');p.src=url;
-    document.getElementById('qPrevWrap').style.display='block';
-  }
+  if(cfg.qrisImage){document.getElementById('qUrl').value=cfg.qrisImage;document.getElementById('qPrev').src=cfg.qrisImage;document.getElementById('qPrevWrap').style.display='block';}
   if(cfg.qrisName)document.getElementById('qNm').value=cfg.qrisName;
 }
 function previewQRIS(){
   var url=document.getElementById('qUrl').value.trim();
   if(!url){alert('Isi URL gambar QRIS dulu!');return;}
-  var p=document.getElementById('qPrev');
-  p.src=url;
-  p.onerror=function(){alert('URL gambar tidak valid atau tidak bisa diakses.');};
+  document.getElementById('qPrev').src=url;
   document.getElementById('qPrevWrap').style.display='block';
 }
 async function saveQRIS(){
   var url=document.getElementById('qUrl').value.trim();
-  if(!url){alert('Isi URL gambar QRIS dulu!');return;}
+  if(!url){alert('Isi URL dulu!');return;}
   var btn=document.getElementById('saveQrisBtn');btn.disabled=true;btn.textContent='Menyimpan...';
-  try{
-    await setCfg({qrisImage:url,qrisName:document.getElementById('qNm').value.trim()});
-    showAlert('qrisAlert');
-  }catch(e){showAlert('qrisErr');}
+  var ok=await setCfg({qrisImage:url,qrisName:document.getElementById('qNm').value.trim()});
+  showAlert(ok?'qrisAlert':'qrisErr');
   btn.disabled=false;btn.textContent='💾 Simpan';
 }
 
@@ -794,56 +775,91 @@ async function saveEmail(){
   showAlert(ok?'emailAlert':'emailErr');
 }
 
+// ── FIREBASE SETUP ────────────────────────────────────────────────────────────
+function saveFB(){
+  var fb={apiKey:document.getElementById('fbAk').value.trim(),authDomain:document.getElementById('fbAd').value.trim(),databaseURL:document.getElementById('fbDu').value.trim(),projectId:document.getElementById('fbPi').value.trim(),storageBucket:document.getElementById('fbSb').value.trim(),messagingSenderId:document.getElementById('fbMs').value.trim(),appId:document.getElementById('fbAi').value.trim()};
+  localStorage.setItem('yoko_firebase_config',JSON.stringify(fb));
+  _db=null;_cfg=null;showAlert('fbAlert');
+}
+function initFBFields(){
+  var fb=JSON.parse(localStorage.getItem('yoko_firebase_config')||'null')||_FBCFG;
+  var fv=function(id,v){var e=document.getElementById(id);if(e&&v)e.value=v;};
+  fv('fbAk',fb.apiKey);fv('fbAd',fb.authDomain);fv('fbDu',fb.databaseURL);
+  fv('fbPi',fb.projectId);fv('fbSb',fb.storageBucket);fv('fbMs',fb.messagingSenderId);fv('fbAi',fb.appId);
+}
+
 // ── CATEGORIES ────────────────────────────────────────────────────────────────
+var editCatKey=null;
+
+// Store category data for edit
+var _catsCache={};
 async function loadCategories(){
   var b=document.getElementById('catsBody');
-  b.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr>';
+  b.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr>';
   try{
     var db=await getDB();
-    if(!db){b.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--gold);padding:20px">Firebase belum setup</td></tr>';return;}
+    if(!db){b.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--gold);padding:20px">Firebase belum setup</td></tr>';return;}
     var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
     var snap=await m.get(m.ref(db,'categories'));
-    if(!snap.exists()){b.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--t3);padding:20px">Belum ada kategori</td></tr>';return;}
+    if(!snap.exists()){b.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">Belum ada kategori. Tambah dulu.</td></tr>';return;}
+    _catsCache={};
     var rows='';
     snap.forEach(function(c){
-      var cat=c.val();
-      var key=c.key;
+      var cat=c.val();var key=c.key;
+      _catsCache[key]=cat;
       rows+='<tr>';
-      rows+='<td style="font-size:1.2rem">'+(cat.icon||'📦')+'</td>';
+      rows+='<td style="font-size:1.2rem;width:44px">'+(cat.icon||'📦')+'</td>';
       rows+='<td style="font-weight:600;color:var(--w)">'+cat.name+'</td>';
       rows+='<td style="color:var(--t2);font-size:.78rem">'+(cat.desc||'—')+'</td>';
-      rows+='<td><button class="btn-danger" onclick="delCat(\''+key+'\')">Hapus</button></td>';
-      rows+='</tr>';
+      rows+='<td style="color:var(--t3);font-size:.72rem">'+(cat.type==='sosmed'?'📱 Sosmed':'🎫 Digital')+'</td>';
+      rows+='<td style="display:flex;gap:6px">';
+      rows+='<button class="btn-confirm" style="font-size:.72rem;padding:5px 10px" data-catid="'+key+'" onclick="startEditCatById(this.dataset.catid)">✏️ Edit</button>';
+      rows+='<button class="btn-danger" style="font-size:.72rem;padding:5px 10px" data-catid="'+key+'" onclick="delCat(this.dataset.catid)">🗑️</button>';
+      rows+='</td></tr>';
     });
     b.innerHTML=rows;
-  }catch(e){b.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--red);padding:20px">Error: '+e.message+'</td></tr>';}
+  }catch(e){b.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--red);padding:20px">Error: '+e.message+'</td></tr>';}
+}
+function startEditCatById(key){
+  var cat=_catsCache[key];if(!cat)return;
+  startEditCat(key,cat.name,cat.icon||'📦',cat.desc||'',cat.type||'digital');
+}
+function startEditCat(key,name,icon,desc,type){
+  editCatKey=key;
+  document.getElementById('catName').value=name;
+  document.getElementById('catIcon').value=icon;
+  document.getElementById('catDesc').value=desc;
+  document.getElementById('catType').value=type||'digital';
+  document.getElementById('addCatBtn').textContent='💾 Update Kategori';
+  document.getElementById('catFormTitle').textContent='Edit Kategori';
+  document.getElementById('catName').focus();
+  document.getElementById('catFormCard').scrollIntoView({behavior:'smooth'});
+}
+function cancelEditCat(){
+  editCatKey=null;
+  document.getElementById('catName').value='';document.getElementById('catIcon').value='';
+  document.getElementById('catDesc').value='';document.getElementById('catType').value='digital';
+  document.getElementById('addCatBtn').textContent='+ Tambah Kategori';
+  document.getElementById('catFormTitle').textContent='Tambah Kategori Baru';
 }
 async function addCategory(){
   var name=document.getElementById('catName').value.trim();
   if(!name){alert('Nama kategori wajib!');return;}
-  var btn=document.getElementById('addCatBtn');btn.disabled=true;btn.textContent='Menyimpan...';
+  var btn=document.getElementById('addCatBtn');btn.disabled=true;
   try{
-    var db=await getDB();if(!db)throw new Error('Firebase belum setup');
-    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-    await m.push(m.ref(db,'categories'),{
-      name:name,
-      icon:document.getElementById('catIcon').value||'📦',
-      desc:document.getElementById('catDesc').value,
-      timestamp:Date.now()
-    });
-    document.getElementById('catName').value='';
-    document.getElementById('catIcon').value='';
-    document.getElementById('catDesc').value='';
-    showAlert('catAlert');loadCategories();
+    var data={name:name,icon:document.getElementById('catIcon').value||'📦',desc:document.getElementById('catDesc').value,type:document.getElementById('catType').value,timestamp:Date.now()};
+    if(editCatKey){
+      await dbUpdate('categories/'+editCatKey,data);
+    }else{
+      await dbPush('categories',data);
+    }
+    cancelEditCat();showAlert('catAlert');loadCategories();
   }catch(e){showAlert('catErr');}
-  btn.disabled=false;btn.textContent='+ Tambah';
+  btn.disabled=false;
 }
 async function delCat(key){
-  if(!confirm('Hapus kategori ini?'))return;
-  var db=await getDB();
-  var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-  await m.remove(m.ref(db,'categories/'+key));
-  loadCategories();
+  if(!confirm('Hapus kategori ini? Produk di dalamnya tidak ikut terhapus.'))return;
+  await dbRemove('categories/'+key);loadCategories();
 }
 async function loadCatSelect(){
   var sel=document.getElementById('pCat');
@@ -853,88 +869,128 @@ async function loadCatSelect(){
     var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
     var snap=await m.get(m.ref(db,'categories'));
     if(snap.exists())snap.forEach(function(c){
-      var o=document.createElement('option');
-      o.value=c.key;
-      o.textContent=(c.val().icon||'')+' '+c.val().name;
-      sel.appendChild(o);
+      var o=document.createElement('option');o.value=c.key;o.textContent=(c.val().icon||'')+' '+c.val().name;sel.appendChild(o);
     });
   }catch(e){}
 }
 
 // ── PRODUCTS ──────────────────────────────────────────────────────────────────
 var allCatsMap={};
+var editProdKey=null;
 async function loadProducts(){
   var b=document.getElementById('prodsBody');
-  b.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr>';
+  b.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr>';
   try{
-    var db=await getDB();if(!db){b.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--gold);padding:20px">Firebase belum setup</td></tr>';return;}
+    var db=await getDB();if(!db){b.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--gold);padding:20px">Firebase belum setup</td></tr>';return;}
     var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
     var pSnap=await m.get(m.ref(db,'products'));
-    var catSnap=await m.get(m.ref(db,'categories'));
-    var descSnap=await m.get(m.ref(db,'descriptions'));
+    var cSnap=await m.get(m.ref(db,'categories'));
+    var dSnap=await m.get(m.ref(db,'descriptions'));
     allCatsMap={};
-    if(catSnap.exists())catSnap.forEach(function(c){allCatsMap[c.key]=c.val();});
-    if(!pSnap.exists()){b.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--t3);padding:20px">Belum ada produk</td></tr>';return;}
+    if(cSnap.exists())cSnap.forEach(function(c){allCatsMap[c.key]=c.val();});
+    if(!pSnap.exists()){b.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">Belum ada produk. Tambah dulu.</td></tr>';return;}
     var rows='';
     pSnap.forEach(function(p){
       var prod=p.val();var key=p.key;
       var stock=0;
-      if(descSnap&&descSnap.exists()&&descSnap.child(key).exists())descSnap.child(key).forEach(function(){stock++;});
+      if(dSnap&&dSnap.exists()&&dSnap.child(key).exists())dSnap.child(key).forEach(function(){stock++;});
       var cat=allCatsMap[prod.categoryId];
       var sc=stock===0?'badge-red':stock<3?'badge-gold':'badge-green';
-      var safeName=prod.name.replace(/\\/g,'').replace(/'/g,'');
+      var safeName=prod.name.replace(/'/g,'').replace(/"/g,'');
       rows+='<tr>';
-      rows+='<td><div style="font-weight:600;color:var(--w)">'+(prod.icon||'📦')+' '+prod.name+'</div></td>';
+      rows+='<td><div style="font-weight:600;color:var(--w)">'+(prod.icon||'📦')+' '+prod.name+'</div><div style="font-size:.7rem;color:var(--t3);margin-top:2px">'+(prod.desc||'')+'</div></td>';
       rows+='<td style="color:var(--t2);font-size:.78rem">'+(cat?(cat.icon||'')+' '+cat.name:'—')+'</td>';
       rows+='<td style="font-weight:700;color:var(--gold)">Rp '+(prod.price||0).toLocaleString('id')+'</td>';
-      rows+='<td style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">';
-      rows+='<span class="badge '+sc+'">'+stock+' stok</span>';
-      rows+='<button class="btn-confirm" style="font-size:.72rem;padding:5px 10px" onclick="openDescMgr(\''+key+'\',\''+safeName+'\')">📝 Kelola Stok</button>';
-      rows+='<button class="btn-danger" style="font-size:.72rem;padding:5px 10px" onclick="delProduct(\''+key+'\')">Hapus</button>';
+      rows+='<td><span class="badge '+sc+'">'+stock+' stok</span></td>';
+      rows+='<td style="display:flex;gap:5px;flex-wrap:wrap">';
+      rows+='<button class="btn-confirm" style="font-size:.7rem;padding:4px 9px" data-pid="'+key+'" onclick="startEditProd(this.dataset.pid)">✏️</button>';
+      rows+='<button class="btn-confirm" style="font-size:.7rem;padding:4px 9px;background:var(--green-a);color:var(--green);border-color:rgba(34,197,94,.2)" data-pid="'+key+'" data-pname="'+safeName+'" onclick="openDescMgr(this.dataset.pid,this.dataset.pname)">📝 Stok</button>';
+      rows+='<button class="btn-danger" style="font-size:.7rem;padding:4px 9px" data-pid="'+key+'" onclick="delProduct(this.dataset.pid)">🗑️</button>';
       rows+='</td></tr>';
     });
     b.innerHTML=rows;
-  }catch(e){b.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--red);padding:20px">Error: '+e.message+'</td></tr>';}
+  }catch(e){b.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--red);padding:20px">Error: '+e.message+'</td></tr>';}
+}
+async function startEditProd(key){
+  var db=await getDB();if(!db)return;
+  var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  var snap=await m.get(m.ref(db,'products/'+key));
+  if(!snap.exists())return;
+  var prod=snap.val();
+  editProdKey=key;
+  await loadCatSelect();
+  document.getElementById('pN').value=prod.name||'';
+  document.getElementById('pCat').value=prod.categoryId||'';
+  document.getElementById('pPr').value=prod.price||'';
+  document.getElementById('pIc').value=prod.icon||'';
+  document.getElementById('pDs').value=prod.desc||'';
+  document.getElementById('pMin').value=prod.min||'';
+  document.getElementById('pMax').value=prod.max||'';
+  document.getElementById('pUnit').value=prod.unit||'';
+  document.getElementById('pType').value=prod.type||'token';
+  toggleProdType();
+  document.getElementById('addProdBtn').textContent='💾 Update Produk';
+  document.getElementById('prodFormTitle').textContent='Edit Produk';
+  document.getElementById('prodFormCard').scrollIntoView({behavior:'smooth'});
+}
+function cancelEditProd(){
+  editProdKey=null;
+  document.getElementById('pN').value='';document.getElementById('pPr').value='';
+  document.getElementById('pIc').value='';document.getElementById('pDs').value='';
+  document.getElementById('pMin').value='';document.getElementById('pMax').value='';
+  document.getElementById('pUnit').value='';document.getElementById('pCat').value='';
+  document.getElementById('addProdBtn').textContent='+ Tambah Produk';
+  document.getElementById('prodFormTitle').textContent='Tambah Produk Baru';
+}
+function toggleProdType(){
+  var t=document.getElementById('pType').value;
+  var sosmedFields=document.getElementById('sosmedFields');
+  if(sosmedFields)sosmedFields.style.display=t==='sosmed'?'block':'none';
 }
 async function addProduct(){
   var name=document.getElementById('pN').value.trim();
   var price=parseInt(document.getElementById('pPr').value)||0;
   var catId=document.getElementById('pCat').value;
   if(!name||!price||!catId){alert('Nama, harga, dan kategori wajib!');return;}
-  var btn=document.getElementById('addProdBtn');btn.disabled=true;btn.textContent='Menyimpan...';
+  var btn=document.getElementById('addProdBtn');btn.disabled=true;
   try{
-    var db=await getDB();if(!db)throw new Error('Firebase belum setup');
-    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-    await m.push(m.ref(db,'products'),{
+    var data={
       name:name,categoryId:catId,price:price,
       icon:document.getElementById('pIc').value||'📦',
+      desc:document.getElementById('pDs').value,
+      type:document.getElementById('pType').value||'token',
+      min:parseInt(document.getElementById('pMin').value)||0,
+      max:parseInt(document.getElementById('pMax').value)||0,
+      unit:document.getElementById('pUnit').value,
       timestamp:Date.now()
-    });
-    document.getElementById('pN').value='';document.getElementById('pPr').value='';document.getElementById('pIc').value='';
-    showAlert('prodAlert');loadProducts();
+    };
+    if(editProdKey){
+      await dbUpdate('products/'+editProdKey,data);
+    }else{
+      await dbPush('products',data);
+    }
+    cancelEditProd();showAlert('prodAlert');loadProducts();
   }catch(e){showAlert('prodErr');}
-  btn.disabled=false;btn.textContent='+ Tambah';
+  btn.disabled=false;
 }
 async function delProduct(key){
-  if(!confirm('Hapus produk beserta semua stoknya?'))return;
-  var db=await getDB();
-  var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-  await Promise.all([m.remove(m.ref(db,'products/'+key)),m.remove(m.ref(db,'descriptions/'+key))]);
+  if(!confirm('Hapus produk + semua stoknya?'))return;
+  await Promise.all([dbRemove('products/'+key),dbRemove('descriptions/'+key)]);
   loadProducts();
 }
 
-// ── DESCRIPTION/STOCK MANAGER ─────────────────────────────────────────────────
-var curProdKey='',curProdName='',editingKey=null;
-function openDescMgr(prodKey,prodName){
-  curProdKey=prodKey;curProdName=prodName;editingKey=null;
+// ── STOCK / DESC MANAGER ──────────────────────────────────────────────────────
+var curProdKey='',curProdName='',editDescKey=null;
+function openDescMgr(key,name){
+  curProdKey=key;curProdName=name;editDescKey=null;
   document.getElementById('descMgrCard').style.display='block';
-  document.getElementById('descMgrTitle').textContent='📝 Stok — '+prodName;
+  document.getElementById('descMgrTitle').textContent='📝 Stok — '+name;
   document.getElementById('descContent').value='';
   document.getElementById('descSaveBtn').textContent='➕ Tambah Stok';
   document.getElementById('descMgrCard').scrollIntoView({behavior:'smooth'});
   refreshDescList();
 }
-function closeDescMgr(){document.getElementById('descMgrCard').style.display='none';curProdKey='';editingKey=null;}
+function closeDescMgr(){document.getElementById('descMgrCard').style.display='none';curProdKey='';editDescKey=null;}
 async function refreshDescList(){
   var list=document.getElementById('descList');
   var badge=document.getElementById('descStockBadge');
@@ -942,60 +998,51 @@ async function refreshDescList(){
   var db=await getDB();if(!db)return;
   var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
   var snap=await m.get(m.ref(db,'descriptions/'+curProdKey));
+  window._descData={};
   if(!snap.exists()){
-    list.innerHTML='<div style="color:var(--t3);font-size:.78rem;padding:6px">Belum ada stok. Tambah di atas.</div>';
+    list.innerHTML='<div style="color:var(--t3);font-size:.78rem;padding:6px">Belum ada stok.</div>';
     badge.textContent='0 stok';badge.style.color='var(--red)';return;
   }
-  var count=0;var rows='';
+  var count=0;var html='';
   snap.forEach(function(d){
-    count++;
-    var key=d.key;
-    var content=d.val().content||'';
-    rows+='<div class="desc-item">';
-    rows+='<div class="desc-body">'+content+'</div>';
-    rows+='<div class="desc-actions">';
-    rows+='<button class="btn-edit-sm" onclick="startEditDesc(\''+key+'\')">✏️ Edit</button>';
-    rows+='<button class="btn-del-sm" onclick="delDesc(\''+key+'\')">🗑️</button>';
-    rows+='</div></div>';
+    count++;var key=d.key;var content=d.val().content||'';
+    window._descData[key]=content;
+    html+='<div class="desc-item">';
+    html+='<div class="desc-body">'+content.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</div>';
+    html+='<div class="desc-actions">';
+    html+='<button class="btn-edit-sm" data-did="'+key+'" onclick="startEditDesc(this.dataset.did)">✏️ Edit</button>';
+    html+='<button class="btn-del-sm" data-did="'+key+'" onclick="delDesc(this.dataset.did)">🗑️ Hapus</button>';
+    html+='</div></div>';
   });
-  list.innerHTML=rows;
+  list.innerHTML=html;
   badge.textContent=count+' stok';
   badge.style.color=count===0?'var(--red)':count<3?'var(--gold)':'var(--green)';
-  // store content for editing
-  window._descData={};
-  snap.forEach(function(d){window._descData[d.key]=d.val().content||'';});
 }
 function startEditDesc(key){
-  editingKey=key;
+  editDescKey=key;
   document.getElementById('descContent').value=window._descData[key]||'';
   document.getElementById('descSaveBtn').textContent='💾 Update Stok';
   document.getElementById('descContent').focus();
-  document.getElementById('descContent').scrollIntoView({behavior:'smooth'});
 }
 async function saveDesc(){
   var content=document.getElementById('descContent').value.trim();
-  if(!content){alert('Isi deskripsi/konten stok dulu!');return;}
-  var btn=document.getElementById('descSaveBtn');btn.disabled=true;btn.textContent='Menyimpan...';
-  var db=await getDB();if(!db){btn.disabled=false;return;}
-  var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-  if(editingKey){
-    await m.update(m.ref(db,'descriptions/'+curProdKey+'/'+editingKey),{content:content,updatedAt:Date.now()});
-    editingKey=null;
+  if(!content){alert('Isi konten stok dulu!');return;}
+  var btn=document.getElementById('descSaveBtn');btn.disabled=true;
+  if(editDescKey){
+    await dbUpdate('descriptions/'+curProdKey+'/'+editDescKey,{content:content,updatedAt:Date.now()});
+    editDescKey=null;
   }else{
-    await m.push(m.ref(db,'descriptions/'+curProdKey),{content:content,addedAt:Date.now()});
+    await dbPush('descriptions/'+curProdKey,{content:content,addedAt:Date.now()});
   }
   document.getElementById('descContent').value='';
   document.getElementById('descSaveBtn').textContent='➕ Tambah Stok';
   showAlert('descAlert');
-  await refreshDescList();
-  loadProducts();
+  await refreshDescList();loadProducts();
   btn.disabled=false;
 }
 async function delDesc(key){
   if(!confirm('Hapus stok ini?'))return;
-  var db=await getDB();
-  var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-  await m.remove(m.ref(db,'descriptions/'+curProdKey+'/'+key));
+  await dbRemove('descriptions/'+curProdKey+'/'+key);
   await refreshDescList();loadProducts();
 }
 
@@ -1021,7 +1068,7 @@ function renderOrders(list){
     var sc=o.status==='done'?'badge-green':o.status==='sent'?'badge-blue':'badge-gold';
     var st=o.status==='done'?'✅ Selesai':o.status==='sent'?'📦 Terkirim':'⏳ Pending';
     var key=o.key;
-    rows+='<tr style="cursor:pointer" onclick="openOrderDetail(\''+key+'\')">';
+    rows+='<tr style="cursor:pointer" data-oid="'+key+'" onclick="openOrderDetail(this.dataset.oid)">';
     rows+='<td style="font-family:monospace;font-size:.7rem;color:var(--blue2)">'+(o.trxId||key)+'</td>';
     rows+='<td style="font-size:.78rem;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(o.productName||o.service||'—')+'</td>';
     rows+='<td>'+(o.name||'—')+'</td>';
@@ -1029,8 +1076,8 @@ function renderOrders(list){
     rows+='<td style="font-weight:700;color:var(--gold)">Rp '+(o.total||0).toLocaleString('id')+'</td>';
     rows+='<td><span class="badge '+sc+'">'+st+'</span></td>';
     rows+='<td onclick="event.stopPropagation()" style="display:flex;gap:5px">';
-    if(o.status==='pending')rows+='<button class="btn-confirm" style="font-size:.7rem;padding:5px 9px" onclick="event.stopPropagation();confirmOrder(\''+key+'\')">✓</button>';
-    rows+='<button class="btn-danger" style="font-size:.7rem;padding:5px 9px" onclick="event.stopPropagation();deleteOrder(\''+key+'\')">✕</button>';
+    if(o.status==='pending')rows+='<button class="btn-confirm" style="font-size:.7rem;padding:4px 8px" data-oid="'+key+'" onclick="event.stopPropagation();confirmOrder(this.dataset.oid)">✓</button>';
+    rows+='<button class="btn-danger" style="font-size:.7rem;padding:4px 8px" data-oid="'+key+'" onclick="event.stopPropagation();deleteOrder(this.dataset.oid)">✕</button>';
     rows+='</td></tr>';
   });
   b.innerHTML=rows;
@@ -1039,19 +1086,18 @@ function filterOrders(s){renderOrders(s==='all'?allOrders:allOrders.filter(funct
 function openOrderDetail(key){
   var o=allOrders.find(function(x){return x.key===key;});if(!o)return;
   var html='';
-  html+='<div class="dr"><div class="dk">ID Transaksi</div><div class="dv mono">'+(o.trxId||key)+'</div></div>';
+  html+='<div class="dr"><div class="dk">ID</div><div class="dv mono">'+(o.trxId||key)+'</div></div>';
   html+='<div class="dr"><div class="dk">Produk</div><div class="dv">'+(o.productName||o.service||'—')+'</div></div>';
   html+='<div class="dr"><div class="dk">Nama</div><div class="dv">'+(o.name||'—')+'</div></div>';
   html+='<div class="dr"><div class="dk">Email</div><div class="dv">'+(o.email||'—')+'</div></div>';
   html+='<div class="dr"><div class="dk">Total</div><div class="dv" style="color:var(--gold);font-weight:800">Rp '+(o.total||0).toLocaleString('id')+'</div></div>';
   html+='<div class="dr"><div class="dk">Status</div><div class="dv"><span class="badge '+(o.status==='done'?'badge-green':o.status==='sent'?'badge-blue':'badge-gold')+'">'+(o.status==='done'?'✅ Selesai':o.status==='sent'?'📦 Terkirim':'⏳ Pending')+'</span></div></div>';
   html+='<div class="dr"><div class="dk">Waktu</div><div class="dv" style="font-size:.72rem">'+(o.timestamp?new Date(o.timestamp).toLocaleString('id-ID'):'—')+'</div></div>';
-  if(o.descContent){html+='<div class="dr"><div class="dk">Stok terkirim</div><div class="dv" style="font-family:monospace;font-size:.72rem;white-space:pre-wrap">'+o.descContent+'</div></div>';}
-  if(o.proofUrl){html+='<div style="margin-top:12px"><div style="font-size:.74rem;color:var(--t3);margin-bottom:6px">Bukti Transfer</div><img src="'+o.proofUrl+'" style="width:100%;border-radius:10px;border:2px solid var(--brd2);cursor:zoom-in;max-height:220px;object-fit:cover" onclick="openLightbox(this.src)"></div>';}
+  if(o.descContent)html+='<div class="dr"><div class="dk">Stok dikirim</div><div class="dv" style="font-family:monospace;font-size:.72rem;white-space:pre-wrap;max-width:65%">'+o.descContent+'</div></div>';
+  if(o.proofUrl)html+='<div style="margin-top:12px"><div style="font-size:.74rem;color:var(--t3);margin-bottom:6px">Bukti Transfer</div><img src="'+o.proofUrl+'" style="width:100%;border-radius:10px;border:2px solid var(--brd2);cursor:zoom-in;max-height:220px;object-fit:cover" onclick="openLightbox(this.src)"></div>';
   html+='<div style="display:flex;gap:8px;margin-top:16px">';
-  if(o.status==='pending')html+='<button class="btn-save" style="flex:1" onclick="confirmOrder(\''+key+'\');closePopup()">✅ Konfirmasi</button>';
-  html+='<button class="btn-danger" style="flex:1;padding:10px" onclick="deleteOrder(\''+key+'\');closePopup()">🗑️ Hapus</button>';
-  html+='</div>';
+  if(o.status==='pending')html+='<button class="btn-save" style="flex:1" data-oid="'+key+'" onclick="confirmOrder(this.dataset.oid);closePopup()">✅ Konfirmasi</button>';
+  html+='<button class="btn-danger" style="flex:1;padding:10px" data-oid="'+key+'" onclick="deleteOrder(this.dataset.oid);closePopup()">🗑️ Hapus</button></div>';
   document.getElementById('popupContent').innerHTML=html;
   document.getElementById('popup').classList.add('open');
 }
@@ -1059,20 +1105,16 @@ function closePopup(){document.getElementById('popup').classList.remove('open');
 function openLightbox(src){document.getElementById('lbImg').src=src;document.getElementById('lightbox').classList.add('open');}
 async function confirmOrder(key){
   try{
-    var db=await getDB();var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-    await m.update(m.ref(db,'orders/'+key),{status:'done'});
+    await dbUpdate('orders/'+key,{status:'done'});
     var o=allOrders.find(function(x){return x.key===key;});if(o)o.status='done';
     var cfg=await getCfg();
-    if(cfg.botToken&&cfg.chatId){
-      fetch('https://api.telegram.org/bot'+cfg.botToken+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:cfg.chatId,text:'ORDER SELESAI\nID: '+(o&&o.trxId?o.trxId:key)+'\nProduk: '+(o?o.productName||o.service||'—':'—')+'\nNama: '+(o?o.name||'—':'—')+'\nTotal: Rp '+(o?(o.total||0).toLocaleString('id'):'—')})});
-    }
+    if(cfg.botToken&&cfg.chatId)fetch('https://api.telegram.org/bot'+cfg.botToken+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:cfg.chatId,text:'ORDER SELESAI\nID: '+(o&&o.trxId?o.trxId:key)+'\nProduk: '+(o?o.productName||o.service||'—':'—')+'\nNama: '+(o?o.name||'—':'—')})});
     renderOrders(allOrders);
   }catch(e){alert('Error: '+e.message);}
 }
 async function deleteOrder(key){
   if(!confirm('Hapus order?'))return;
-  var db=await getDB();var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-  await m.remove(m.ref(db,'orders/'+key));
+  await dbRemove('orders/'+key);
   allOrders=allOrders.filter(function(o){return o.key!==key;});
   renderOrders(allOrders);
 }
@@ -1095,7 +1137,7 @@ async function loadDash(){
     var rows='';
     sh.forEach(function(o){
       var key=o.key;
-      rows+='<tr style="cursor:pointer" onclick="openOrderDetail(\''+key+'\')">';
+      rows+='<tr style="cursor:pointer" data-oid="'+key+'" onclick="openOrderDetail(this.dataset.oid)">';
       rows+='<td style="font-family:monospace;font-size:.7rem;color:var(--blue2)">'+(o.trxId||key)+'</td>';
       rows+='<td style="font-size:.78rem">'+(o.productName||o.service||'—')+'</td>';
       rows+='<td>'+(o.name||'—')+'</td>';
@@ -1104,6 +1146,7 @@ async function loadDash(){
       rows+='</tr>';
     });
     b.innerHTML=rows;
+    allOrders=recent;
   }catch(e){}
 }
 
@@ -1111,4 +1154,6 @@ async function loadDash(){
 document.getElementById('popup').addEventListener('click',function(e){if(e.target===this)closePopup();});
 document.getElementById('lightbox').addEventListener('click',function(){this.classList.remove('open');});
 initFBFields();loadDash();
-</script></body></html>
+
+</script>
+</body> </html>
