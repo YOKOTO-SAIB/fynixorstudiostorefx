@@ -473,10 +473,11 @@ function setStep(n){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+var _FBCFG={apiKey:"AIzaSyCS52l1z6DrfkqIn4WB4SEOE6hdVu2mX6w",authDomain:"yokotofxport.firebaseapp.com",databaseURL:"https://yokotofxport-default-rtdb.firebaseio.com",projectId:"yokotofxport",storageBucket:"yokotofxport.firebasestorage.app",messagingSenderId:"515300744861",appId:"1:515300744861:web:01117e3f5dc7ed755cbe74"};
 let _db=null,_cfg=null;
 async function getDB(){
   if(_db)return _db;
-  const fc=JSON.parse(localStorage.getItem('yoko_firebase_config')||'null');
+  const fc=JSON.parse(localStorage.getItem('yoko_firebase_config')||'null')||_FBCFG;
   if(!fc||!fc.databaseURL)return null;
   try{
     const{initializeApp,getApps}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
