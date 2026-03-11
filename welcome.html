@@ -540,6 +540,8 @@ async function loadCustomProds(){
     if(ps&&ps.exists()){
       ps.forEach(function(p){
         var prod=p.val();prod._id=p.key;
+        // HANYA tampilkan produk tipe token/digital, SKIP sosmed
+        if(prod.type==='sosmed')return;
         prod._stock=0;
         if(ds&&ds.exists()&&ds.child(p.key).exists())ds.child(p.key).forEach(function(){prod._stock++;});
         allProds.push(prod);
@@ -547,9 +549,11 @@ async function loadCustomProds(){
     }
     var tabHTML='';
     tabHTML+='<button class="cat-tab active" data-cat="all" onclick="filterCat(this)">Semua ('+allProds.length+')</button>';
+    // Hanya tampilkan kategori yang punya produk digital
     Object.keys(allCats).forEach(function(k){
       var cat=allCats[k];
       var count=allProds.filter(function(p){return p.categoryId===k;}).length;
+      if(count===0)return; // skip kategori kosong
       tabHTML+='<button class="cat-tab" data-cat="'+k+'" onclick="filterCat(this)">'+(cat.icon||'')+' '+cat.name+' ('+count+')</button>';
     });
     tabs.innerHTML=tabHTML;
@@ -566,15 +570,18 @@ function filterCat(btn){
 }
 function renderProds(prods){
   var list=document.getElementById('produkList');
-  if(!prods.length){list.innerHTML='<div style="text-align:center;padding:40px;color:var(--t3);font-size:.84rem">Belum ada produk.</div>';return;}
+  if(!prods.length){list.innerHTML='<div style="text-align:center;padding:40px;color:var(--t3);font-size:.84rem">Belum ada produk digital.</div>';return;}
   var html='<div class="custom-prod-grid">';
   prods.forEach(function(p){
+    // Semua yang masuk sini sudah type=token/digital
     var soldOut=p._stock===0;
     var stockColor=soldOut?'var(--red)':p._stock<3?'var(--gold)':'var(--green)';
     var stockTxt=soldOut?'❌ Stok habis':p._stock+' tersedia';
-    html+='<a '+(soldOut?'href="#"':'href="order_produk.html?id='+p._id+'"')+' class="custom-prod-card"'+(soldOut?' style="opacity:.6;pointer-events:none"':'')+' >';
-    html+='<div class="cp-ic">'+(p.icon||'📦')+'</div>';
+    var link=soldOut?'#':'order_produk.html?id='+p._id;
+    html+='<a href="'+link+'" class="custom-prod-card"'+(soldOut?' style="opacity:.55;pointer-events:none"':'')+' >';
+    html+='<div class="cp-ic" style="font-size:1.5rem;margin-bottom:8px">'+(p.icon||'📦')+'</div>';
     html+='<div class="cp-name">'+p.name+'</div>';
+    if(p.desc)html+='<div style="font-size:.68rem;color:var(--t3);margin-bottom:4px;line-height:1.5">'+p.desc+'</div>';
     html+='<div class="cp-price">Rp '+(p.price||0).toLocaleString('id')+'</div>';
     html+='<div class="cp-stock" style="color:'+stockColor+'">'+stockTxt+'</div>';
     html+='</a>';
