@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Topup Saldo — YOKO STORE</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   YOKO STORE — Shared Design System v3
+   Plus Jakarta Sans, Dark/Light theme
+   ═══════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* DARK theme (default) */
+:root, [data-theme="dark"] {
+  --bg:       #0d0d14;
+  --s1:       #151520;
+  --s2:       #1c1c2e;
+  --s3:       #232338;
+  --blue:     #4f7aff;
+  --blue2:    #738fff;
+  --blue-a:   rgba(79,122,255,.15);
+  --blue-b:   rgba(79,122,255,.08);
+  --green:    #22c55e;
+  --green-a:  rgba(34,197,94,.12);
+  --gold:     #f59e0b;
+  --gold-a:   rgba(245,158,11,.1);
+  --red:      #f87171;
+  --purple:   #a78bfa;
+  --w:        #ffffff;
+  --t1:       #eeeef5;
+  --t2:       #8888a8;
+  --t3:       #4a4a65;
+  --brd:      rgba(255,255,255,.07);
+  --brd2:     rgba(255,255,255,.12);
+  --nav-bg:   rgba(13,13,20,.88);
+  --shadow:   0 4px 24px rgba(0,0,0,.35);
+  --shadow-b: 0 6px 24px rgba(79,122,255,.3);
+  --card-hover-bg: #1c1c2e;
+}
+
+/* LIGHT theme */
+[data-theme="light"] {
+  --bg:       #f0f2ff;
+  --s1:       #ffffff;
+  --s2:       #f5f6ff;
+  --s3:       #eceeff;
+  --blue:     #4060f0;
+  --blue2:    #5b78ff;
+  --blue-a:   rgba(64,96,240,.1);
+  --blue-b:   rgba(64,96,240,.05);
+  --green:    #16a34a;
+  --green-a:  rgba(22,163,74,.1);
+  --gold:     #d97706;
+  --gold-a:   rgba(217,119,6,.1);
+  --red:      #dc2626;
+  --purple:   #7c3aed;
+  --w:        #0f172a;
+  --t1:       #1e293b;
+  --t2:       #475569;
+  --t3:       #94a3b8;
+  --brd:      rgba(0,0,0,.07);
+  --brd2:     rgba(0,0,0,.12);
+  --nav-bg:   rgba(240,242,255,.92);
+  --shadow:   0 4px 24px rgba(64,96,240,.1);
+  --shadow-b: 0 6px 24px rgba(64,96,240,.2);
+  --card-hover-bg: #eceeff;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--t1);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background .25s, color .25s;
+}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--s3); border-radius: 2px; }
+a { text-decoration: none; color: inherit; }
+
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 60px; display: flex; align-items: center;
+  justify-content: space-between; padding: 0 20px;
+  background: var(--nav-bg); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--brd);
+  transition: background .25s;
+}
+.nav-brand { display: flex; align-items: center; gap: 10px; }
+.nav-ic {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--blue), var(--blue2));
+  border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; font-size: .95rem;
+}
+.nav-nm { font-weight: 800; font-size: .95rem; color: var(--w); }
+.nav-nm span { color: var(--blue2); }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.nav-back {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 10px;
+  background: var(--s1); border: 1px solid var(--brd);
+  font-size: .78rem; font-weight: 600; color: var(--t2);
+  transition: all .2s; cursor: pointer;
+}
+.nav-back:hover { background: var(--s2); color: var(--t1); }
+.theme-btn {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--s1); border: 1px solid var(--brd2);
+  font-size: .95rem; cursor: pointer; transition: all .2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.theme-btn:hover { background: var(--s2); transform: scale(1.08); }
+
+/* AMBIENT */
+.amb { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.a-orb { position: absolute; border-radius: 50%; filter: blur(110px); }
+
+/* PAGE & WRAP */
+.page { padding: 72px 0 60px; min-height: 100vh; }
+.wrap    { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.wrap-sm { max-width: 680px;  margin: 0 auto; padding: 0 20px; }
+.wrap-xs { max-width: 520px;  margin: 0 auto; padding: 0 20px; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse  { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.4; transform:scale(.7); } }
+.anim  { animation: fadeUp .35s both; }
+.a1x   { animation-delay: .05s; }
+.a2x   { animation-delay: .12s; }
+.a3x   { animation-delay: .2s;  }
+.a4x   { animation-delay: .28s; }
+
+/* SECTION TAG */
+.section-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue-a); border: 1px solid rgba(79,122,255,.2);
+  border-radius: 20px; padding: 5px 14px;
+  font-size: .68rem; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--blue2); margin-bottom: 14px;
+}
+.section-title {
+  font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 800;
+  color: var(--w); line-height: 1.2; letter-spacing: -.3px;
+}
+.section-title .muted { color: var(--t3); }
+
+/* BADGE */
+.badge {
+  display: inline-flex; align-items: center;
+  font-size: .62rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+}
+.badge-blue   { background: var(--blue-a);              color: var(--blue2); border: 1px solid rgba(79,122,255,.2); }
+.badge-green  { background: var(--green-a);             color: var(--green); border: 1px solid rgba(34,197,94,.2);  }
+.badge-gold   { background: var(--gold-a);              color: var(--gold);  border: 1px solid rgba(245,158,11,.2); }
+.badge-purple { background: rgba(167,139,250,.1);       color: var(--purple);border: 1px solid rgba(167,139,250,.2);}
+
+/* CARD */
+.card {
+  background: var(--s1); border: 1px solid var(--brd);
+  border-radius: 18px; padding: 24px;
+  transition: background .25s, border-color .25s;
+}
+.card-hover:hover {
+  background: var(--card-hover-bg); border-color: var(--brd2);
+  transform: translateY(-2px); box-shadow: var(--shadow);
+}
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: inherit; font-weight: 700; border: none; cursor: pointer;
+  transition: all .2s; border-radius: 12px; font-size: .88rem; padding: 13px 26px;
+}
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-primary:hover { background: var(--blue2); transform: translateY(-1px); box-shadow: var(--shadow-b); }
+.btn-primary:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+.btn-ghost  { background: var(--s2); color: var(--t1); border: 1px solid var(--brd2); }
+.btn-ghost:hover { background: var(--s3); }
+.btn-full { width: 100%; }
+.btn-sm { padding: 9px 18px; font-size: .78rem; border-radius: 10px; }
+.btn-danger  { background: rgba(248,113,113,.1); color: var(--red);   border: 1px solid rgba(248,113,113,.2); padding: 7px 12px; border-radius: 8px; font-size: .73rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: all .2s; }
+.btn-danger:hover  { background: var(--red);   color: #fff; }
+.btn-confirm { background: var(--green-a);        color: var(--green); border: 1px solid rgba(34,197,94,.2);  padding: 7px 12px; border-radius: 8px; font-size: .73rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: all .2s; }
+.btn-confirm:hover { background: var(--green); color: #000; }
+.btn-back { display: block; text-align: center; margin-top: 12px; font-size: .8rem; color: var(--t3); cursor: pointer; transition: color .2s; font-weight: 500; width: 100%; }
+.btn-back:hover { color: var(--t1); }
+
+/* FORM */
+.f-group { margin-bottom: 16px; }
+.f-label { display: block; font-size: .78rem; font-weight: 600; color: var(--t2); margin-bottom: 8px; }
+.f-input {
+  width: 100%; background: var(--s2); border: 1.5px solid var(--brd2);
+  border-radius: 11px; padding: 12px 16px; color: var(--t1);
+  font-family: inherit; font-size: .88rem; outline: none;
+  transition: border-color .2s, background .25s;
+}
+.f-input:focus { border-color: var(--blue); }
+.f-input::placeholder { color: var(--t3); }
+.f-hint { font-size: .7rem; color: var(--t3); margin-top: 5px; }
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* QTY ROW */
+.qty-row { display: flex; align-items: center; gap: 10px; }
+.qty-btn {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: var(--s2); border: 1.5px solid var(--brd2);
+  color: var(--t1); font-size: 1.1rem; cursor: pointer;
+  transition: all .2s; display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0; font-family: inherit;
+}
+.qty-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-b); }
+.qty-input { flex: 1; }
+
+/* TOTAL BOX */
+.total-box {
+  background: linear-gradient(135deg, var(--blue-a), var(--blue-b));
+  border: 1.5px solid rgba(79,122,255,.22);
+  border-radius: 14px; padding: 18px 22px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 16px;
+}
+.total-lbl { font-size: .8rem; font-weight: 600; color: var(--t2); }
+.total-val { font-size: 1.5rem; font-weight: 800; color: var(--w); }
+
+/* STEPS */
+.steps-wrap {
+  background: var(--s1); border-bottom: 1px solid var(--brd);
+  padding: 0 20px; position: sticky; top: 60px; z-index: 200;
+  transition: background .25s;
+}
+.steps { max-width: 640px; margin: 0 auto; height: 52px; display: flex; align-items: center; }
+.step-i { display: flex; align-items: center; gap: 8px; }
+.step-c {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--brd2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 700; color: var(--t3);
+  flex-shrink: 0; transition: all .3s;
+}
+.step-i.active .step-c { background: var(--blue); border-color: var(--blue); color: #fff; box-shadow: 0 0 0 4px var(--blue-a); }
+.step-i.done   .step-c { background: var(--green); border-color: var(--green); color: #fff; }
+.step-l { font-size: .72rem; font-weight: 600; color: var(--t3); transition: color .3s; }
+.step-i.active .step-l { color: var(--t1); }
+.step-i.done   .step-l { color: var(--green); }
+.step-line { flex: 1; height: 2px; background: var(--brd2); margin: 0 10px; border-radius: 1px; min-width: 24px; transition: background .3s; }
+.step-i.done + .step-line { background: var(--green); }
+
+/* PANEL */
+.panel { display: none; animation: fadeUp .3s both; }
+.panel.on { display: block; }
+
+/* DETAIL CARD */
+.detail-card { background: var(--s2); border: 1px solid var(--brd2); border-radius: 14px; overflow: hidden; margin-bottom: 14px; }
+.dr { display: flex; justify-content: space-between; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--brd); }
+.dr:last-child { border-bottom: none; }
+.dk { font-size: .78rem; color: var(--t2); font-weight: 500; }
+.dv { font-size: .82rem; font-weight: 600; color: var(--t1); text-align: right; max-width: 60%; word-break: break-all; }
+.dv.gold { color: var(--gold); font-size: 1rem; font-weight: 800; }
+.dv.mono { font-family: monospace; color: var(--blue2); font-size: .75rem; }
+
+/* QRIS */
+.qris-card { background: var(--s2); border: 1px solid var(--brd2); border-radius: 16px; padding: 28px; text-align: center; margin-bottom: 16px; }
+.qris-card img { max-width: 180px; border-radius: 12px; border: 3px solid var(--s3); }
+.qris-hint { font-size: .72rem; color: var(--t3); margin-top: 10px; font-weight: 500; }
+
+/* WARN BOX */
+.warn-box { background: var(--gold-a); border: 1px solid rgba(245,158,11,.2); border-radius: 12px; padding: 12px 16px; margin-bottom: 14px; font-size: .76rem; color: var(--t2); line-height: 1.65; }
+.warn-box strong { color: var(--gold); }
+
+/* ALERT */
+.alert { border-radius: 10px; padding: 10px 14px; font-size: .76rem; font-weight: 500; margin-top: 10px; display: none; }
+.alert-success { background: var(--green-a); border: 1px solid rgba(34,197,94,.22); color: var(--green); }
+
+/* MODAL */
+.modal { display: none; position: fixed; inset: 0; z-index: 900; align-items: center; justify-content: center; padding: 20px; background: rgba(0,0,0,.65); backdrop-filter: blur(12px); }
+.modal.open { display: flex; animation: fadeUp .2s both; }
+.modal-box { background: var(--s1); border: 1px solid var(--brd2); border-radius: 20px; padding: 32px; width: 100%; max-width: 400px; }
+
+/* TABLE */
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--brd); }
+table { width: 100%; border-collapse: collapse; }
+th { font-size: .62rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--t3); padding: 11px 14px; text-align: left; background: var(--s1); border-bottom: 1px solid var(--brd); }
+td { padding: 12px 14px; border-bottom: 1px solid var(--brd); font-size: .82rem; vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--blue-b); }
+
+/* FOOTER */
+footer { padding: 24px 20px; text-align: center; border-top: 1px solid var(--brd); }
+.footer-nm  { font-weight: 800; font-size: .9rem; color: var(--w); margin-bottom: 3px; }
+.footer-nm span { color: var(--blue2); }
+.footer-cp { font-size: .7rem; color: var(--t3); }
+
+/* RESPONSIVE */
+@media(max-width: 700px) {
+  .f-row { grid-template-columns: 1fr; }
+  .wrap, .wrap-sm, .wrap-xs { padding: 0 14px; }
+  .card { border-radius: 14px; padding: 18px; }
+}
+
+.page{padding:80px 0 60px;min-height:100vh;position:relative;z-index:1}
+.wrap{max-width:520px;margin:0 auto;padding:0 20px}
+.saldo-card{background:linear-gradient(135deg,var(--blue),#6366f1);border-radius:18px;padding:22px;margin-bottom:16px;position:relative;overflow:hidden}
+.saldo-card::after{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;background:rgba(255,255,255,.08);border-radius:50%}
+.saldo-label{font-size:.72rem;font-weight:600;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.saldo-val{font-size:1.8rem;font-weight:800;color:#fff}
+.saldo-user{font-size:.78rem;color:rgba(255,255,255,.7);margin-top:4px}
+.amt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.amt-card{background:var(--s1);border:1.5px solid var(--brd2);border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .2s}
+.amt-card:hover{border-color:rgba(79,122,255,.3);background:var(--s2)}
+.amt-card.sel{border-color:var(--blue);background:var(--blue-a);box-shadow:0 0 0 3px var(--blue-a)}
+.amt-val{font-size:.86rem;font-weight:700;color:var(--w)}
+.ocard{background:var(--s1);border:1px solid var(--brd);border-radius:16px;padding:18px;margin-bottom:12px}
+.pay-card{background:var(--s1);border:1px solid var(--brd);border-radius:16px;padding:18px;margin-bottom:12px}
+.detail-box{background:var(--s2);border:1px solid var(--brd2);border-radius:11px;overflow:hidden;margin-bottom:14px}
+.dr{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;border-bottom:1px solid var(--brd)}
+.dr:last-child{border-bottom:none}
+.dk{font-size:.73rem;color:var(--t3)}.dv{font-size:.8rem;font-weight:600;color:var(--t1)}
+.dv.mono{font-family:monospace;color:var(--blue2);font-size:.7rem}
+.f-group{margin-bottom:12px}
+.f-label{display:block;font-size:.73rem;font-weight:600;color:var(--t2);margin-bottom:5px}
+.f-input{width:100%;padding:10px 13px;background:var(--s2);border:1px solid var(--brd2);border-radius:10px;color:var(--t1);font-family:inherit;font-size:.84rem;outline:none;transition:border .2s}
+.f-input:focus{border-color:var(--blue)}
+.btn-primary{display:block;width:100%;padding:13px;border:none;border-radius:11px;background:var(--blue);color:#fff;font-family:inherit;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s;margin-top:4px}
+.btn-primary:hover{background:var(--blue2)}.btn-primary:disabled{opacity:.6;cursor:not-allowed}
+@media(max-width:480px){.amt-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="amb">
+  <div class="a-orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(79,122,255,.1),transparent 70%);position:absolute;top:-150px;right:-100px;border-radius:50%"></div>
+</div>
+<nav class="nav">
+  <a href="welcome.html" class="nav-back">← Kembali</a>
+  <div class="nav-brand"><div class="nav-ic">💰</div><div class="nav-nm">YOKO<span>STORE</span></div></div>
+  <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+</nav>
+<div class="page"><div class="wrap">
+
+  <!-- STEP 1: PILIH NOMINAL -->
+  <div id="step1">
+    <div class="saldo-card">
+      <div class="saldo-label">Saldo Kamu</div>
+      <div class="saldo-val" id="userSaldo">Rp 0</div>
+      <div class="saldo-user" id="userName">Loading...</div>
+    </div>
+    <div class="ocard">
+      <div style="font-size:.88rem;font-weight:700;color:var(--w);margin-bottom:14px">💰 Topup Saldo</div>
+      <div style="font-size:.72rem;font-weight:600;color:var(--t2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Pilih Nominal</div>
+      <div class="amt-grid" id="amountGrid"></div>
+      <div class="f-group">
+        <label class="f-label">Atau masukkan nominal lain</label>
+        <input class="f-input" id="customAmt" type="number" placeholder="Minimal Rp 5.000" oninput="onCustomInput()">
+      </div>
+      <div style="font-size:.76rem;margin-bottom:12px;text-align:center" id="amtPreview">Pilih atau masukkan nominal</div>
+      <button class="btn-primary" id="topupBtn" disabled onclick="goToPayment()">Lanjut ke Pembayaran →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: BAYAR -->
+  <div id="step2" style="display:none">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <button onclick="document.getElementById('step1').style.display='block';document.getElementById('step2').style.display='none'" style="padding:8px 14px;border-radius:9px;background:var(--s1);border:1px solid var(--brd2);font-size:.78rem;color:var(--t2);cursor:pointer;font-family:inherit">← Ganti Nominal</button>
+      <div style="font-size:.9rem;font-weight:700;color:var(--w)">Pembayaran</div>
+    </div>
+    <div id="paySection"></div>
+  </div>
+
+  <!-- STEP 3: SUKSES -->
+  <div id="step3" style="display:none">
+    <div style="background:var(--s1);border:1px solid var(--brd);border-radius:18px;padding:32px;text-align:center;margin-bottom:12px">
+      <div style="font-size:3rem;margin-bottom:12px">⏳</div>
+      <div style="font-size:1rem;font-weight:800;color:var(--w);margin-bottom:8px">Permintaan Dikirim!</div>
+      <div style="font-size:.8rem;color:var(--t2);line-height:1.7;margin-bottom:16px">Topup kamu sedang diverifikasi admin. Saldo akan ditambahkan setelah dikonfirmasi.</div>
+      <div style="background:var(--s2);border-radius:11px;padding:14px;margin-bottom:16px;text-align:left">
+        <div class="dr" style="border-bottom:1px solid var(--brd)"><span class="dk">ID Transaksi</span><span class="dv mono" id="doneTrx">—</span></div>
+        <div class="dr" style="border:none"><span class="dk">Jumlah</span><span class="dv" style="color:var(--gold);font-weight:800" id="doneAmt">—</span></div>
+      </div>
+      <a href="welcome.html" style="display:block;padding:12px;background:var(--blue);color:#fff;border-radius:11px;font-weight:700;text-decoration:none;font-size:.85rem">🏠 Kembali ke Beranda</a>
+    </div>
+  </div>
+
+</div></div>
+<script>
+const TK='yoko_theme';
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem(TK,t);var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}
+function toggleTheme(){applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');}
+(function(){applyTheme(localStorage.getItem(TK)||'dark');})();
+var _FBCFG={apiKey:"AIzaSyCS52l1z6DrfkqIn4WB4SEOE6hdVu2mX6w",authDomain:"yokotofxport.firebaseapp.com",databaseURL:"https://yokotofxport-default-rtdb.firebaseio.com",projectId:"yokotofxport",storageBucket:"yokotofxport.firebasestorage.app",messagingSenderId:"515300744861",appId:"1:515300744861:web:01117e3f5dc7ed755cbe74"};
+var _app=null,_auth=null,_db=null,_cfg=null;
+async function getFB(){
+  if(_app)return{app:_app,auth:_auth,db:_db};
+  var fc=JSON.parse(localStorage.getItem('yoko_firebase_config')||'null')||_FBCFG;
+  var a=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
+  var au=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
+  var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  _app=a.getApps().find(function(x){return x.name==='yoko';})||a.initializeApp(fc,'yoko');
+  _auth=au.getAuth(_app);
+  _db=d.getDatabase(_app);
+  return{app:_app,auth:_auth,db:_db};
+}
+async function getCfg(){
+  if(_cfg)return _cfg;
+  var fb=await getFB();
+  var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  var s=await d.get(d.ref(fb.db,'config'));
+  _cfg=s.exists()?s.val():{};return _cfg;
+}
+async function dbGet(path){var fb=await getFB();var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');var s=await d.get(d.ref(fb.db,path));return s.exists()?s.val():null;}
+async function dbSet(path,data){var fb=await getFB();var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');await d.set(d.ref(fb.db,path),data);}
+async function dbUpdate(path,data){var fb=await getFB();var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');await d.update(d.ref(fb.db,path),data);}
+async function dbPush(path,data){var fb=await getFB();var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');var r=await d.push(d.ref(fb.db,path),data);return r.key;}
+async function dbRemove(path){var fb=await getFB();var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');await d.remove(d.ref(fb.db,path));}
+async function getCurrentUser(){
+  var fb=await getFB();
+  return new Promise(function(resolve){
+    var au=fb.auth;
+    if(au.currentUser)return resolve(au.currentUser);
+    import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js').then(function(m){
+      var unsub=m.onAuthStateChanged(au,function(u){unsub();resolve(u);});
+    });
+  });
+}
+async function requireAuth(redirectTo){
+  var u=await getCurrentUser();
+  if(!u){window.location.replace((redirectTo||'login.html')+'?from='+encodeURIComponent(location.pathname.split('/').pop()));return null;}
+  return u;
+}
+async function getUserData(uid){return await dbGet('users/'+uid);}
+function genTRX(prefix){return (prefix||'TRX')+'-'+Date.now().toString(36).toUpperCase().slice(-8);}
+
+
+var curUser=null,curAmount=0;
+
+const TOPUP_OPTIONS=[
+  {val:5000,  label:'Rp 5.000'},
+  {val:10000, label:'Rp 10.000'},
+  {val:25000, label:'Rp 25.000'},
+  {val:50000, label:'Rp 50.000'},
+  {val:100000,label:'Rp 100.000'},
+  {val:200000,label:'Rp 200.000'},
+];
+
+async function initTopup(){
+  curUser=await requireAuth('login.html');
+  if(!curUser)return;
+  var ud=await getUserData(curUser.uid);
+  document.getElementById('userName').textContent=ud?ud.name:curUser.displayName||'User';
+  document.getElementById('userSaldo').textContent='Rp '+(ud?ud.saldo||0:0).toLocaleString('id');
+  buildAmountGrid();
+}
+
+function buildAmountGrid(){
+  var grid=document.getElementById('amountGrid');
+  var html='';
+  TOPUP_OPTIONS.forEach(function(o){
+    html+='<div class="amt-card" data-val="'+o.val+'" onclick="selectAmount(this)">';
+    html+='<div class="amt-val">'+o.label+'</div>';
+    html+='</div>';
+  });
+  grid.innerHTML=html;
+}
+
+function selectAmount(el){
+  document.querySelectorAll('.amt-card').forEach(function(c){c.classList.remove('sel');});
+  el.classList.add('sel');
+  curAmount=parseInt(el.dataset.val);
+  document.getElementById('customAmt').value='';
+  updatePreview();
+}
+
+function onCustomInput(){
+  document.querySelectorAll('.amt-card').forEach(function(c){c.classList.remove('sel');});
+  var v=parseInt(document.getElementById('customAmt').value)||0;
+  curAmount=v;
+  updatePreview();
+}
+
+function updatePreview(){
+  var valid=curAmount>=5000;
+  var prev=document.getElementById('amtPreview');
+  var btn=document.getElementById('topupBtn');
+  if(curAmount>0&&!valid){
+    prev.textContent='Minimal topup Rp 5.000';prev.style.color='var(--red)';
+  }else if(curAmount>0){
+    prev.textContent='Topup Rp '+curAmount.toLocaleString('id')+' ke saldo kamu';prev.style.color='var(--green)';
+  }else{
+    prev.textContent='Pilih atau masukkan nominal';prev.style.color='var(--t3)';
+  }
+  btn.disabled=!valid;
+}
+
+async function goToPayment(){
+  if(curAmount<5000){alert('Minimal topup Rp 5.000!');return;}
+  var btn=document.getElementById('topupBtn');btn.disabled=true;btn.textContent='Memproses...';
+  var cfg=await getCfg();
+  var trxId=genTRX('TOP');
+  // Tampilkan halaman bayar
+  document.getElementById('step1').style.display='none';
+  document.getElementById('step2').style.display='block';
+  // Render payment section
+  var qrisImg=cfg.qrisImage||'';
+  var qrisName=cfg.qrisName||'YOKO STORE';
+  var html='';
+  html+='<div class="pay-card">';
+  html+='<div style="font-size:.88rem;font-weight:700;color:var(--w);margin-bottom:14px">Detail Topup</div>';
+  html+='<div class="detail-box">';
+  html+='<div class="dr"><span class="dk">ID Transaksi</span><span class="dv mono">'+trxId+'</span></div>';
+  html+='<div class="dr"><span class="dk">Akun</span><span class="dv">'+document.getElementById('userName').textContent+'</span></div>';
+  html+='<div class="dr" style="border:none"><span class="dk">Jumlah Topup</span><span class="dv" style="color:var(--gold);font-size:.92rem;font-weight:800">Rp '+curAmount.toLocaleString('id')+'</span></div>';
+  html+='</div></div>';
+  if(qrisImg){
+    html+='<div class="pay-card" style="text-align:center">';
+    html+='<div style="font-size:.78rem;font-weight:600;color:var(--t2);margin-bottom:12px">Scan QRIS untuk bayar</div>';
+    html+='<img src="'+qrisImg+'" style="max-width:200px;border-radius:14px;border:3px solid var(--s3)">';
+    html+='<div style="font-size:.74rem;color:var(--t3);margin-top:8px">'+qrisName+'</div>';
+    html+='<div style="font-size:.78rem;font-weight:700;color:var(--gold);margin-top:6px">Transfer tepat Rp '+curAmount.toLocaleString('id')+'</div>';
+    html+='</div>';
+  }else{
+    html+='<div style="background:var(--gold-a);border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:14px;margin-bottom:12px;font-size:.78rem;color:var(--t2)">⚠️ QRIS belum dikonfigurasi. Hubungi admin.</div>';
+  }
+  html+='<div class="pay-card">';
+  html+='<div style="font-size:.84rem;font-weight:700;color:var(--w);margin-bottom:12px">Upload Bukti Transfer</div>';
+  html+='<div class="f-group"><input class="f-input" id="buktiFile" type="file" accept="image/*" style="padding:10px;cursor:pointer"></div>';
+  var confirmBtnHtml='<button class="btn-primary" id="confirmBtn">✅ Konfirmasi Sudah Transfer</button>';
+  html+=confirmBtnHtml;
+  html+='<div style="display:none;font-size:.76rem;color:var(--red);margin-top:8px;text-align:center" id="payErr"></div>';
+  html+='</div>';
+  document.getElementById('paySection').innerHTML=html;
+  var cb=document.getElementById('confirmBtn');
+  if(cb){var tid=trxId;var amt=curAmount;cb.addEventListener('click',function(){confirmTopup(tid,amt);});}
+  btn.disabled=false;btn.textContent='Lanjut ke Pembayaran →';
+}
+
+async function confirmTopup(trxId,amount){
+  var file=document.getElementById('buktiFile').files[0];
+  if(!file){document.getElementById('payErr').style.display='block';document.getElementById('payErr').textContent='Upload bukti transfer dulu!';return;}
+  var btn=document.getElementById('confirmBtn');btn.disabled=true;btn.textContent='Mengirim...';
+  var cfg=await getCfg();
+  var proofUrl='';
+  if(cfg.botToken&&cfg.chatId){
+    try{
+      var fd=new FormData();fd.append('chat_id',cfg.chatId);fd.append('photo',file);
+      fd.append('caption','TOPUP BARU\nID: '+trxId+'\nUser: '+curUser.email+'\nJumlah: Rp '+amount.toLocaleString('id'));
+      var r=await fetch('https://api.telegram.org/bot'+cfg.botToken+'/sendPhoto',{method:'POST',body:fd});
+      var rj=await r.json();
+      if(rj.ok&&rj.result&&rj.result.photo){
+        var fid=rj.result.photo[rj.result.photo.length-1].file_id;
+        var fp=await(await fetch('https://api.telegram.org/bot'+cfg.botToken+'/getFile?file_id='+fid)).json();
+        if(fp.ok)proofUrl='https://api.telegram.org/file/bot'+cfg.botToken+'/'+fp.result.file_path;
+      }
+    }catch(e){}
+  }
+  // Simpan topup request ke Firebase
+  await dbPush('topups',{
+    uid:curUser.uid,email:curUser.email,
+    name:document.getElementById('userName').textContent,
+    trxId:trxId,amount:amount,
+    proofUrl:proofUrl,status:'pending',
+    timestamp:Date.now()
+  });
+  // Tampilkan success
+  document.getElementById('step2').style.display='none';
+  document.getElementById('step3').style.display='block';
+  document.getElementById('doneTrx').textContent=trxId;
+  document.getElementById('doneAmt').textContent='Rp '+amount.toLocaleString('id');
+}
+
+initTopup();
+
+</script>
+</body></html>

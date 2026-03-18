@@ -402,6 +402,10 @@ function toggleTheme(){applyTheme(document.documentElement.getAttribute('data-th
       <div class="sb-item" onclick="showPanel('orders',this)"><span class="ic">📦</span>Monitoring Order</div>
       <div class="sb-item" onclick="showPanel('categories',this)"><span class="ic">📂</span>Kategori</div>
       <div class="sb-item" onclick="showPanel('products',this)"><span class="ic">🛒</span>Produk & Stok</div>
+      <div class="sb-grp">Member</div>
+      <div class="sb-item" onclick="showPanel('users',this)"><span class="ic">👥</span>Data User</div>
+      <div class="sb-item" onclick="showPanel('topups',this)"><span class="ic">💰</span>Topup</div>
+      <div class="sb-item" onclick="showPanel('otporders',this)"><span class="ic">📲</span>Order OTP</div>
       <div class="sb-grp">Pengaturan</div>
       <div class="sb-item" onclick="showPanel('settings',this)"><span class="ic">⚙️</span>Pengaturan</div>
       <div class="sb-item" onclick="showPanel('qris',this)"><span class="ic">📱</span>QRIS</div>
@@ -630,14 +634,56 @@ function toggleTheme(){applyTheme(document.documentElement.getAttribute('data-th
 <pre style="background:var(--s2);border:1px solid var(--brd2);border-radius:9px;padding:13px;font-size:.68rem;color:var(--t1);overflow-x:auto;line-height:1.7">{
   "rules": {
     ".read": false, ".write": false,
-    "orders":       { ".read":true, ".write":true, ".indexOn":["timestamp"] },
+    "orders":       { ".read":true, ".write":true, ".indexOn":["timestamp","type"] },
     "config":       { ".read":true, ".write":true },
     "testimonials": { ".read":true, ".write":true },
     "products":     { ".read":true, ".write":true },
     "categories":   { ".read":true, ".write":true },
-    "descriptions": { ".read":true, ".write":true }
+    "descriptions": { ".read":true, ".write":true },
+    "users":        { ".read":true, ".write":true },
+    "topups":       { ".read":true, ".write":true, ".indexOn":["timestamp","uid"] }
   }
 }</pre></div>
+      </div>
+
+      <!-- USERS -->
+      <div class="panel" id="panel-users">
+        <div class="pane-title">Data User</div><div class="pane-sub">Semua user terdaftar. Klik baris untuk edit saldo.</div>
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+          <input id="userSearch" class="f-input" style="max-width:240px;padding:8px 12px" placeholder="🔍 Cari nama/email..." oninput="filterUsers()">
+          <button class="btn-filt" onclick="loadUsers()">↻ Refresh</button>
+        </div>
+        <div class="tbl-wrap"><table><thead><tr><th>Nama</th><th>Email</th><th>Saldo</th><th>Daftar</th><th>Aksi</th></tr></thead>
+        <tbody id="usersBody"><tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr></tbody></table></div>
+      </div>
+
+      <!-- TOPUP -->
+      <div class="panel" id="panel-topups">
+        <div class="pane-title">Topup Saldo</div><div class="pane-sub">Konfirmasi topup user. Klik ✓ untuk approve dan tambah saldo otomatis.</div>
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+          <button class="btn-filt" onclick="filterTopups('all')">Semua</button>
+          <button class="btn-filt" style="background:var(--gold-a);color:var(--gold);border-color:rgba(245,158,11,.2)" onclick="filterTopups('pending')">⏳ Pending</button>
+          <button class="btn-filt" style="background:var(--green-a);color:var(--green);border-color:rgba(34,197,94,.2)" onclick="filterTopups('done')">✅ Selesai</button>
+          <button class="btn-filt" onclick="loadTopups()">↻ Refresh</button>
+        </div>
+        <div class="tbl-wrap"><table><thead><tr><th>ID</th><th>User</th><th>Jumlah</th><th>Bukti</th><th>Status</th><th>Aksi</th></tr></thead>
+        <tbody id="topupsBody"><tr><td colspan="6" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr></tbody></table></div>
+      </div>
+
+      <!-- OTP ORDERS -->
+      <div class="panel" id="panel-otporders">
+        <div class="pane-title">Order OTP</div><div class="pane-sub">Semua transaksi OTP virtual dari RumahOTP.</div>
+        <div style="display:flex;gap:8px;margin-bottom:12px"><button class="btn-filt" onclick="loadOtpOrders()">↻ Refresh</button></div>
+        <div class="tbl-wrap"><table><thead><tr><th>ID</th><th>User</th><th>Layanan</th><th>Negara</th><th>Nomor</th><th>Status</th><th>Harga</th></tr></thead>
+        <tbody id="otpOrdersBody"><tr><td colspan="7" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr></tbody></table></div>
+      </div>
+
+      <!-- EDIT SALDO POPUP -->
+      <div class="popup" id="editSaldoPopup">
+        <div class="popup-box" style="max-width:360px">
+          <div class="popup-title">Edit Saldo User <button class="popup-close" onclick="closeEditSaldo()">✕</button></div>
+          <div id="editSaldoContent"></div>
+        </div>
       </div>
 
     </div>
@@ -710,7 +756,7 @@ function doLogout(){sessionStorage.removeItem('yoko_admin_sess');window.location
 function showAlert(id,dur){var e=document.getElementById(id);if(!e)return;e.style.display='block';setTimeout(function(){e.style.display='none';},dur||3000);}
 
 // ── PANELS ───────────────────────────────────────────────────────────────────
-var TITLES={dashboard:'Dashboard',orders:'Monitoring Order',categories:'Kategori',products:'Produk & Stok',settings:'Pengaturan',qris:'QRIS',email:'Email',firebase:'Firebase'};
+var TITLES={dashboard:'Dashboard',orders:'Monitoring Order',categories:'Kategori',products:'Produk & Stok',settings:'Pengaturan',qris:'QRIS',email:'Email',firebase:'Firebase',users:'Data User',topups:'Topup Saldo',otporders:'Order OTP'};
 function showPanel(id,el){
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on');});
   document.querySelectorAll('.sb-item').forEach(function(i){i.classList.remove('active');});
@@ -1212,8 +1258,173 @@ async function loadDash(){
   }catch(e){}
 }
 
+// ── USERS ────────────────────────────────────────────────────────────────────
+var allUsers=[];
+async function loadUsers(){
+  var b=document.getElementById('usersBody');
+  b.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr>';
+  try{
+    var db=await getDB();if(!db)return;
+    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    var snap=await m.get(m.ref(db,'users'));
+    allUsers=[];
+    if(!snap.exists()){b.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">Belum ada user.</td></tr>';return;}
+    snap.forEach(function(u){allUsers.push(Object.assign({uid:u.key},u.val()));});
+    renderUsers(allUsers);
+  }catch(e){b.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--red);padding:20px">Error: '+e.message+'</td></tr>';}
+}
+function renderUsers(list){
+  var b=document.getElementById('usersBody');
+  if(!list.length){b.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">Tidak ada user.</td></tr>';return;}
+  var rows='';
+  list.forEach(function(u){
+    rows+='<tr>';
+    rows+='<td style="font-weight:600;color:var(--w)">'+(u.name||'—')+'</td>';
+    rows+='<td style="font-size:.76rem;color:var(--t2)">'+(u.email||'—')+'</td>';
+    rows+='<td style="font-weight:700;color:var(--gold)">Rp '+(u.saldo||0).toLocaleString('id')+'</td>';
+    rows+='<td style="font-size:.72rem;color:var(--t3)">'+(u.createdAt?new Date(u.createdAt).toLocaleDateString('id-ID'):'—')+'</td>';
+    rows+='<td><button class="btn-confirm" style="font-size:.7rem;padding:4px 9px" data-uid="'+u.uid+'" onclick="openEditSaldo(this.dataset.uid)">✏️ Saldo</button></td>';
+    rows+='</tr>';
+  });
+  b.innerHTML=rows;
+}
+function filterUsers(){
+  var q=document.getElementById('userSearch').value.toLowerCase();
+  renderUsers(allUsers.filter(function(u){return (u.name||'').toLowerCase().includes(q)||(u.email||'').toLowerCase().includes(q);}));
+}
+function openEditSaldo(uid){
+  var u=allUsers.find(function(x){return x.uid===uid;});if(!u)return;
+  var content='<div style="margin-bottom:12px"><div style="font-size:.8rem;font-weight:700;color:var(--w);margin-bottom:2px">'+(u.name||'—')+'</div><div style="font-size:.74rem;color:var(--t3)">'+(u.email||'—')+'</div></div>';
+  content+='<div style="background:var(--s2);border-radius:10px;padding:12px;margin-bottom:14px;display:flex;justify-content:space-between"><span style="font-size:.76rem;color:var(--t3)">Saldo saat ini</span><span style="font-weight:800;color:var(--gold)">Rp '+(u.saldo||0).toLocaleString('id')+'</span></div>';
+  content+='<div class="f-group"><label class="f-label">Saldo Baru (Rp)</label><input class="f-input" id="editSaldoInput" type="number" value="'+(u.saldo||0)+'"></div>';
+  content+='<div style="display:flex;gap:8px;margin-bottom:8px">';
+  content+='<button class="btn-filt" style="flex:1" data-uid="'+uid+'" onclick="addSaldo(this.dataset.uid,10000)">+10K</button>';
+  content+='<button class="btn-filt" style="flex:1" data-uid="'+uid+'" onclick="addSaldo(this.dataset.uid,50000)">+50K</button>';
+  content+='<button class="btn-filt" style="flex:1" data-uid="'+uid+'" onclick="addSaldo(this.dataset.uid,100000)">+100K</button>';
+  content+='</div>';
+  content+='<button class="btn-save" style="width:100%" data-uid="'+uid+'" onclick="saveSaldo(this.dataset.uid)">💾 Simpan Saldo</button>';
+  content+='<div style="display:none;font-size:.74rem;color:var(--green);margin-top:8px;text-align:center" id="saldoSaveOk">✅ Saldo berhasil diupdate!</div>';
+  document.getElementById('editSaldoContent').innerHTML=content;
+  document.getElementById('editSaldoPopup').classList.add('open');
+}
+function closeEditSaldo(){document.getElementById('editSaldoPopup').classList.remove('open');}
+function addSaldo(uid,amount){
+  var inp=document.getElementById('editSaldoInput');
+  var cur=parseInt(inp.value)||0;
+  inp.value=cur+amount;
+}
+async function saveSaldo(uid){
+  var newSaldo=parseInt(document.getElementById('editSaldoInput').value)||0;
+  if(newSaldo<0){alert('Saldo tidak boleh negatif!');return;}
+  var btn=document.querySelector('#editSaldoContent .btn-save');btn.disabled=true;btn.textContent='Menyimpan...';
+  try{
+    await dbUpdate('users/'+uid,{saldo:newSaldo});
+    var u=allUsers.find(function(x){return x.uid===uid;});if(u)u.saldo=newSaldo;
+    document.getElementById('saldoSaveOk').style.display='block';
+    renderUsers(allUsers);
+    setTimeout(closeEditSaldo,1200);
+  }catch(e){alert('Error: '+e.message);}
+  btn.disabled=false;btn.textContent='💾 Simpan Saldo';
+}
+
+// ── TOPUPS ────────────────────────────────────────────────────────────────────
+var allTopups=[];
+async function loadTopups(){
+  var b=document.getElementById('topupsBody');
+  b.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr>';
+  try{
+    var db=await getDB();if(!db)return;
+    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    var snap=await m.get(m.query(m.ref(db,'topups'),m.orderByChild('timestamp')));
+    allTopups=[];
+    if(!snap.exists()){b.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--t3);padding:20px">Belum ada topup.</td></tr>';return;}
+    snap.forEach(function(c){allTopups.unshift(Object.assign({key:c.key},c.val()));});
+    renderTopups(allTopups);
+  }catch(e){b.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--red);padding:20px">Error: '+e.message+'</td></tr>';}
+}
+function renderTopups(list){
+  var b=document.getElementById('topupsBody');
+  if(!list.length){b.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--t3);padding:20px">Tidak ada data.</td></tr>';return;}
+  var rows='';
+  list.forEach(function(t){
+    var sc=t.status==='done'?'badge-green':'badge-gold';
+    var st=t.status==='done'?'✅ Selesai':'⏳ Pending';
+    rows+='<tr>';
+    rows+='<td style="font-family:monospace;font-size:.7rem;color:var(--blue2)">'+(t.trxId||t.key)+'</td>';
+    rows+='<td><div style="font-size:.78rem;font-weight:600">'+(t.name||'—')+'</div><div style="font-size:.68rem;color:var(--t3)">'+(t.email||'—')+'</div></td>';
+    rows+='<td style="font-weight:700;color:var(--gold)">Rp '+(t.amount||0).toLocaleString('id')+'</td>';
+    rows+='<td>'+(t.proofUrl?'<img src="'+t.proofUrl+'" style="width:44px;height:44px;object-fit:cover;border-radius:6px;cursor:zoom-in;border:1px solid var(--brd2)" onclick="openLightbox(this.src)">':'—')+'</td>';
+    rows+='<td><span class="badge '+sc+'">'+st+'</span></td>';
+    rows+='<td style="display:flex;gap:5px">';
+    if(t.status==='pending')rows+='<button class="btn-confirm" style="font-size:.7rem;padding:4px 9px" data-tkey="'+t.key+'" data-tuid="'+t.uid+'" data-tamt="'+t.amount+'" onclick="approveTopup(this.dataset.tkey,this.dataset.tuid,parseInt(this.dataset.tamt))">✓</button>';
+    rows+='<button class="btn-danger" style="font-size:.7rem;padding:4px 9px" data-tkey="'+t.key+'" onclick="rejectTopup(this.dataset.tkey)">✕</button>';
+    rows+='</td></tr>';
+  });
+  b.innerHTML=rows;
+}
+function filterTopups(s){renderTopups(s==='all'?allTopups:allTopups.filter(function(t){return t.status===s;}));}
+async function approveTopup(key,uid,amount){
+  if(!confirm('Approve topup Rp '+amount.toLocaleString('id')+'? Saldo user akan bertambah.'))return;
+  try{
+    // Ambil saldo sekarang
+    var curData=await dbGet('users/'+uid);
+    var curSaldo=(curData&&curData.saldo)||0;
+    var newSaldo=curSaldo+amount;
+    // Update saldo + status topup
+    await Promise.all([
+      dbUpdate('users/'+uid,{saldo:newSaldo}),
+      dbUpdate('topups/'+key,{status:'done',approvedAt:Date.now()})
+    ]);
+    // Update local
+    var t=allTopups.find(function(x){return x.key===key;});if(t)t.status='done';
+    var u=allUsers.find(function(x){return x.uid===uid;});if(u)u.saldo=newSaldo;
+    renderTopups(allTopups);
+    // Notif Telegram
+    var cfg=await getCfg();
+    if(cfg.botToken&&cfg.chatId){
+      fetch('https://api.telegram.org/bot'+cfg.botToken+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:cfg.chatId,text:'TOPUP DIAPPROVE\nID: '+key+'\nUser: '+(curData?curData.email:'—')+'\nJumlah: Rp '+amount.toLocaleString('id')+'\nSaldo baru: Rp '+newSaldo.toLocaleString('id')})});
+    }
+  }catch(e){alert('Error: '+e.message);}
+}
+async function rejectTopup(key){
+  if(!confirm('Tolak topup ini?'))return;
+  await dbUpdate('topups/'+key,{status:'rejected',rejectedAt:Date.now()});
+  var t=allTopups.find(function(x){return x.key===key;});if(t)t.status='rejected';
+  renderTopups(allTopups);
+}
+
+// ── OTP ORDERS ────────────────────────────────────────────────────────────────
+async function loadOtpOrders(){
+  var b=document.getElementById('otpOrdersBody');
+  b.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr>';
+  try{
+    var db=await getDB();if(!db)return;
+    var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    var snap=await m.get(m.query(m.ref(db,'orders'),m.orderByChild('timestamp')));
+    var rows='';var count=0;
+    if(snap.exists())snap.forEach(function(c){
+      var o=c.val();
+      if(o.type!=='otp')return;
+      count++;
+      var sc=o.status==='done'?'badge-green':o.status==='waiting_otp'?'badge-blue':'badge-gold';
+      var st=o.status==='done'?'✅ Selesai':o.status==='waiting_otp'?'📲 Menunggu OTP':'⏳ Pending';
+      rows='<tr>'+
+        '<td style="font-family:monospace;font-size:.7rem;color:var(--blue2)">'+(o.trxId||c.key)+'</td>'+
+        '<td><div style="font-size:.78rem;font-weight:600">'+(o.name||'—')+'</div><div style="font-size:.68rem;color:var(--t3)">'+(o.email||'—')+'</div></td>'+
+        '<td style="font-size:.78rem">'+(o.service||'—')+'</td>'+
+        '<td style="font-size:.78rem">'+(o.country||'—')+'</td>'+
+        '<td style="font-family:monospace;font-size:.76rem;color:var(--blue2)">'+(o.phone||'—')+'</td>'+
+        '<td><span class="badge '+sc+'">'+st+'</span></td>'+
+        '<td style="font-weight:700;color:var(--gold)">Rp '+(o.price||0).toLocaleString('id')+'</td>'+
+        '</tr>'+rows;
+    });
+    b.innerHTML=count?rows:'<tr><td colspan="7" style="text-align:center;color:var(--t3);padding:20px">Belum ada order OTP.</td></tr>';
+  }catch(e){b.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--red);padding:20px">Error: '+e.message+'</td></tr>';}
+}
+
 // ── INIT ──────────────────────────────────────────────────────────────────────
 document.getElementById('popup').addEventListener('click',function(e){if(e.target===this)closePopup();});
+document.getElementById('editSaldoPopup').addEventListener('click',function(e){if(e.target===this)closeEditSaldo();});
 document.getElementById('lightbox').addEventListener('click',function(){this.classList.remove('open');});
 initFBFields();seedDefaultCategories().then(function(){loadDash();loadCatSelect();});
 

@@ -321,6 +321,9 @@ footer { padding: 24px 20px; text-align: center; border-top: 1px solid var(--brd
 .mc-green:hover{border-color:rgba(34,197,94,.25);background:var(--card-hover-bg,var(--s2))}
 .mc-gold:hover{border-color:rgba(245,158,11,.25);background:var(--card-hover-bg,var(--s2))}
 .mc-purple:hover{border-color:rgba(167,139,250,.25);background:var(--card-hover-bg,var(--s2))}
+.mc-cyan:hover{border-color:rgba(6,182,212,.25);background:var(--card-hover-bg,var(--s2))}
+.mc-cyan .mc-icon{background:rgba(6,182,212,.1)}
+.mc-cyan .mc-title{color:#22d3ee}
 .mc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
 .mc-icon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
 .mc-blue .mc-icon{background:var(--blue-a)}.mc-green .mc-icon{background:var(--green-a)}.mc-gold .mc-icon{background:var(--gold-a)}.mc-purple .mc-icon{background:rgba(167,139,250,.1)}
@@ -367,6 +370,7 @@ footer { padding: 24px 20px; text-align: center; border-top: 1px solid var(--brd
 .star-b.on{color:var(--gold)}
 .btn-back-inline{padding:8px 14px;border-radius:10px;background:var(--s1);border:1px solid var(--brd);font-size:.78rem;font-weight:600;color:var(--t2);cursor:pointer;font-family:inherit;transition:all .2s;flex-shrink:0}
 .btn-back-inline:hover{color:var(--t1);border-color:var(--brd2)}
+@media(min-width:580px){.menu-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:580px){.menu-grid{grid-template-columns:1fr}.plat-grid{grid-template-columns:1fr 1fr}.custom-prod-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -378,7 +382,25 @@ footer { padding: 24px 20px; text-align: center; border-top: 1px solid var(--brd
 <nav class="nav">
   <a href="index.html" class="nav-back">← Beranda</a>
   <div class="nav-brand"><div class="nav-ic">🛍️</div><div class="nav-nm site-name">YOKO<span>STORE</span></div></div>
-  <div class="nav-right"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button></div>
+  <div class="nav-right" style="display:flex;align-items:center;gap:8px">
+    <div id="userBar" style="display:none;align-items:center;gap:6px">
+      <a href="topup.html" style="display:flex;align-items:center;gap:4px;background:var(--green-a);border:1px solid rgba(34,197,94,.2);border-radius:20px;padding:5px 11px;text-decoration:none">
+        <span style="font-size:.62rem;color:var(--green);font-weight:700">💰</span>
+        <span style="font-size:.68rem;font-weight:700;color:var(--green)" id="navSaldo">Rp 0</span>
+      </a>
+      <div style="position:relative">
+        <button id="userMenuBtn" onclick="toggleUserMenu()" style="background:var(--s2);border:1px solid var(--brd2);border-radius:20px;padding:5px 11px;font-size:.72rem;font-weight:600;color:var(--t1);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px">
+          <span id="navUserName">User</span><span style="font-size:.6rem">▾</span>
+        </button>
+        <div id="userMenu" style="display:none;position:absolute;right:0;top:calc(100% + 6px);background:var(--s1);border:1px solid var(--brd2);border-radius:12px;padding:6px;min-width:150px;z-index:200;box-shadow:var(--shadow)">
+          <a href="topup.html" style="display:block;padding:8px 12px;border-radius:8px;font-size:.78rem;color:var(--t1);text-decoration:none;font-weight:600" onmouseover="this.style.background='var(--s2)'" onmouseout="this.style.background='transparent'">💰 Topup Saldo</a>
+          <div onclick="doLogout()" style="padding:8px 12px;border-radius:8px;font-size:.78rem;color:var(--red);cursor:pointer;font-weight:600" onmouseover="this.style.background='var(--s2)'" onmouseout="this.style.background='transparent'">🚪 Logout</div>
+        </div>
+      </div>
+    </div>
+    <a id="loginBtn" href="login.html" style="display:none;background:var(--blue);color:#fff;border-radius:20px;padding:6px 14px;font-size:.74rem;font-weight:700;text-decoration:none">Masuk</a>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+  </div>
 </nav>
 <div class="page">
   <div style="max-width:520px;margin:0 auto;padding:0 20px">
@@ -405,13 +427,19 @@ footer { padding: 24px 20px; text-align: center; border-top: 1px solid var(--brd
         <div class="mc-desc">Akun premium, token game, Signal, WhatsApp Reaction, dan produk digital lainnya.</div>
         <div class="mc-arrow">Lihat Produk →</div>
       </div>
-      <a id="linkOther" href="#" target="_blank" class="menu-card mc-green" style="animation-delay:.15s">
+      <a href="otp.html" class="menu-card mc-cyan" style="animation-delay:.15s">
+        <div class="mc-head"><div class="mc-icon">📲</div><span class="badge" style="background:rgba(6,182,212,.1);color:#22d3ee;border:1px solid rgba(6,182,212,.2);font-size:.6rem;font-weight:700;padding:3px 8px;border-radius:10px">OTP Instan</span></div>
+        <div class="mc-title" style="color:#22d3ee">Nomor OTP Virtual</div>
+        <div class="mc-desc">Terima OTP WhatsApp, Telegram, Shopee, Gojek & 1000+ aplikasi. Nomor virtual instan.</div>
+        <div class="mc-arrow">Order Sekarang →</div>
+      </a>
+      <a id="linkOther" href="#" target="_blank" class="menu-card mc-green" style="animation-delay:.2s">
         <div class="mc-head"><div class="mc-icon">💎</div><span class="badge badge-green">Tersedia</span></div>
         <div class="mc-title">Layanan Lainnya</div>
         <div class="mc-desc">Pulsa semua operator, top up game, akun premium Netflix, Spotify, YouTube, dll.</div>
         <div class="mc-arrow">Hubungi CS →</div>
       </a>
-      <div class="menu-card mc-gold" onclick="openTesti()" style="animation-delay:.2s">
+      <div class="menu-card mc-gold" onclick="openTesti()" style="animation-delay:.25s">
         <div class="mc-head"><div class="mc-icon">⭐</div><span class="badge badge-gold">Apresiasi</span></div>
         <div class="mc-title">Beri Ulasan</div>
         <div class="mc-desc">Sudah pernah order? Bagikan pengalaman dan rating kamu.</div>
@@ -480,6 +508,49 @@ const TK='yoko_theme';
 function applyTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem(TK,t);var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}
 function toggleTheme(){applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');}
 (function(){applyTheme(localStorage.getItem(TK)||'dark');})();
+var _FBCFG={apiKey:"AIzaSyCS52l1z6DrfkqIn4WB4SEOE6hdVu2mX6w",authDomain:"yokotofxport.firebaseapp.com",databaseURL:"https://yokotofxport-default-rtdb.firebaseio.com",projectId:"yokotofxport",storageBucket:"yokotofxport.firebasestorage.app",messagingSenderId:"515300744861",appId:"1:515300744861:web:01117e3f5dc7ed755cbe74"};
+var _app=null,_auth=null,_db=null,_cfg=null;
+async function getFB(){
+  if(_app)return{app:_app,auth:_auth,db:_db};
+  var fc=JSON.parse(localStorage.getItem('yoko_firebase_config')||'null')||_FBCFG;
+  var a=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
+  var au=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
+  var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  _app=a.getApps().find(function(x){return x.name==='yoko';})||a.initializeApp(fc,'yoko');
+  _auth=au.getAuth(_app);
+  _db=d.getDatabase(_app);
+  return{app:_app,auth:_auth,db:_db};
+}
+async function getCfg(){
+  if(_cfg)return _cfg;
+  var fb=await getFB();
+  var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  var s=await d.get(d.ref(fb.db,'config'));
+  _cfg=s.exists()?s.val():{};return _cfg;
+}
+async function dbGet(path){var fb=await getFB();var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');var s=await d.get(d.ref(fb.db,path));return s.exists()?s.val():null;}
+async function dbSet(path,data){var fb=await getFB();var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');await d.set(d.ref(fb.db,path),data);}
+async function dbUpdate(path,data){var fb=await getFB();var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');await d.update(d.ref(fb.db,path),data);}
+async function dbPush(path,data){var fb=await getFB();var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');var r=await d.push(d.ref(fb.db,path),data);return r.key;}
+async function dbRemove(path){var fb=await getFB();var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');await d.remove(d.ref(fb.db,path));}
+async function getCurrentUser(){
+  var fb=await getFB();
+  return new Promise(function(resolve){
+    var au=fb.auth;
+    if(au.currentUser)return resolve(au.currentUser);
+    import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js').then(function(m){
+      var unsub=m.onAuthStateChanged(au,function(u){unsub();resolve(u);});
+    });
+  });
+}
+async function requireAuth(redirectTo){
+  var u=await getCurrentUser();
+  if(!u){window.location.replace((redirectTo||'login.html')+'?from='+encodeURIComponent(location.pathname.split('/').pop()));return null;}
+  return u;
+}
+async function getUserData(uid){return await dbGet('users/'+uid);}
+function genTRX(prefix){return (prefix||'TRX')+'-'+Date.now().toString(36).toUpperCase().slice(-8);}
+
 
 var _FBCFG={apiKey:"AIzaSyCS52l1z6DrfkqIn4WB4SEOE6hdVu2mX6w",authDomain:"yokotofxport.firebaseapp.com",databaseURL:"https://yokotofxport-default-rtdb.firebaseio.com",projectId:"yokotofxport",storageBucket:"yokotofxport.firebasestorage.app",messagingSenderId:"515300744861",appId:"1:515300744861:web:01117e3f5dc7ed755cbe74"};
 var _db=null,_cfg=null;
@@ -629,6 +700,39 @@ async function loadLinks(){
   }
 }
 loadLinks();
+// ── AUTH ──────────────────────────────────────────────────────────────────────
+function toggleUserMenu(){
+  var m=document.getElementById('userMenu');
+  m.style.display=m.style.display==='none'?'block':'none';
+}
+document.addEventListener('click',function(e){
+  var btn=document.getElementById('userMenuBtn');
+  var menu=document.getElementById('userMenu');
+  if(menu&&btn&&!btn.contains(e.target)&&!menu.contains(e.target))menu.style.display='none';
+});
+async function doLogout(){
+  var fb=await getFB();
+  var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
+  await m.signOut(fb.auth);
+  location.reload();
+}
+async function initUserBar(){
+  var u=await getCurrentUser();
+  var bar=document.getElementById('userBar');
+  var lBtn=document.getElementById('loginBtn');
+  if(u){
+    bar.style.display='flex';
+    if(lBtn)lBtn.style.display='none';
+    document.getElementById('navUserName').textContent=u.displayName||u.email.split('@')[0];
+    var ud=await getUserData(u.uid);
+    if(ud){document.getElementById('navSaldo').textContent='Rp '+(ud.saldo||0).toLocaleString('id');}
+    await dbUpdate('users/'+u.uid,{lastLogin:Date.now()});
+  }else{
+    bar.style.display='none';
+    if(lBtn)lBtn.style.display='block';
+  }
+}
+initUserBar();
 
 </script>
 </body></html>
