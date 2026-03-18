@@ -311,51 +311,52 @@ footer { padding: 24px 20px; text-align: center; border-top: 1px solid var(--brd
 .steps{max-width:560px;margin:0 auto;height:50px;display:flex;align-items:center;padding:0 20px}
 .st-item{display:flex;align-items:center;gap:7px}
 .st-c{width:24px;height:24px;border-radius:50%;border:2px solid var(--brd2);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--t3);flex-shrink:0;transition:all .3s}
-.st-item.active .st-c{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 0 0 4px var(--blue-a)}
+.st-item.active .st-c{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 0 0 3px var(--blue-a)}
 .st-item.done .st-c{background:var(--green);border-color:var(--green);color:#fff}
 .st-l{font-size:.68rem;font-weight:600;color:var(--t3)}
 .st-item.active .st-l{color:var(--t1)}.st-item.done .st-l{color:var(--green)}
 .st-line{flex:1;height:2px;background:var(--brd2);margin:0 6px;min-width:14px}
-.ocard{background:var(--s1);border:1px solid var(--brd);border-radius:18px;padding:20px;margin-bottom:12px}
-.ocard-title{font-size:.9rem;font-weight:700;color:var(--w);margin-bottom:14px}
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.svc-card{background:var(--s1);border:1.5px solid var(--brd);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .2s}
-.svc-card:hover{border-color:rgba(79,122,255,.3);background:var(--s2);transform:translateY(-1px)}
+.ocard{background:var(--s1);border:1px solid var(--brd);border-radius:16px;padding:18px;margin-bottom:12px}
+.ocard-title{font-size:.88rem;font-weight:700;color:var(--w);margin-bottom:12px}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.svc-card{background:var(--s1);border:1.5px solid var(--brd);border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .2s}
+.svc-card:hover{border-color:rgba(79,122,255,.3);transform:translateY(-1px)}
 .svc-card.sel{border-color:var(--blue);background:var(--blue-a);box-shadow:0 0 0 3px var(--blue-a)}
-.svc-ic{font-size:1.6rem;margin-bottom:6px}
-.svc-name{font-size:.68rem;font-weight:700;color:var(--t1)}
-.country-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;transition:all .2s;border:1.5px solid transparent}
-.country-row:hover{background:var(--s2)}.country-row.sel{background:var(--blue-a);border-color:rgba(79,122,255,.3)}
+.svc-ic{font-size:1.5rem;margin-bottom:5px;min-height:36px;display:flex;align-items:center;justify-content:center}
+.svc-name{font-size:.65rem;font-weight:700;color:var(--t1);line-height:1.3}
+.country-list-wrap{max-height:420px;overflow-y:auto;border:1px solid var(--brd2);border-radius:12px;padding:4px}
+.country-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;cursor:pointer;transition:all .15s;border:1.5px solid transparent}
+.country-row:hover{background:var(--s2)}.country-row.sel{background:var(--blue-a);border-color:rgba(79,122,255,.25)}
 .country-row.disabled{opacity:.4;cursor:not-allowed}
-.country-flag{font-size:1.2rem;width:28px;text-align:center;flex-shrink:0}
+.country-flag{width:28px;text-align:center;flex-shrink:0;font-size:1rem}
 .country-name{flex:1;font-size:.82rem;font-weight:600;color:var(--t1)}
-.stock-ok{font-size:.68rem;font-weight:700;color:var(--green);background:var(--green-a);padding:2px 8px;border-radius:10px}
-.stock-low{font-size:.68rem;font-weight:700;color:var(--gold);background:var(--gold-a);padding:2px 8px;border-radius:10px}
-.stock-out{font-size:.68rem;font-weight:700;color:var(--red);background:rgba(248,113,113,.1);padding:2px 8px;border-radius:10px}
-.country-list-wrap{max-height:380px;overflow-y:auto;border:1px solid var(--brd2);border-radius:12px;padding:6px}
-.otp-phone-box{background:linear-gradient(135deg,var(--blue-a),var(--blue-b));border:2px solid rgba(79,122,255,.2);border-radius:16px;padding:20px;text-align:center;margin-bottom:14px}
-.otp-phone{font-size:1.5rem;font-weight:800;color:var(--blue2);font-family:monospace;letter-spacing:1px;margin:8px 0}
-.otp-code-box{background:var(--green-a);border:2px solid rgba(34,197,94,.25);border-radius:14px;padding:18px;text-align:center;margin-bottom:12px}
-.otp-code{font-size:2rem;font-weight:800;color:var(--green);font-family:monospace;letter-spacing:4px}
-.poll-anim{display:flex;align-items:center;justify-content:center;gap:8px;margin:10px 0}
-.pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--blue);animation:pulse 1.4s ease-in-out infinite}
-.pulse-dot:nth-child(2){animation-delay:.2s}.pulse-dot:nth-child(3){animation-delay:.4s}
-@keyframes pulse{0%,80%,100%{transform:scale(0);opacity:.3}40%{transform:scale(1);opacity:1}}
-.detail-box{background:var(--s2);border:1px solid var(--brd2);border-radius:12px;overflow:hidden;margin-bottom:14px}
-.dr{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:1px solid var(--brd)}
+.country-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.country-price{font-size:.72rem;font-weight:700;color:var(--gold)}
+.stock-ok{font-size:.62rem;font-weight:700;color:var(--green);background:var(--green-a);padding:2px 7px;border-radius:8px}
+.stock-low{font-size:.62rem;font-weight:700;color:var(--gold);background:var(--gold-a);padding:2px 7px;border-radius:8px}
+.stock-out{font-size:.62rem;font-weight:700;color:var(--red);background:rgba(248,113,113,.1);padding:2px 7px;border-radius:8px}
+.detail-box{background:var(--s2);border:1px solid var(--brd2);border-radius:11px;overflow:hidden;margin-bottom:14px}
+.dr{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;border-bottom:1px solid var(--brd)}
 .dr:last-child{border-bottom:none}
 .dk{font-size:.73rem;color:var(--t3)}.dv{font-size:.8rem;font-weight:600;color:var(--t1)}
-.btn-primary{display:block;width:100%;padding:14px;border:none;border-radius:12px;background:var(--blue);color:#fff;font-family:inherit;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s;margin-top:4px}
-.btn-primary:hover{background:var(--blue2)}.btn-primary:disabled{opacity:.6;cursor:not-allowed}
-.btn-sec{padding:11px 20px;border-radius:10px;background:var(--s1);border:1px solid var(--brd2);font-size:.8rem;font-weight:600;color:var(--t2);cursor:pointer;font-family:inherit;transition:all .2s}
-.btn-sec:hover{color:var(--t1);border-color:var(--brd)}
 .f-group{margin-bottom:12px}
 .f-label{display:block;font-size:.73rem;font-weight:600;color:var(--t2);margin-bottom:5px}
 .f-input{width:100%;padding:10px 13px;background:var(--s2);border:1px solid var(--brd2);border-radius:10px;color:var(--t1);font-family:inherit;font-size:.84rem;outline:none;transition:border .2s}
 .f-input:focus{border-color:var(--blue)}
-.loading{text-align:center;padding:30px;color:var(--t3);font-size:.84rem}
+.btn-primary{display:block;width:100%;padding:13px;border:none;border-radius:11px;background:var(--blue);color:#fff;font-family:inherit;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-primary:hover{background:var(--blue2)}.btn-primary:disabled{opacity:.6;cursor:not-allowed}
+.btn-sec{padding:9px 16px;border-radius:9px;background:var(--s1);border:1px solid var(--brd2);font-size:.78rem;font-weight:600;color:var(--t2);cursor:pointer;font-family:inherit}
+.otp-phone-box{background:linear-gradient(135deg,var(--blue-a),var(--blue-b));border:2px solid rgba(79,122,255,.2);border-radius:16px;padding:20px;text-align:center;margin-bottom:14px}
+.otp-phone{font-size:1.5rem;font-weight:800;color:var(--blue2);font-family:monospace;letter-spacing:1px;margin:8px 0}
+.otp-code-box{background:var(--green-a);border:2px solid rgba(34,197,94,.25);border-radius:14px;padding:18px;text-align:center;margin-bottom:12px}
+.otp-code{font-size:2.2rem;font-weight:800;color:var(--green);font-family:monospace;letter-spacing:5px}
+.pulse-wrap{display:flex;align-items:center;justify-content:center;gap:6px;margin:10px 0}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);animation:pulse 1.4s ease-in-out infinite}
+.pulse-dot:nth-child(2){animation-delay:.2s}.pulse-dot:nth-child(3){animation-delay:.4s}
+@keyframes pulse{0%,80%,100%{transform:scale(0);opacity:.3}40%{transform:scale(1);opacity:1}}
+.loading{text-align:center;padding:28px;color:var(--t3);font-size:.82rem}
 .err-box{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:10px;padding:12px;color:var(--red);font-size:.78rem;text-align:center}
-@media(max-width:560px){.wrap{padding:0 14px}.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.svc-grid{grid-template-columns:repeat(2,1fr)}.wrap{padding:0 14px}}
 </style>
 </head>
 <body>
@@ -365,7 +366,15 @@ footer { padding: 24px 20px; text-align: center; border-top: 1px solid var(--brd
 <nav class="nav">
   <a href="welcome.html" class="nav-back">← Kembali</a>
   <div class="nav-brand"><div class="nav-ic">📲</div><div class="nav-nm">YOKO<span>STORE</span></div></div>
-  <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+  <div class="nav-right" style="display:flex;align-items:center;gap:7px">
+    <div id="navSaldoWrap" style="display:none;align-items:center">
+      <a href="topup.html" style="display:flex;align-items:center;gap:4px;background:var(--green-a);border:1px solid rgba(34,197,94,.2);border-radius:20px;padding:5px 11px;text-decoration:none">
+        <span style="font-size:.68rem;font-weight:700;color:var(--green)" id="navSaldo">Rp 0</span>
+      </a>
+    </div>
+    <a id="navLoginBtn" href="login.html?from=otp.html" style="background:var(--blue);color:#fff;border-radius:20px;padding:5px 13px;font-size:.72rem;font-weight:700;text-decoration:none;display:none">Masuk</a>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+  </div>
 </nav>
 <div class="steps-bar"><div class="steps">
   <div class="st-item active" id="si1"><div class="st-c">1</div><span class="st-l">Layanan</span></div>
@@ -379,67 +388,64 @@ footer { padding: 24px 20px; text-align: center; border-top: 1px solid var(--brd
 
 <div class="page"><div class="wrap">
 
-  <!-- STEP 1: PILIH LAYANAN -->
+  <!-- STEP 1 -->
   <div id="step1">
-    <div style="margin-bottom:16px">
-      <div style="font-size:1rem;font-weight:800;color:var(--w);margin-bottom:4px">📲 Nomor OTP Virtual</div>
-      <div style="font-size:.78rem;color:var(--t3)">Terima OTP untuk 1000+ aplikasi. Pilih layanan yang kamu butuhkan.</div>
+    <div style="margin-bottom:14px">
+      <div style="font-size:1rem;font-weight:800;color:var(--w);margin-bottom:3px">📲 Nomor OTP Virtual</div>
+      <div style="font-size:.76rem;color:var(--t3)">Terima OTP untuk 1000+ aplikasi. Pilih layanan yang kamu butuhkan.</div>
     </div>
     <div class="svc-grid" id="svcGrid"><div class="loading">⏳ Memuat...</div></div>
-    <button class="btn-primary" onclick="goStep2()">Pilih Negara →</button>
+    <button class="btn-primary" onclick="goStep2()">Lanjut Pilih Negara →</button>
   </div>
 
-  <!-- STEP 2: PILIH NEGARA -->
+  <!-- STEP 2 -->
   <div id="step2" style="display:none">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
       <button class="btn-sec" onclick="setStep(1)">←</button>
       <div>
-        <div style="font-size:.92rem;font-weight:700;color:var(--w)" id="step2Title">Pilih Negara</div>
-        <div style="font-size:.72rem;color:var(--t3)">Pilih negara asal nomor yang ingin digunakan</div>
+        <div style="font-size:.9rem;font-weight:700;color:var(--w)" id="step2Title">Pilih Negara</div>
+        <div style="font-size:.7rem;color:var(--t3)">Harga sudah termasuk biaya layanan</div>
       </div>
     </div>
-    <div class="f-group">
-      <input class="f-input" id="countrySearch" placeholder="🔍 Cari negara..." oninput="filterCountry()">
-    </div>
+    <div class="f-group"><input class="f-input" id="countrySearch" placeholder="🔍 Cari negara..." oninput="filterCountry()"></div>
     <div class="country-list-wrap" id="countryList"><div class="loading">⏳ Memuat...</div></div>
     <button class="btn-primary" style="margin-top:12px" onclick="goStep3()">Lanjut ke Pembayaran →</button>
   </div>
 
-  <!-- STEP 3: CHECKOUT -->
+  <!-- STEP 3 -->
   <div id="step3" style="display:none">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
       <button class="btn-sec" onclick="setStep(2)">←</button>
-      <div style="font-size:.92rem;font-weight:700;color:var(--w)">Konfirmasi & Bayar</div>
+      <div style="font-size:.9rem;font-weight:700;color:var(--w)">Konfirmasi & Bayar</div>
     </div>
     <div id="checkoutSection"><div class="loading">⏳ Memuat...</div></div>
   </div>
 
-  <!-- STEP 4: WAITING OTP -->
+  <!-- STEP 4 -->
   <div id="step4" style="display:none">
     <div class="otp-phone-box">
-      <div style="font-size:.72rem;font-weight:600;color:var(--blue2);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Nomor Virtual Kamu</div>
+      <div style="font-size:.7rem;font-weight:600;color:var(--blue2);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Nomor Virtual Kamu</div>
       <div class="otp-phone" id="otpPhone">—</div>
-      <div style="font-size:.72rem;color:var(--t3)">Layanan: <span id="otpService">—</span> · Berlaku <span id="otpExpiry">15</span> menit</div>
+      <div style="font-size:.72rem;color:var(--t3)">Layanan: <span id="otpService">—</span></div>
     </div>
     <div class="ocard" style="text-align:center">
       <div class="ocard-title">Menunggu OTP Masuk...</div>
-      <div class="poll-anim"><div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div></div>
-      <div style="font-size:.78rem;color:var(--t3);margin-bottom:8px" id="pollStatus">Sistem mengecek OTP setiap 30 detik secara otomatis.</div>
+      <div class="pulse-wrap"><div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div></div>
+      <div style="font-size:.76rem;color:var(--t3);margin-bottom:6px" id="pollStatus">Sistem mengecek OTP otomatis setiap 30 detik.</div>
       <div style="font-size:.74rem;color:var(--t2)">Harga: <strong style="color:var(--gold)" id="otpPrice">—</strong></div>
     </div>
     <div class="otp-code-box" id="otpCodeBox" style="display:none">
-      <div style="font-size:.72rem;font-weight:700;color:var(--green);margin-bottom:6px">🎉 KODE OTP MASUK!</div>
+      <div style="font-size:.7rem;font-weight:700;color:var(--green);margin-bottom:6px">🎉 KODE OTP MASUK!</div>
       <div class="otp-code" id="otpCode">—</div>
-      <button onclick="navigator.clipboard.writeText(document.getElementById('otpCode').textContent)" style="margin-top:10px;padding:7px 18px;background:var(--green);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:.78rem;cursor:pointer;font-family:inherit">📋 Salin OTP</button>
+      <button id="copyOtpBtn" style="margin-top:10px;padding:7px 18px;background:var(--green);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:.78rem;cursor:pointer;font-family:inherit">📋 Salin OTP</button>
     </div>
-    <div style="background:var(--blue-a);border:1px solid rgba(79,122,255,.15);border-radius:12px;padding:14px;font-size:.76rem;color:var(--t2);line-height:1.7;margin-bottom:12px">
-      📌 Gunakan nomor di atas untuk daftar/verifikasi di <strong style="color:var(--w)" id="otpServiceHint">aplikasi</strong>. OTP akan muncul otomatis di sini.
+    <div style="background:var(--blue-a);border:1px solid rgba(79,122,255,.15);border-radius:12px;padding:13px;font-size:.76rem;color:var(--t2);line-height:1.7;margin-bottom:12px">
+      📌 Gunakan nomor di atas untuk daftar/verifikasi di <strong style="color:var(--w)" id="otpServiceHint">aplikasi</strong>. OTP muncul otomatis.
     </div>
     <a href="welcome.html" style="display:block;text-align:center;padding:12px;background:var(--s1);border:1px solid var(--brd);color:var(--t2);border-radius:12px;font-weight:700;text-decoration:none;font-size:.84rem">🏠 Kembali ke Beranda</a>
   </div>
 
 </div></div>
-
 <script>
 const TK='yoko_theme';
 function applyTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem(TK,t);var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}
@@ -447,46 +453,364 @@ function toggleTheme(){applyTheme(document.documentElement.getAttribute('data-th
 (function(){applyTheme(localStorage.getItem(TK)||'dark');})();
 
 var _FBCFG={apiKey:"AIzaSyCS52l1z6DrfkqIn4WB4SEOE6hdVu2mX6w",authDomain:"yokotofxport.firebaseapp.com",databaseURL:"https://yokotofxport-default-rtdb.firebaseio.com",projectId:"yokotofxport",storageBucket:"yokotofxport.firebasestorage.app",messagingSenderId:"515300744861",appId:"1:515300744861:web:01117e3f5dc7ed755cbe74"};
-var _db=null,_cfg=null;
-async function getDB(){
-  if(_db)return _db;
+
+var _app=null,_auth=null,_db=null,_cfg=null;
+async function getFB(){
+  if(_app)return{app:_app,auth:_auth,db:_db};
   var fc=JSON.parse(localStorage.getItem('yoko_firebase_config')||'null')||_FBCFG;
-  if(!fc||!fc.databaseURL)return null;
-  try{
-    var a=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
-    var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-    var app=a.getApps().find(function(x){return x.name==='yoko';})||a.initializeApp(fc,'yoko');
-    _db=d.getDatabase(app);return _db;
-  }catch(e){return null;}
+  var a=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
+  var au=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
+  var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+  _app=a.getApps().find(function(x){return x.name==='yoko';})||a.initializeApp(fc,'yoko');
+  _auth=au.getAuth(_app);
+  _db=d.getDatabase(_app);
+  return{app:_app,auth:_auth,db:_db};
 }
 async function getCfg(){
   if(_cfg)return _cfg;
-  var db=await getDB();if(!db)return{};
-  try{
-    var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-    var s=await d.get(d.ref(db,'config'));
-    _cfg=s.exists()?s.val():{};return _cfg;
-  }catch(e){return{};}
-}
-async function dbPush(path,data){
-  var db=await getDB();if(!db)return null;
+  var fb=await getFB();
   var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-  var r=await d.push(d.ref(db,path),data);return r.key;
+  var s=await d.get(d.ref(fb.db,'config'));
+  _cfg=s.exists()?s.val():{};return _cfg;
 }
-function genTRX(){return 'OTP-'+Date.now().toString(36).toUpperCase().slice(-8);}
+async function dbGet(path){var fb=await getFB();var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');var s=await d.get(d.ref(fb.db,path));return s.exists()?s.val():null;}
+async function dbSet(path,data){var fb=await getFB();var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');await d.set(d.ref(fb.db,path),data);}
+async function dbUpdate(path,data){var fb=await getFB();var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');await d.update(d.ref(fb.db,path),data);}
+async function dbPush(path,data){var fb=await getFB();var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');var r=await d.push(d.ref(fb.db,path),data);return r.key;}
+async function dbRemove(path){var fb=await getFB();var d=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');await d.remove(d.ref(fb.db,path));}
+async function getCurrentUser(){
+  var fb=await getFB();
+  return new Promise(function(resolve){
+    var au=fb.auth;
+    if(au.currentUser)return resolve(au.currentUser);
+    import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js').then(function(m){
+      var unsub=m.onAuthStateChanged(au,function(u){unsub();resolve(u);});
+    });
+  });
+}
+async function requireAuth(redirectTo){
+  var u=await getCurrentUser();
+  if(!u){window.location.replace((redirectTo||'login.html')+'?from='+encodeURIComponent(location.pathname.split('/').pop()));return null;}
+  return u;
+}
+async function getUserData(uid){return await dbGet('users/'+uid);}
+function genTRX(prefix){return (prefix||'TRX')+'-'+Date.now().toString(36).toUpperCase().slice(-8);}
 
-// ── API PROXY ────────────────────────────────────────────────────────────────
-async function api(action, params){
-  var qs=new URLSearchParams(Object.assign({action:action},params||{})).toString();
-  var r=await fetch('/api/rumahotp?'+qs);
+
+var API_KEY='otp_jGUtSJRtECCcPqsr';
+var MARKUP=1000;
+
+async function apiCall(endpoint, params){
+  var qs=new URLSearchParams(params||{}).toString();
+  var url='https://www.rumahotp.com/api'+endpoint+(qs?'?'+qs:'');
+  var r=await fetch(url,{headers:{'x-apikey':API_KEY,'Accept':'application/json'}});
   return r.json();
 }
 
-// ── STATE ────────────────────────────────────────────────────────────────────
-var curService=null,curCountry=null,curOperator=null,curOrder=null;
-var pollTimer=null;
+var curService=null, curCountry=null, curProvider=null, curOrder=null, pollTimer=null, pollCount=0;
+var curUser=null;
 
-// ── STEP NAV ─────────────────────────────────────────────────────────────────
+async function init(){
+  curUser=await getCurrentUser();
+  // Tampilkan nav user
+  if(curUser){
+    var ud=await getUserData(curUser.uid);
+    document.getElementById('navSaldoWrap').style.display='flex';
+    document.getElementById('navSaldo').textContent='Rp '+(ud?ud.saldo||0:0).toLocaleString('id');
+    document.getElementById('navLoginBtn').style.display='none';
+  }else{
+    document.getElementById('navSaldoWrap').style.display='none';
+    document.getElementById('navLoginBtn').style.display='block';
+  }
+  loadServices();
+}
+
+// ── STEP 1: SERVICES ──────────────────────────────────────────────────────────
+async function loadServices(){
+  var grid=document.getElementById('svcGrid');
+  grid.innerHTML='<div class="loading">⏳ Memuat layanan...</div>';
+  try{
+    var res=await apiCall('/v2/services');
+    if(!res.success||!res.data||!res.data.length){
+      grid.innerHTML='<div class="err-box">❌ Gagal load layanan. Cek API key.</div>';return;
+    }
+    var html='';
+    res.data.forEach(function(s){
+      var name=s.service_name||'Unknown';
+      var code=s.service_code;
+      var img=s.service_img||'';
+      html+='<div class="svc-card" data-code="'+code+'" data-name="'+name+'" onclick="selectService(this)">';
+      html+='<div class="svc-ic">'+(img?'<img src="'+img+'" style="width:36px;height:36px;border-radius:8px;object-fit:cover">':getEmoji(name))+'</div>';
+      html+='<div class="svc-name">'+name+'</div>';
+      html+='</div>';
+    });
+    grid.innerHTML=html;
+  }catch(e){grid.innerHTML='<div class="err-box">❌ Error: '+e.message+'</div>';}
+}
+
+function getEmoji(name){
+  var n=(name||'').toLowerCase();
+  if(n.includes('whatsapp'))return '📲';
+  if(n.includes('telegram'))return '✈️';
+  if(n.includes('facebook'))return '👥';
+  if(n.includes('instagram'))return '📷';
+  if(n.includes('tiktok'))return '📱';
+  if(n.includes('twitter')||n.includes('x.com'))return '🐦';
+  if(n.includes('google'))return '🔍';
+  if(n.includes('shopee'))return '🛒';
+  if(n.includes('gojek')||n.includes('grab'))return '🛵';
+  return '📱';
+}
+
+function selectService(el){
+  document.querySelectorAll('.svc-card').forEach(function(c){c.classList.remove('sel');});
+  el.classList.add('sel');
+  curService={code:el.dataset.code, name:el.dataset.name};
+}
+
+function goStep2(){
+  if(!curService){alert('Pilih layanan dulu!');return;}
+  setStep(2);
+  document.getElementById('step2Title').textContent=curService.name;
+  loadCountries();
+}
+
+// ── STEP 2: COUNTRIES ─────────────────────────────────────────────────────────
+var allCountries=[];
+async function loadCountries(){
+  var list=document.getElementById('countryList');
+  list.innerHTML='<div class="loading">⏳ Memuat negara...</div>';
+  try{
+    var res=await apiCall('/v2/countries',{service_id:curService.code});
+    if(!res.success||!res.data){list.innerHTML='<div class="err-box">❌ Gagal load negara.</div>';return;}
+    allCountries=res.data;
+    renderCountries(allCountries);
+  }catch(e){list.innerHTML='<div class="err-box">❌ '+e.message+'</div>';}
+}
+
+function renderCountries(data){
+  var list=document.getElementById('countryList');
+  if(!data.length){list.innerHTML='<div class="loading">Tidak ada negara tersedia.</div>';return;}
+  var html='';
+  data.forEach(function(c){
+    // Ambil harga termurah dari pricelist
+    var minPrice=Infinity, totalStock=c.stock_total||0;
+    var bestProvider=null;
+    if(c.pricelist&&c.pricelist.length){
+      c.pricelist.forEach(function(p){
+        if(p.price<minPrice&&p.stock>0){minPrice=p.price;bestProvider=p;}
+      });
+    }
+    if(minPrice===Infinity)minPrice=0;
+    var displayPrice=minPrice+MARKUP;
+    var soldOut=totalStock===0;
+    var sc=soldOut?'stock-out':totalStock<10?'stock-low':'stock-ok';
+    var flag=c.img?'<img src="'+c.img+'" style="width:24px;height:18px;object-fit:cover;border-radius:3px">':'🏳️';
+    var provId=bestProvider?bestProvider.provider_id:'';
+    html+='<div class="country-row '+(soldOut?'disabled':'')+'" data-id="'+c.number_id+'" data-name="'+c.name+'" data-price="'+displayPrice+'" data-real-price="'+minPrice+'" data-prov="'+provId+'" onclick="selectCountry(this)">';
+    html+='<span class="country-flag">'+flag+'</span>';
+    html+='<span class="country-name">'+c.name+'</span>';
+    html+='<span class="country-right">';
+    html+=(displayPrice>MARKUP?'<span class="country-price">Rp '+displayPrice.toLocaleString('id')+'</span>':'');
+    html+='<span class="'+sc+'">'+totalStock+' stok</span>';
+    html+='</span>';
+    html+='</div>';
+  });
+  list.innerHTML=html;
+}
+
+function filterCountry(){
+  var q=document.getElementById('countrySearch').value.toLowerCase();
+  renderCountries(allCountries.filter(function(c){return c.name.toLowerCase().includes(q);}));
+}
+
+function selectCountry(el){
+  if(el.classList.contains('disabled'))return;
+  document.querySelectorAll('.country-row').forEach(function(r){r.classList.remove('sel');});
+  el.classList.add('sel');
+  curCountry={
+    id:el.dataset.id, name:el.dataset.name,
+    price:parseInt(el.dataset.price), realPrice:parseInt(el.dataset.realPrice),
+    providerId:el.dataset.prov
+  };
+}
+
+function goStep3(){
+  if(!curCountry){alert('Pilih negara dulu!');return;}
+  setStep(3);
+  loadCheckout();
+}
+
+// ── STEP 3: CHECKOUT ──────────────────────────────────────────────────────────
+async function loadCheckout(){
+  var sec=document.getElementById('checkoutSection');
+  sec.innerHTML='<div class="loading">⏳ Memuat...</div>';
+  var cfg=await getCfg();
+  var qrisImg=cfg.qrisImage||'';
+  var qrisName=cfg.qrisName||'YOKO STORE';
+  var price=curCountry.price||0;
+  var html='';
+  html+='<div class="ocard"><div class="ocard-title">Ringkasan</div>';
+  html+='<div class="detail-box">';
+  html+='<div class="dr"><span class="dk">Layanan</span><span class="dv">'+curService.name+'</span></div>';
+  html+='<div class="dr"><span class="dk">Negara</span><span class="dv">'+curCountry.name+'</span></div>';
+  html+='<div class="dr" style="border:none"><span class="dk">Harga</span><span class="dv" style="color:var(--gold);font-weight:800">Rp '+price.toLocaleString('id')+'</span></div>';
+  html+='</div></div>';
+  // Cek saldo kalau login
+  var hasSaldo=false;
+  if(curUser){
+    var ud=await getUserData(curUser.uid);
+    var saldo=ud?ud.saldo||0:0;
+    if(saldo>=price){
+      hasSaldo=true;
+      html+='<div class="ocard" style="border-color:rgba(34,197,94,.2)">';
+      html+='<div style="font-size:.82rem;font-weight:700;color:var(--green);margin-bottom:8px">💰 Bayar Pakai Saldo</div>';
+      html+='<div style="background:var(--green-a);border:1px solid rgba(34,197,94,.15);border-radius:10px;padding:10px 13px;font-size:.78rem;color:var(--t2);margin-bottom:12px">Saldo kamu: <strong style="color:var(--green)">Rp '+saldo.toLocaleString('id')+'</strong> — cukup untuk transaksi ini.</div>';
+      html+='<div class="f-group"><label class="f-label">Nama</label><input class="f-input" id="custName" value="'+(ud.name||'')+'" placeholder="Nama kamu"></div>';
+      html+='<div class="f-group"><label class="f-label">Email</label><input class="f-input" id="custEmail" type="email" value="'+(curUser.email||'')+'" placeholder="email@contoh.com"></div>';
+      html+='<button class="btn-primary" id="orderBtn" onclick="submitOrderSaldo()">⚡ Bayar Saldo & Dapatkan Nomor</button>';
+      html+='</div>';
+    }else{
+      html+='<div style="background:var(--gold-a);border:1px solid rgba(245,158,11,.15);border-radius:12px;padding:12px 14px;font-size:.76rem;color:var(--t2);margin-bottom:12px">💰 Saldo kamu <strong>Rp '+saldo.toLocaleString('id')+'</strong> — kurang. <a href="topup.html" style="color:var(--gold);font-weight:700">Topup sekarang →</a></div>';
+    }
+  }
+  if(!hasSaldo){
+    html+='<div class="ocard">';
+    html+='<div style="font-size:.82rem;font-weight:700;color:var(--w);margin-bottom:12px">💳 Bayar via QRIS</div>';
+    if(qrisImg){
+      html+='<div style="text-align:center;margin-bottom:14px"><img src="'+qrisImg+'" style="max-width:180px;border-radius:12px;border:3px solid var(--s3)"><div style="font-size:.72rem;color:var(--t3);margin-top:6px">'+qrisName+' · Transfer tepat <strong style="color:var(--gold)">Rp '+price.toLocaleString('id')+'</strong></div></div>';
+    }else{
+      html+='<div style="font-size:.78rem;color:var(--t3);margin-bottom:12px">⚠️ QRIS belum dikonfigurasi.</div>';
+    }
+    html+='<div class="f-group"><label class="f-label">Nama</label><input class="f-input" id="custName" placeholder="Nama kamu"></div>';
+    html+='<div class="f-group"><label class="f-label">Email</label><input class="f-input" id="custEmail" type="email" placeholder="email@contoh.com"></div>';
+    html+='<div class="f-group"><label class="f-label">Upload Bukti Transfer</label><input class="f-input" id="buktiFile" type="file" accept="image/*" style="padding:10px;cursor:pointer"></div>';
+    html+='<button class="btn-primary" id="orderBtn" onclick="submitOrderQRIS()">✅ Konfirmasi & Dapatkan Nomor</button>';
+    html+='<div style="display:none;font-size:.76rem;color:var(--red);margin-top:8px;text-align:center" id="orderErr"></div>';
+    html+='</div>';
+    if(!curUser)html+='<div style="text-align:center;font-size:.76rem;color:var(--t3);margin-top:6px">Punya akun? <a href="login.html?from=otp.html" style="color:var(--blue2);font-weight:700">Login</a> untuk bayar pakai saldo.</div>';
+  }
+  sec.innerHTML=html;
+}
+
+async function placeOrder(){
+  var btn=document.getElementById('orderBtn');btn.disabled=true;btn.textContent='Memproses...';
+  var trxId=genTRX('OTP');
+  var cfg=await getCfg();
+  // Hit RumahOTP order API
+  try{
+    var res=await apiCall('/v2/orders',{
+      number_id:curCountry.id,
+      provider_id:curCountry.providerId||'1',
+      operator_id:'1'
+    });
+    if(res.success&&res.data){
+      curOrder=res.data;
+      return{trxId:trxId,phone:res.data.phone_number,orderId:res.data.order_id,price:res.data.price,cfg:cfg};
+    }else{
+      document.getElementById('orderErr')&&(document.getElementById('orderErr').style.display='block');
+      document.getElementById('orderErr')&&(document.getElementById('orderErr').textContent='❌ '+(res.message||'Gagal dapat nomor.'));
+      btn.disabled=false;btn.textContent='✅ Konfirmasi & Dapatkan Nomor';
+      return null;
+    }
+  }catch(e){
+    document.getElementById('orderErr')&&(document.getElementById('orderErr').style.display='block');
+    document.getElementById('orderErr')&&(document.getElementById('orderErr').textContent='❌ Error: '+e.message);
+    btn.disabled=false;btn.textContent='✅ Konfirmasi & Dapatkan Nomor';
+    return null;
+  }
+}
+
+async function submitOrderSaldo(){
+  var name=document.getElementById('custName').value.trim();
+  var email=document.getElementById('custEmail').value.trim();
+  if(!name||!email){alert('Isi nama dan email!');return;}
+  var price=curCountry.price;
+  var ud=await getUserData(curUser.uid);
+  if((ud?ud.saldo||0:0)<price){alert('Saldo tidak cukup!');return;}
+  var result=await placeOrder();
+  if(!result)return;
+  // Potong saldo
+  await dbUpdate('users/'+curUser.uid,{saldo:(ud.saldo||0)-price});
+  // Simpan order
+  await dbPush('orders',{
+    type:'otp',trxId:result.trxId,uid:curUser.uid,
+    service:curService.name,country:curCountry.name,
+    orderId:result.orderId,phone:result.phone,
+    price:price,realPrice:curCountry.realPrice,markup:MARKUP,
+    name:name,email:email,payMethod:'saldo',
+    status:'waiting_otp',timestamp:Date.now()
+  });
+  showStep4(result);
+}
+
+async function submitOrderQRIS(){
+  var name=document.getElementById('custName').value.trim();
+  var email=document.getElementById('custEmail').value.trim();
+  var file=document.getElementById('buktiFile')&&document.getElementById('buktiFile').files[0];
+  if(!name||!email){var e=document.getElementById('orderErr');e.style.display='block';e.textContent='Isi nama dan email!';return;}
+  if(!file){var e2=document.getElementById('orderErr');e2.style.display='block';e2.textContent='Upload bukti transfer dulu!';return;}
+  var result=await placeOrder();
+  if(!result)return;
+  var proofUrl='';
+  if(result.cfg.botToken&&result.cfg.chatId){
+    try{
+      var fd=new FormData();fd.append('chat_id',result.cfg.chatId);fd.append('photo',file);
+      fd.append('caption','ORDER OTP\nID: '+result.trxId+'\nLayanan: '+curService.name+'\nNegara: '+curCountry.name+'\nNomor: '+result.phone+'\nHarga: Rp '+curCountry.price.toLocaleString('id')+'\nNama: '+name+'\nEmail: '+email);
+      var r=await fetch('https://api.telegram.org/bot'+result.cfg.botToken+'/sendPhoto',{method:'POST',body:fd});
+      var rj=await r.json();
+      if(rj.ok&&rj.result&&rj.result.photo){var fid=rj.result.photo[rj.result.photo.length-1].file_id;var fp=await(await fetch('https://api.telegram.org/bot'+result.cfg.botToken+'/getFile?file_id='+fid)).json();if(fp.ok)proofUrl='https://api.telegram.org/file/bot'+result.cfg.botToken+'/'+fp.result.file_path;}
+    }catch(e){}
+  }
+  await dbPush('orders',{
+    type:'otp',trxId:result.trxId,
+    service:curService.name,country:curCountry.name,
+    orderId:result.orderId,phone:result.phone,
+    price:curCountry.price,realPrice:curCountry.realPrice,markup:MARKUP,
+    name:name,email:email,payMethod:'qris',proofUrl:proofUrl,
+    status:'waiting_otp',timestamp:Date.now()
+  });
+  showStep4(result);
+}
+
+function showStep4(result){
+  setStep(4);
+  document.getElementById('otpPhone').textContent=result.phone||'—';
+  document.getElementById('otpService').textContent=curService.name;
+  document.getElementById('otpPrice').textContent='Rp '+(curCountry.price||0).toLocaleString('id');
+  document.getElementById('otpServiceHint').textContent=curService.name;
+  startOTPPoll(result.orderId);
+}
+
+// ── POLLING OTP ───────────────────────────────────────────────────────────────
+async function startOTPPoll(orderId){
+  pollCount=0;
+  // Cek langsung sekali setelah 5 detik
+  setTimeout(function(){checkOTP(orderId);},5000);
+  // Lalu tiap 30 detik
+  pollTimer=setInterval(function(){
+    pollCount++;
+    if(pollCount>30){clearInterval(pollTimer);document.getElementById('pollStatus').textContent='⏰ Timeout — OTP tidak masuk.';document.getElementById('pollStatus').style.color='var(--red)';return;}
+    checkOTP(orderId);
+  },30000);
+}
+
+async function checkOTP(orderId){
+  try{
+    var res=await apiCall('/v1/orders/get_status',{order_id:orderId});
+    var otp=res.data&&(res.data.otp_code||res.data.code||res.data.sms_code);
+    if(otp){
+      clearInterval(pollTimer);
+      document.getElementById('otpCode').textContent=otp;
+      document.getElementById('otpCodeBox').style.display='block';
+      document.getElementById('pollStatus').textContent='✅ OTP berhasil diterima!';
+      document.getElementById('pollStatus').style.color='var(--green)';
+      document.querySelector('.pulse-wrap')&&(document.querySelector('.pulse-wrap').style.display='none');
+    }
+  }catch(e){}
+}
+
+// ── STEP NAV ──────────────────────────────────────────────────────────────────
 function setStep(n){
   [1,2,3,4].forEach(function(i){
     var p=document.getElementById('step'+i);if(p)p.style.display=i===n?'block':'none';
@@ -496,244 +820,11 @@ function setStep(n){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// ── STEP 1: SERVICES ─────────────────────────────────────────────────────────
-async function loadServices(){
-  var grid=document.getElementById('svcGrid');
-  grid.innerHTML='<div class="loading">⏳ Memuat layanan...</div>';
-  try{
-    var res=await api('services');
-    if(!res.success||!res.data){grid.innerHTML='<div class="err-box">❌ Gagal load layanan.</div>';return;}
-    var html='';
-    res.data.forEach(function(s){
-      html+='<div class="svc-card" data-id="'+s.id+'" data-name="'+s.name+'" onclick="selectService(this)">';
-      html+='<div class="svc-ic">'+(s.logo?'<img src="'+s.logo+'" style="width:36px;height:36px;border-radius:8px;object-fit:cover">':getServiceEmoji(s.name))+'</div>';
-      html+='<div class="svc-name">'+s.name+'</div>';
-      html+='</div>';
-    });
-    grid.innerHTML=html;
-  }catch(e){grid.innerHTML='<div class="err-box">❌ Error: '+e.message+'</div>';}
-}
-function getServiceEmoji(name){
-  var n=(name||'').toLowerCase();
-  if(n.includes('whatsapp')||n.includes('wa'))return '📲';
-  if(n.includes('telegram'))return '✈️';
-  if(n.includes('facebook'))return '👥';
-  if(n.includes('instagram'))return '📷';
-  if(n.includes('tiktok'))return '📱';
-  if(n.includes('twitter')||n.includes('x.com'))return '🐦';
-  if(n.includes('google'))return '🔍';
-  if(n.includes('shopee'))return '🛒';
-  if(n.includes('tokopedia'))return '🟢';
-  if(n.includes('gojek')||n.includes('grab'))return '🛵';
-  return '📱';
-}
-function selectService(el){
-  document.querySelectorAll('.svc-card').forEach(function(c){c.classList.remove('sel');});
-  el.classList.add('sel');
-  curService={id:el.dataset.id,name:el.dataset.name};
-}
-async function goStep2(){
-  if(!curService){alert('Pilih layanan dulu!');return;}
-  setStep(2);
-  document.getElementById('step2Title').textContent='Pilih Negara — '+curService.name;
-  loadCountries();
-}
+init();
 
-// ── STEP 2: COUNTRIES ────────────────────────────────────────────────────────
-var allCountries=[];
-async function loadCountries(){
-  var list=document.getElementById('countryList');
-  list.innerHTML='<div class="loading">⏳ Memuat negara...</div>';
-  try{
-    var res=await api('countries',{service_id:curService.id});
-    if(!res.success||!res.data){list.innerHTML='<div class="err-box">❌ Gagal load negara.</div>';return;}
-    allCountries=res.data;
-    renderCountries(allCountries);
-  }catch(e){list.innerHTML='<div class="err-box">❌ Error: '+e.message+'</div>';}
-}
-function renderCountries(data){
-  var list=document.getElementById('countryList');
-  if(!data.length){list.innerHTML='<div class="loading" style="color:var(--t3)">Tidak ada negara tersedia.</div>';return;}
-  var html='';
-  data.forEach(function(c){
-    var stock=c.stock||0;
-    var sc=stock===0?'stock-out':stock<10?'stock-low':'stock-ok';
-    var flag=c.flag||'🏳️';
-    html+='<div class="country-row '+(stock===0?'disabled':'')+'" data-id="'+c.id+'" data-name="'+c.name+'" data-flag="'+flag+'" onclick="selectCountry(this)">';
-    html+='<span class="country-flag">'+flag+'</span>';
-    html+='<span class="country-name">'+c.name+'</span>';
-    html+='<span class="'+sc+'">'+stock+' stok</span>';
-    html+='</div>';
-  });
-  list.innerHTML=html;
-}
-function filterCountry(){
-  var q=document.getElementById('countrySearch').value.toLowerCase();
-  renderCountries(allCountries.filter(function(c){return c.name.toLowerCase().includes(q);}));
-}
-function selectCountry(el){
-  if(el.classList.contains('disabled'))return;
-  document.querySelectorAll('.country-row').forEach(function(r){r.classList.remove('sel');});
-  el.classList.add('sel');
-  curCountry={id:el.dataset.id,name:el.dataset.name,flag:el.dataset.flag};
-}
-async function goStep3(){
-  if(!curCountry){alert('Pilih negara dulu!');return;}
-  setStep(3);
-  loadCheckout();
-}
-
-// ── STEP 3: CHECKOUT ─────────────────────────────────────────────────────────
-async function loadCheckout(){
-  var section=document.getElementById('checkoutSection');
-  section.innerHTML='<div class="loading">⏳ Memuat detail...</div>';
-  try{
-    // Load operators
-    var res=await api('operators',{country:curCountry.id,service_id:curService.id});
-    var operators=res.data||[];
-    var opHtml='';
-    if(operators.length>0){
-      opHtml='<div class="f-group"><label class="f-label">Operator</label><select class="f-input" id="opSel">';
-      operators.forEach(function(op){
-        opHtml+='<option value="'+op.id+'|'+op.provider_id+'">'+op.name+'</option>';
-      });
-      opHtml+='</select></div>';
-    }else{
-      opHtml='<input type="hidden" id="opSel" value="any|1">';
-    }
-    var cfg=await getCfg();
-    var qrisImg=cfg.qrisImage||'';
-    var qrisName=cfg.qrisName||'YOKO STORE';
-    var html='';
-    html+='<div class="ocard">';
-    html+='<div class="ocard-title">Ringkasan Pesanan</div>';
-    html+='<div class="detail-box">';
-    html+='<div class="dr"><span class="dk">Layanan</span><span class="dv">'+curService.name+'</span></div>';
-    html+='<div class="dr" style="border:none"><span class="dk">Negara</span><span class="dv">'+curCountry.flag+' '+curCountry.name+'</span></div>';
-    html+='</div></div>';
-    html+='<div class="ocard">';
-    html+='<div class="ocard-title">Data Pembeli</div>';
-    html+='<div class="f-group"><label class="f-label">Nama</label><input class="f-input" id="custName" placeholder="Nama kamu"></div>';
-    html+='<div class="f-group"><label class="f-label">Email</label><input class="f-input" id="custEmail" type="email" placeholder="email@contoh.com"></div>';
-    html+=opHtml;
-    html+='</div>';
-    html+='<div class="ocard">';
-    html+='<div class="ocard-title">Pembayaran</div>';
-    if(qrisImg){
-      html+='<div style="text-align:center;margin-bottom:14px"><img src="'+qrisImg+'" style="max-width:180px;border-radius:12px;border:3px solid var(--s3)"><div style="font-size:.72rem;color:var(--t3);margin-top:6px">Scan QRIS · '+qrisName+'</div></div>';
-    }else{
-      html+='<div style="background:var(--gold-a);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:11px 14px;margin-bottom:14px;font-size:.78rem;color:var(--t2)">⚠️ QRIS belum dikonfigurasi admin. Hubungi CS.</div>';
-    }
-    html+='<div style="background:var(--blue-a);border:1px solid rgba(79,122,255,.15);border-radius:10px;padding:11px 14px;margin-bottom:14px;font-size:.76rem;color:var(--t2);line-height:1.7">💡 Harga ditentukan saat nomor diterima sesuai tarif RumahOTP. Upload bukti bayar setelah transfer.</div>';
-    html+='<div class="f-group"><label class="f-label">Upload Bukti Transfer</label><input class="f-input" id="buktiFile" type="file" accept="image/*" style="padding:10px;cursor:pointer"></div>';
-    html+='<button class="btn-primary" id="orderBtn" onclick="submitOrder()">✅ Konfirmasi & Dapatkan Nomor</button>';
-    html+='<div style="display:none;font-size:.76rem;color:var(--red);margin-top:8px;text-align:center" id="orderErr"></div>';
-    html+='</div>';
-    section.innerHTML=html;
-  }catch(e){section.innerHTML='<div class="err-box">❌ Error: '+e.message+'</div>';}
-}
-
-async function submitOrder(){
-  var name=document.getElementById('custName').value.trim();
-  var email=document.getElementById('custEmail').value.trim();
-  var file=document.getElementById('buktiFile').files[0];
-  var err=document.getElementById('orderErr');
-  if(!name||!email||!file){err.style.display='block';err.textContent='Lengkapi semua data!';return;}
-  if(!email.includes('@')){err.style.display='block';err.textContent='Format email tidak valid!';return;}
-  var btn=document.getElementById('orderBtn');btn.disabled=true;btn.textContent='Memproses...';
-  var cfg=await getCfg();
-  var trxId=genTRX();
-  var proofUrl='';
-  // Upload bukti ke Telegram
-  if(cfg.botToken&&cfg.chatId){
-    try{
-      var fd=new FormData();fd.append('chat_id',cfg.chatId);fd.append('photo',file);
-      fd.append('caption','ORDER OTP BARU\nID: '+trxId+'\nLayanan: '+curService.name+'\nNegara: '+curCountry.flag+' '+curCountry.name+'\nNama: '+name+'\nEmail: '+email);
-      var r=await fetch('https://api.telegram.org/bot'+cfg.botToken+'/sendPhoto',{method:'POST',body:fd});
-      var rj=await r.json();
-      if(rj.ok&&rj.result&&rj.result.photo){
-        var fid=rj.result.photo[rj.result.photo.length-1].file_id;
-        var fp=await(await fetch('https://api.telegram.org/bot'+cfg.botToken+'/getFile?file_id='+fid)).json();
-        if(fp.ok)proofUrl='https://api.telegram.org/file/bot'+cfg.botToken+'/'+fp.result.file_path;
-      }
-    }catch(e){}
-  }
-  // Order nomor dari RumahOTP
-  try{
-    var opVal=(document.getElementById('opSel').value||'any|1').split('|');
-    var opId=opVal[0];var providerId=opVal[1]||'1';
-    var orderRes=await api('order',{number_id:curCountry.id,provider_id:providerId,operator_id:opId});
-    if(orderRes.success&&orderRes.data){
-      curOrder=orderRes.data;
-      // Simpan ke Firebase
-      await dbPush('orders',{
-        trxId:trxId,type:'otp',service:curService.name,country:curCountry.name,
-        orderId:curOrder.order_id,phone:curOrder.phone_number,
-        price:curOrder.price,name:name,email:email,
-        proofUrl:proofUrl,status:'waiting_otp',timestamp:Date.now()
-      });
-      setStep(4);
-      startOTPPoll(curOrder.order_id,name,email,cfg);
-      document.getElementById('otpPhone').textContent=curOrder.phone_number;
-      document.getElementById('otpService').textContent=curService.name;
-      document.getElementById('otpPrice').textContent=curOrder.price_formated||('Rp '+(curOrder.price||0).toLocaleString('id'));
-      document.getElementById('otpExpiry').textContent=curOrder.expires_in_minute||15;
-    }else{
-      err.style.display='block';
-      err.textContent='❌ '+(orderRes.message||'Gagal order nomor. Mungkin stok habis.');
-      btn.disabled=false;btn.textContent='✅ Konfirmasi & Dapatkan Nomor';
-    }
-  }catch(e){
-    err.style.display='block';err.textContent='❌ Error: '+e.message;
-    btn.disabled=false;btn.textContent='✅ Konfirmasi & Dapatkan Nomor';
-  }
-}
-
-// ── STEP 4: WAITING OTP ───────────────────────────────────────────────────────
-var pollCount=0;
-async function startOTPPoll(orderId,name,email,cfg){
-  pollCount=0;
-  pollTimer=setInterval(async function(){
-    pollCount++;
-    try{
-      var res=await api('status',{order_id:orderId});
-      if(res.data&&res.data.otp_code){
-        clearInterval(pollTimer);
-        var otp=res.data.otp_code;
-        document.getElementById('otpCodeBox').style.display='block';
-        document.getElementById('otpCode').textContent=otp;
-        document.getElementById('pollStatus').textContent='✅ OTP berhasil diterima!';
-        document.getElementById('pollStatus').style.color='var(--green)';
-        // Notif Telegram
-        if(cfg.botToken&&cfg.chatId){
-          try{
-            fetch('https://api.telegram.org/bot'+cfg.botToken+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:cfg.chatId,text:'OTP DITERIMA\nNomor: '+document.getElementById('otpPhone').textContent+'\nLayanan: '+curService.name+'\nOTP: '+otp+'\nNama: '+name+'\nEmail: '+email})});
-          }catch(e){}
-        }
-      }else if(pollCount>=30){
-        clearInterval(pollTimer);
-        document.getElementById('pollStatus').textContent='⏰ Timeout — OTP tidak masuk dalam 15 menit.';
-        document.getElementById('pollStatus').style.color='var(--red)';
-      }
-    }catch(e){}
-  },30000); // poll tiap 30 detik
-  // Langsung cek sekali
-  setTimeout(async function(){
-    try{
-      var res=await api('status',{order_id:orderId});
-      if(res.data&&res.data.otp_code){
-        clearInterval(pollTimer);
-        var otp=res.data.otp_code;
-        document.getElementById('otpCodeBox').style.display='block';
-        document.getElementById('otpCode').textContent=otp;
-        document.getElementById('pollStatus').textContent='✅ OTP berhasil diterima!';
-        document.getElementById('pollStatus').style.color='var(--green)';
-      }
-    }catch(e){}
-  },5000);
-}
-
-loadServices();
-
+document.getElementById('copyOtpBtn').addEventListener('click',function(){
+  navigator.clipboard.writeText(document.getElementById('otpCode').textContent);
+  this.textContent='✓ Tersalin!';
+});
 </script>
 </body></html>
