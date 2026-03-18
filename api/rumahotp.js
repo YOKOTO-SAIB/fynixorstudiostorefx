@@ -10,23 +10,30 @@ const ENDPOINTS = {
   balance:   '/balance',
 };
 
-export default async function handler(req) {
-  const url = new URL(req.url);
-  const action = url.searchParams.get('action');
-  const cors = {
-    'Access-Control-Allow-Origin': '*',
-    'Content-Type': 'application/json',
-  };
-  if (req.method === 'OPTIONS') return new Response(null, { status: 200, headers: cors });
-  if (!action || !ENDPOINTS[action]) return new Response(JSON.stringify({ success:false, message:'Invalid action' }), { status:400, headers:cors });
-  url.searchParams.delete('action');
-  const qs = url.searchParams.toString();
-  const target = `${BASE}${ENDPOINTS[action]}${qs?'?'+qs:''}`;
-  try {
-    const r = await fetch(target, { headers: { 'x-apikey': API_KEY, 'Accept': 'application/json' } });
-    const data = await r.json();
-    return new Response(JSON.stringify(data), { status:200, headers:cors });
-  } catch(e) {
-    return new Response(JSON.stringify({ success:false, message:e.message }), { status:500, headers:cors });
+module.exports = async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Content-Type', 'application/json');
+
+  if (req.method === 'OPTIONS') return res.status(200).end();
+
+  const action = req.query.action;
+  if (!action || !ENDPOINTS[action]) {
+    return res.status(400).json({ success: false, message: 'Invalid action' });
   }
-}
+
+  const params = { ...req.query };
+  delete params.action;
+  const qs = new URLSearchParams(params).toString();
+  const target = `${BASE}${ENDPOINTS[action]}${qs ? '?' + qs : ''}`;
+
+  try {
+    const r = await fetch(target, {
+      headers: { 'x-apikey': API_KEY, 'Accept': 'application/json' }
+    });
+    const data = await r.json();
+    return res.status(200).json(data);
+  } catch (e) {
+    return res.status(500).json({ success: false, message: e.message });
+  }
+};
