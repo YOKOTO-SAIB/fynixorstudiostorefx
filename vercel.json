@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/rumahotp.js": {
+      "runtime": "edge"
+    }
+  }
+}
