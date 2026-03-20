@@ -1,3 +1,6 @@
+// Vercel Edge Function — proxy RumahOTP API
+// Harus ada di folder /api/ di root repo
+
 const API_KEY = 'otp_jGUtSJRtECCcPqsr';
 const BASE = 'https://www.rumahotp.com/api';
 
@@ -10,30 +13,42 @@ const ENDPOINTS = {
   balance:   '/balance',
 };
 
-module.exports = async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Content-Type', 'application/json');
+export default async function handler(req) {
+  const url = new URL(req.url);
+  const action = url.searchParams.get('action');
 
-  if (req.method === 'OPTIONS') return res.status(200).end();
+  // CORS headers
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Content-Type': 'application/json',
+  };
 
-  const action = req.query.action;
-  if (!action || !ENDPOINTS[action]) {
-    return res.status(400).json({ success: false, message: 'Invalid action' });
+  if (req.method === 'OPTIONS') {
+    return new Response(null, { status: 200, headers });
   }
 
-  const params = { ...req.query };
-  delete params.action;
-  const qs = new URLSearchParams(params).toString();
-  const target = `${BASE}${ENDPOINTS[action]}${qs ? '?' + qs : ''}`;
+  if (!action || !ENDPOINTS[action]) {
+    return new Response(JSON.stringify({ success: false, message: 'Invalid action' }), { status: 400, headers });
+  }
+
+  // Build query string tanpa action param
+  url.searchParams.delete('action');
+  const qs = url.searchParams.toString();
+  const targetUrl = `${BASE}${ENDPOINTS[action]}${qs ? '?' + qs : ''}`;
 
   try {
-    const r = await fetch(target, {
-      headers: { 'x-apikey': API_KEY, 'Accept': 'application/json' }
+    const r = await fetch(targetUrl, {
+      headers: {
+        'x-apikey': API_KEY,
+        'Accept': 'application/json',
+      }
     });
     const data = await r.json();
-    return res.status(200).json(data);
+    return new Response(JSON.stringify(data), { status: 200, headers });
   } catch (e) {
-    return res.status(500).json({ success: false, message: e.message });
+    return new Response(JSON.stringify({ success: false, message: e.message }), { status: 500, headers });
   }
-};
+}
+
+export const config = { runtime: 'edge' };
