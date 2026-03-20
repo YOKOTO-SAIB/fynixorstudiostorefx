@@ -533,46 +533,62 @@ async function buildPayment(trxId,svc,link,qty,total){
     +'<div class="err-msg" id="errMsg"></div>'
     +'</div>';
 }
+
+async function uploadToCloudinary(file){
+  var fd=new FormData();
+  fd.append('file',file);
+  fd.append('upload_preset','cshinedomain');
+  try{
+    var r=await fetch('https://api.cloudinary.com/v1_1/dapfmzxxc/image/upload',{method:'POST',body:fd});
+    var d=await r.json();
+    return d.secure_url||'';
+  }catch(e){return '';}
+}
+
 async function submitOrder(trxId,svc,link,qty,total,domain,botToken,chatId){
   const name=document.getElementById('bName').value.trim();
   const email=document.getElementById('bEmail').value.trim();
   const file=document.getElementById('bFoto').files[0];
   if(!name||!email||!file){alert('Lengkapi semua data terlebih dahulu!');return;}
   const btn=document.getElementById('submitBtn');
-  btn.disabled=true;btn.textContent='Mengirim...';
-  if(!botToken||!chatId){
-    const em=document.getElementById('errMsg');
-    em.style.display='block';em.textContent='⚠️ Bot Telegram belum dikonfigurasi admin.';
-    btn.disabled=false;btn.textContent='✅ Konfirmasi Pembayaran';return;
+  btn.disabled=true;btn.textContent='Mengupload bukti...';
+  // Upload bukti ke Cloudinary
+  var proofUrl=await uploadToCloudinary(file);
+  btn.textContent='Mengirim...';
+  // Kirim notif Telegram
+  if(botToken&&chatId){
+    try{
+      const fd=new FormData();
+      fd.append('chat_id',chatId);fd.append('photo',file);
+      fd.append('caption','🚨 ORDER BARU\nID: '+trxId+'\nLayanan: '+svc+'\nNama: '+name+'\nEmail: '+email+'\nLink Target: '+link+'\nJumlah: '+parseInt(qty).toLocaleString('id')+'\nTotal: Rp '+parseInt(total).toLocaleString('id'));
+      await fetch('https://api.telegram.org/bot'+botToken+'/sendPhoto',{method:'POST',body:fd});
+    }catch(e){}
   }
   try{
-    const fd=new FormData();
-    fd.append('chat_id',chatId);fd.append('photo',file);
-    fd.append('caption','🚨 TRANSAKSI BARU\n\nID: '+trxId+'\nLAYANAN: '+svc+'\nNAMA: '+name+'\nEMAIL: '+email+'\nLINK: '+link+'\nJUMLAH: '+parseInt(qty).toLocaleString('id')+'\nTOTAL: Rp '+parseInt(total).toLocaleString('id')+'\n\n'+domain);
-    const r=await fetch('https://api.telegram.org/bot'+botToken+'/sendPhoto',{method:'POST',body:fd});
-    const res=await r.json();
-    if(!res.ok)throw new Error(res.description||'Gagal kirim ke Telegram');
-    try{
-      const db=await getDB();
-      if(db){
-        const{ref,push}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-        await push(ref(db,'orders'),{trxId:trxId,service:svc,link:link,qty:parseInt(qty),total:parseInt(total),name:name,email:email,status:'pending',timestamp:Date.now()});
-      }
-    }catch(e2){}
-    document.getElementById('payContent').innerHTML=
-      '<div style="text-align:center;padding:40px 20px">'
-      +'<div style="font-size:3rem;margin-bottom:16px">🎉</div>'
-      +'<div style="font-size:1.1rem;font-weight:800;color:var(--w);margin-bottom:8px">Pesanan Diterima!</div>'
-      +'<div style="font-size:.82rem;color:var(--t2);line-height:1.75">Bukti pembayaran berhasil dikirim.<br>Layanan diproses dalam <strong style="color:var(--t1)">3–15 menit</strong>.</div>'
-      +'<div style="font-size:.82rem;font-weight:700;color:var(--gold);margin:10px 0">ID: '+trxId+'</div>'
-      +'<a href="welcome.html" class="btn btn-primary" style="margin-top:20px;display:inline-flex;max-width:220px">🏠 Kembali ke Beranda</a>'
-      +'</div>';
-    document.querySelectorAll('.step-i').forEach(function(s){s.classList.remove('active');s.classList.add('done');});
-  }catch(e){
-    const em=document.getElementById('errMsg');
-    em.style.display='block';em.textContent='❌ Gagal: '+e.message+'. Coba lagi atau hubungi CS.';
-    btn.disabled=false;btn.textContent='✅ Konfirmasi Pembayaran';
-  }
+    const db=await getDB();
+    if(db){
+      const{ref,push}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+      await push(ref(db,'orders'),{
+        trxId:trxId,service:svc,
+        link:link,qty:parseInt(qty),
+        total:parseInt(total),
+        name:name,email:email,
+        proofUrl:proofUrl,
+        status:'pending',
+        timestamp:Date.now()
+      });
+    }
+  }catch(e2){}
+  // Tampilkan sukses
+  document.getElementById('payContent').innerHTML=
+    '<div style="text-align:center;padding:40px 20px">'
+    +'<div style="font-size:3rem;margin-bottom:16px">🎉</div>'
+    +'<div style="font-size:1.1rem;font-weight:800;color:var(--w);margin-bottom:8px">Pesanan Diterima!</div>'
+    +'<div style="font-size:.82rem;color:var(--t2);line-height:1.75">Bukti pembayaran berhasil dikirim.<br>Layanan diproses dalam <strong style="color:var(--t1)">3–15 menit</strong>.</div>'
+    +'<div style="font-size:.82rem;font-weight:700;color:var(--gold);margin:10px 0">ID: '+trxId+'</div>'
+    +'<a href="welcome.html" class="btn btn-primary" style="margin-top:20px;display:inline-flex;max-width:220px">🏠 Kembali ke Beranda</a>'
+    +'</div>';
+  document.querySelectorAll('.step-i').forEach(function(s){s.classList.remove('active');s.classList.add('done');});
 }
 
 var PAKETS={
@@ -608,29 +624,31 @@ function selCustomPaket(id){
   };
 }
 
-// Load paket custom TikTok dari Firebase
+// Load paket custom dari Firebase untuk platform ini
 async function loadCustomPakets(){
   try{
     var db=await getDB();if(!db)return;
     var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
     var csSnap=await m.get(m.ref(db,'categories'));
     var psSnap=await m.get(m.ref(db,'products'));
-    if(!csSnap.exists()||!psSnap.exists())return;
-    // Cari kategori TikTok
-    var tiktokCatIds=[];
-    csSnap.forEach(function(c){
-      var name=(c.val().name||'').toLowerCase();
-      if(name.includes('tiktok')||name.includes('tik tok'))tiktokCatIds.push(c.key);
-    });
-    if(!tiktokCatIds.length)return;
-    // Cari produk sosmed di kategori TikTok
+    if(!psSnap.exists())return;
+    // Kumpulkan semua categoryId yang namanya mengandung nama platform ini
+    var platCatIds=[];
+    var platLow='TikTok'.toLowerCase();
+    if(csSnap.exists()){
+      csSnap.forEach(function(c){
+        var n=(c.val().name||'').toLowerCase();
+        if(n.includes(platLow))platCatIds.push(c.key);
+      });
+    }
     customPaketData={};
     var grid=document.getElementById('customPaketGrid');
     var html='';
     psSnap.forEach(function(p){
       var prod=p.val();
       if(prod.type!=='sosmed')return;
-      if(!tiktokCatIds.includes(prod.categoryId))return;
+      // Tampilkan kalau categoryId match ATAU kalau kategori platform ga ada (tampilkan semua sosmed)
+      if(platCatIds.length>0&&!platCatIds.includes(prod.categoryId))return;
       customPaketData[p.key]=prod;
       var parts=[];
       if(prod.views)parts.push('👁️ '+Number(prod.views).toLocaleString('id'));
@@ -642,15 +660,31 @@ async function loadCustomPakets(){
       html+='<div class="pk-card" id="cpk-'+p.key+'" data-cid="'+p.key+'" onclick="selCustomPaket(this.dataset.cid)">';
       html+='<div class="pk-top"><div class="pk-ic">'+(prod.icon||'⭐')+'</div><div class="pk-check">✓</div></div>';
       html+='<div class="pk-name">'+prod.name+'</div>';
-      html+='<div class="pk-price">Rp '+Number(prod.price).toLocaleString('id')+' / paket</div>';
-      html+='<div class="pk-range" style="font-size:.68rem;line-height:1.5">'+parts.join(' · ')+'</div>';
+      html+='<div class="pk-price">Rp '+(prod.price||0).toLocaleString('id')+' / paket</div>';
+      if(parts.length)html+='<div class="pk-range" style="font-size:.67rem;line-height:1.6;color:var(--t2)">'+parts.join(' · ')+'</div>';
       html+='</div>';
     });
     if(html){
       grid.innerHTML=html;
       document.getElementById('customPakets').style.display='block';
     }
-  }catch(e){}
+  }catch(e){console.error('loadCustomPakets error:',e);}
+}
+
+function selCustomPaket(id){
+  document.querySelectorAll('.pk-card').forEach(function(c){c.classList.remove('sel');});
+  var el=document.getElementById('cpk-'+id);
+  if(el)el.classList.add('sel');
+  var p=customPaketData[id];if(!p)return;
+  var min=p.min||1;var max=p.max||100;
+  curPaket={
+    price:p.price||0,min:min,max:max,step:1,
+    label:'Jumlah Paket',type:'custom',
+    name:p.name,icon:p.icon||'⭐',
+    views:p.views||0,likes:p.likes||0,shares:p.shares||0,
+    followers:p.followers||0,members:p.members||0,reactions:p.reactions||0,
+    isCustom:true,id:id
+  };
 }
 
 function goStep2TK(){

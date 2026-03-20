@@ -494,13 +494,27 @@ async function buildPayment(trxId,svc,link,qty,total){
     +'<div class="err-msg" id="errMsg"></div>'
     +'</div>';
 }
+
+async function uploadToCloudinary(file){
+  var fd=new FormData();
+  fd.append('file',file);
+  fd.append('upload_preset','cshinedomain');
+  try{
+    var r=await fetch('https://api.cloudinary.com/v1_1/dapfmzxxc/image/upload',{method:'POST',body:fd});
+    var d=await r.json();
+    return d.secure_url||'';
+  }catch(e){return '';}
+}
+
 async function submitOrder(trxId,svc,link,qty,total,domain,botToken,chatId){
   var name=document.getElementById('bName').value.trim();
   var email=document.getElementById('bEmail').value.trim();
   var file=document.getElementById('bFoto').files[0];
   if(!name||!email||!file){alert('Lengkapi semua data terlebih dahulu!');return;}
   var btn=document.getElementById('submitBtn');
-  btn.disabled=true;btn.textContent='Mengirim...';
+  btn.disabled=true;btn.textContent='Mengupload bukti...';
+  var proofUrl=await uploadToCloudinary(file);
+  btn.textContent='Mengirim...';
   if(!botToken||!chatId){
     var em=document.getElementById('errMsg');
     em.style.display='block';em.textContent='⚠️ Bot Telegram belum dikonfigurasi admin.';
@@ -517,7 +531,7 @@ async function submitOrder(trxId,svc,link,qty,total,domain,botToken,chatId){
       var db=await getDB();
       if(db){
         var m=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
-        await m.push(m.ref(db,'orders'),{trxId:trxId,service:svc,link:link,qty:parseInt(qty),total:parseInt(total),name:name,email:email,status:'pending',timestamp:Date.now()});
+        await m.push(m.ref(db,'orders'),{trxId:trxId,service:svc,link:link,qty:parseInt(qty),total:parseInt(total),name:name,email:email,proofUrl:proofUrl||'',status:'pending',timestamp:Date.now()});
       }
     }catch(e2){}
     document.getElementById('payContent').innerHTML=
@@ -559,6 +573,7 @@ async function goStep2(){
   await buildPayment(trxId,'Instagram Followers',link,q,total);
 }
 calcTotal();
+loadCustomPakets();
 </script>
 </body>
 </html>

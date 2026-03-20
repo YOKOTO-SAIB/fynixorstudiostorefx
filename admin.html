@@ -457,7 +457,7 @@ function toggleTheme(){applyTheme(document.documentElement.getAttribute('data-th
           <button class="btn-filt" style="background:var(--green-a);color:var(--green);border-color:rgba(34,197,94,.2)" onclick="filterOrders('done')">Selesai</button>
           <button class="btn-filt" onclick="loadOrders()">↻ Refresh</button>
         </div>
-        <div class="tbl-wrap"><table><thead><tr><th>ID</th><th>Produk</th><th>Nama</th><th>Email</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
+        <div class="tbl-wrap"><table><thead><tr><th>ID</th><th>Produk</th><th>Nama</th><th>Bukti</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
         <tbody id="ordersBody"><tr><td colspan="7" style="text-align:center;color:var(--t3);padding:20px">Memuat...</td></tr></tbody></table></div>
       </div>
 
@@ -1170,15 +1170,24 @@ function filterOrders(s){renderOrders(s==='all'?allOrders:allOrders.filter(funct
 function openOrderDetail(key){
   var o=allOrders.find(function(x){return x.key===key;});if(!o)return;
   var html='';
-  html+='<div class="dr"><div class="dk">ID</div><div class="dv mono">'+(o.trxId||key)+'</div></div>';
-  html+='<div class="dr"><div class="dk">Produk</div><div class="dv">'+(o.productName||o.service||'—')+'</div></div>';
+  // Foto bukti di atas
+  if(o.proofUrl){
+    html+='<div style="margin-bottom:14px">';
+    html+='<div style="font-size:.72rem;font-weight:600;color:var(--t3);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">Bukti Transfer</div>';
+    html+='<img src="'+o.proofUrl+'" style="width:100%;border-radius:12px;border:2px solid var(--brd2);cursor:zoom-in;max-height:240px;object-fit:cover" onclick="openLightbox(this.src)">';
+    html+='</div>';
+  }
+  // Informasi order
+  html+='<div class="dr"><div class="dk">ID Transaksi</div><div class="dv mono">'+(o.trxId||key)+'</div></div>';
+  html+='<div class="dr"><div class="dk">Layanan</div><div class="dv">'+(o.productName||o.service||'—')+'</div></div>';
   html+='<div class="dr"><div class="dk">Nama</div><div class="dv">'+(o.name||'—')+'</div></div>';
-  html+='<div class="dr"><div class="dk">Email</div><div class="dv">'+(o.email||'—')+'</div></div>';
+  html+='<div class="dr"><div class="dk">Email</div><div class="dv" style="font-size:.74rem">'+(o.email||'—')+'</div></div>';
+  if(o.link)html+='<div class="dr"><div class="dk">Link Target</div><div class="dv" style="font-size:.72rem;word-break:break-all;max-width:65%"><a href="'+o.link+'" target="_blank" style="color:var(--blue2)">'+o.link+'</a></div></div>';
+  if(o.qty)html+='<div class="dr"><div class="dk">Jumlah Order</div><div class="dv">'+parseInt(o.qty).toLocaleString('id')+'</div></div>';
   html+='<div class="dr"><div class="dk">Total</div><div class="dv" style="color:var(--gold);font-weight:800">Rp '+(o.total||0).toLocaleString('id')+'</div></div>';
   html+='<div class="dr"><div class="dk">Status</div><div class="dv"><span class="badge '+(o.status==='done'?'badge-green':o.status==='sent'?'badge-blue':'badge-gold')+'">'+(o.status==='done'?'✅ Selesai':o.status==='sent'?'📦 Terkirim':'⏳ Pending')+'</span></div></div>';
   html+='<div class="dr"><div class="dk">Waktu</div><div class="dv" style="font-size:.72rem">'+(o.timestamp?new Date(o.timestamp).toLocaleString('id-ID'):'—')+'</div></div>';
   if(o.descContent)html+='<div class="dr"><div class="dk">Stok dikirim</div><div class="dv" style="font-family:monospace;font-size:.72rem;white-space:pre-wrap;max-width:65%">'+o.descContent+'</div></div>';
-  if(o.proofUrl)html+='<div style="margin-top:12px"><div style="font-size:.74rem;color:var(--t3);margin-bottom:6px">Bukti Transfer</div><img src="'+o.proofUrl+'" style="width:100%;border-radius:10px;border:2px solid var(--brd2);cursor:zoom-in;max-height:220px;object-fit:cover" onclick="openLightbox(this.src)"></div>';
   html+='<div style="display:flex;gap:8px;margin-top:16px">';
   if(o.status==='pending')html+='<button class="btn-save" style="flex:1" data-oid="'+key+'" onclick="confirmOrder(this.dataset.oid);closePopup()">✅ Konfirmasi</button>';
   html+='<button class="btn-danger" style="flex:1;padding:10px" data-oid="'+key+'" onclick="deleteOrder(this.dataset.oid);closePopup()">🗑️ Hapus</button></div>';
@@ -1247,7 +1256,7 @@ async function loadDash(){
       var key=o.key;
       rows+='<tr style="cursor:pointer" data-oid="'+key+'" onclick="openOrderDetail(this.dataset.oid)">';
       rows+='<td style="font-family:monospace;font-size:.7rem;color:var(--blue2)">'+(o.trxId||key)+'</td>';
-      rows+='<td style="font-size:.78rem">'+(o.productName||o.service||'—')+'</td>';
+      rows+='<td><div style="font-size:.78rem">'+(o.productName||o.service||'—')+'</div>'+(o.qty?'<div style="font-size:.68rem;color:var(--t3)">'+parseInt(o.qty).toLocaleString('id')+' pcs</div>':'')+'</td>';
       rows+='<td>'+(o.name||'—')+'</td>';
       rows+='<td style="color:var(--gold);font-weight:700">Rp '+(o.total||0).toLocaleString('id')+'</td>';
       rows+='<td><span class="badge '+(o.status==='done'?'badge-green':o.status==='sent'?'badge-blue':'badge-gold')+'">'+(o.status==='done'?'Selesai':o.status==='sent'?'Terkirim':'Pending')+'</span></td>';
