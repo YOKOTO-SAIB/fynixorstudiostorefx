@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#0a0a12">
+<title>Login / Daftar — YOKO STORE</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍️</text></svg>">
+<style>@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden;}
+:root,[data-theme=dark]{
+  --bg:#0a0a12;--s1:#111119;--s2:#18181f;--s3:#1e1e28;--s4:#232330;
+  --blue:#4f7aff;--blue2:#738fff;--blue-a:rgba(79,122,255,.15);--blue-b:rgba(79,122,255,.08);
+  --green:#22c55e;--green-a:rgba(34,197,94,.13);
+  --gold:#f59e0b;--gold-a:rgba(245,158,11,.12);
+  --red:#f87171;--red-a:rgba(248,113,113,.12);
+  --purple:#a78bfa;--purple-a:rgba(167,139,250,.12);
+  --w:#ffffff;--t1:#eeeef5;--t2:#8888a8;--t3:#44445a;
+  --brd:rgba(255,255,255,.07);--brd2:rgba(255,255,255,.12);
+  --nav-bg:rgba(10,10,18,.9);--shadow:0 8px 32px rgba(0,0,0,.4);
+  --card-bg:var(--s1);--input-bg:var(--s2);
+}
+[data-theme=light]{
+  --bg:#f0f2ff;--s1:#fff;--s2:#f5f6ff;--s3:#eceeff;--s4:#e6e8ff;
+  --blue:#4060f0;--blue2:#5b78ff;--blue-a:rgba(64,96,240,.1);--blue-b:rgba(64,96,240,.05);
+  --green:#16a34a;--green-a:rgba(22,163,74,.1);
+  --gold:#d97706;--gold-a:rgba(217,119,6,.1);
+  --red:#dc2626;--red-a:rgba(220,38,38,.1);
+  --purple:#7c3aed;--purple-a:rgba(124,58,237,.1);
+  --w:#111;--t1:#1a1a2e;--t2:#555570;--t3:#9999b5;
+  --brd:rgba(0,0,0,.08);--brd2:rgba(0,0,0,.13);
+  --nav-bg:rgba(240,242,255,.92);--shadow:0 4px 24px rgba(0,0,0,.12);
+  --card-bg:#fff;--input-bg:#f5f6ff;
+}
+/* Scrollbar */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--s2);}
+::-webkit-scrollbar-thumb{background:var(--s3);border-radius:3px;}
+/* Ambient orbs */
+.amb{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.6;}
+/* Nav */
+.nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;padding:0 18px;z-index:500;}
+.nav-brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-ic{width:30px;height:30px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;}
+.nav-nm{font-weight:800;font-size:.9rem;color:var(--w);}
+.nav-nm span{color:var(--blue2);}
+.nav-back{font-size:.8rem;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:5px;}
+.nav-back:hover{color:var(--t1);}
+/* Bottom nav */
+.bnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:var(--nav-bg);backdrop-filter:blur(20px);border-top:1px solid var(--brd);display:flex;z-index:500;}
+.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:all .2s;text-decoration:none;color:var(--t3);}
+.bnav-item.active{color:var(--blue2);}
+.bnav-item:hover{color:var(--t1);}
+.bnav-ic{font-size:1.1rem;line-height:1;}
+.bnav-lbl{font-size:.58rem;font-weight:700;letter-spacing:.3px;}
+.bnav-badge{position:absolute;top:-3px;right:-5px;background:var(--red);color:#fff;font-size:.5rem;font-weight:800;padding:1px 4px;border-radius:8px;min-width:14px;text-align:center;}
+/* Cards */
+.card{background:var(--card-bg);border:1px solid var(--brd);border-radius:16px;padding:18px;margin-bottom:12px;}
+.card-sm{background:var(--card-bg);border:1px solid var(--brd);border-radius:12px;padding:14px;}
+/* Buttons */
+.btn{padding:11px 20px;border:none;border-radius:11px;font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;justify-content:center;gap:7px;}
+.btn-full{width:100%;}
+.btn-primary{background:var(--blue);color:#fff;}.btn-primary:hover{background:var(--blue2);}
+.btn-green{background:var(--green);color:#fff;}.btn-green:hover{filter:brightness(1.1);}
+.btn-danger{background:var(--red-a);color:var(--red);border:1px solid rgba(248,113,113,.2);}.btn-danger:hover{background:var(--red);color:#fff;}
+.btn-ghost{background:var(--s2);color:var(--t2);border:1px solid var(--brd2);}.btn-ghost:hover{color:var(--t1);}
+.btn:disabled{opacity:.55;cursor:not-allowed;}
+/* Form */
+.f-grp{margin-bottom:14px;}
+.f-lbl{display:block;font-size:.74rem;font-weight:600;color:var(--t2);margin-bottom:6px;}
+.f-inp{width:100%;padding:11px 14px;background:var(--input-bg);border:1.5px solid var(--brd2);border-radius:11px;color:var(--t1);font-family:inherit;font-size:.85rem;outline:none;transition:border .2s;}
+.f-inp:focus{border-color:var(--blue);}
+.f-inp-icon{position:relative;}.f-inp-icon .f-inp{padding-left:40px;}.f-inp-icon .ic{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:.9rem;color:var(--t3);}
+textarea.f-inp{resize:vertical;min-height:80px;}
+select.f-inp{cursor:pointer;}
+/* Detail rows */
+.dbox{background:var(--s2);border:1px solid var(--brd2);border-radius:12px;overflow:hidden;margin-bottom:12px;}
+.dr{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--brd);}
+.dr:last-child{border-bottom:none;}
+.dk{font-size:.74rem;color:var(--t3);}
+.dv{font-size:.8rem;font-weight:600;color:var(--t1);text-align:right;word-break:break-all;max-width:65%;}
+.dv.mono{font-family:monospace;color:var(--blue2);font-size:.72rem;}
+/* Badges */
+.badge{display:inline-block;padding:3px 9px;border-radius:8px;font-size:.67rem;font-weight:700;}
+.badge-green{background:var(--green-a);color:var(--green);}
+.badge-gold{background:var(--gold-a);color:var(--gold);}
+.badge-red{background:var(--red-a);color:var(--red);}
+.badge-blue{background:var(--blue-a);color:var(--blue2);}
+.badge-purple{background:var(--purple-a);color:var(--purple);}
+/* Alert */
+.alert{border-radius:10px;padding:10px 14px;font-size:.76rem;font-weight:500;margin-bottom:10px;display:none;}
+.alert.show{display:block;}
+.alert-ok{background:var(--green-a);border:1px solid rgba(34,197,94,.2);color:var(--green);}
+.alert-err{background:var(--red-a);border:1px solid rgba(248,113,113,.2);color:var(--red);}
+.alert-warn{background:var(--gold-a);border:1px solid rgba(245,158,11,.2);color:var(--gold);}
+/* Loading */
+.spinner{width:28px;height:28px;border:3px solid var(--brd2);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.pulse-row{display:flex;align-items:center;justify-content:center;gap:5px;}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);animation:pls 1.4s ease-in-out infinite;}
+.pulse-dot:nth-child(2){animation-delay:.2s;}.pulse-dot:nth-child(3){animation-delay:.4s;}
+@keyframes pls{0%,80%,100%{transform:scale(0);opacity:.3;}40%{transform:scale(1);opacity:1;}}
+/* Popup */
+.popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:800;align-items:center;justify-content:center;padding:16px;}
+.popup-overlay.open{display:flex;}
+.popup-box{background:var(--s1);border:1px solid var(--brd2);border-radius:20px;padding:24px;width:100%;max-width:440px;max-height:92vh;overflow-y:auto;}
+.popup-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.popup-title{font-size:.95rem;font-weight:800;color:var(--w);}
+.popup-close{background:var(--s2);border:none;color:var(--t2);width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:.85rem;font-family:inherit;display:flex;align-items:center;justify-content:center;}
+/* Lightbox */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:900;align-items:center;justify-content:center;cursor:zoom-out;}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:94vw;max-height:90vh;border-radius:10px;object-fit:contain;}
+/* Table */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--brd);border-radius:13px;}
+table{width:100%;border-collapse:collapse;}
+th{font-size:.62rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--t3);padding:10px 13px;text-align:left;background:var(--s2);border-bottom:1px solid var(--brd);}
+td{padding:10px 13px;border-bottom:1px solid var(--brd);font-size:.8rem;vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--blue-b);}
+/* Avatar */
+.avatar{border-radius:50%;object-fit:cover;background:var(--s3);}
+.avatar-placeholder{border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;}
+/* Misc */
+.page{padding:70px 0 72px;min-height:100vh;position:relative;z-index:1;}
+.wrap{max-width:540px;margin:0 auto;padding:0 16px;}
+.sec-title{font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--brd);}
+.empty-state{text-align:center;padding:40px 20px;color:var(--t3);}
+.empty-state .ico{font-size:2.5rem;margin-bottom:10px;}
+.empty-state .msg{font-size:.82rem;}
+@media(max-width:480px){.wrap{padding:0 12px;}.popup-box{padding:18px;}}
+
+.auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;z-index:1;}
+.auth-box{background:var(--s1);border:1px solid var(--brd2);border-radius:22px;padding:30px;width:100%;max-width:380px;}
+.auth-logo{text-align:center;margin-bottom:24px;}
+.auth-ic{width:54px;height:54px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 10px;}
+.auth-title{font-size:1.1rem;font-weight:800;color:var(--w);margin-bottom:3px;}
+.auth-sub{font-size:.76rem;color:var(--t3);}
+.divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--t3);font-size:.72rem;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--brd);}
+.google-btn{width:100%;padding:12px;border:1.5px solid var(--brd2);border-radius:11px;background:var(--s2);color:var(--t1);font-family:inherit;font-size:.85rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .2s;}
+.google-btn:hover{border-color:var(--brd);background:var(--s3);}
+.auth-switch{text-align:center;font-size:.76rem;color:var(--t3);margin-top:16px;}
+.auth-switch a{color:var(--blue2);font-weight:700;cursor:pointer;text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="amb">
+  <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(79,122,255,.12),transparent 70%);top:-200px;right:-150px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(167,139,250,.08),transparent 70%);bottom:-100px;left:-100px;"></div>
+</div>
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lbImg" src=""></div>
+
+<div class="auth-page">
+  <div class="auth-box">
+    <div class="auth-logo">
+      <div class="auth-ic">🛍️</div>
+      <div class="auth-title">YOKO<span style="color:var(--blue2)">STORE</span></div>
+      <div class="auth-sub" id="authSub">Masuk ke akun kamu</div>
+    </div>
+    <div class="alert alert-err" id="errMsg"></div>
+    <div class="alert alert-ok" id="okMsg"></div>
+
+    <!-- LOGIN -->
+    <div id="formLogin">
+      <button class="google-btn" onclick="loginGoogle()">
+        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.29-8.16 2.29-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Lanjutkan dengan Google
+      </button>
+      <div class="divider">atau email</div>
+      <div class="f-grp"><label class="f-lbl">Email</label><input class="f-inp" id="lEmail" type="email" placeholder="email@contoh.com" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <div class="f-grp"><label class="f-lbl">Password</label><input class="f-inp" id="lPass" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <div style="text-align:right;margin:-6px 0 14px"><span style="font-size:.74rem;color:var(--blue2);cursor:pointer;font-weight:600" onclick="showForgot()">Lupa password?</span></div>
+      <button class="btn btn-primary btn-full" id="loginBtn" onclick="doLogin()">Masuk</button>
+      <div class="auth-switch">Belum punya akun? <a onclick="showRegister()">Daftar</a></div>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="formRegister" style="display:none">
+      <div class="f-grp"><label class="f-lbl">Nama Lengkap</label><input class="f-inp" id="rName" placeholder="Nama kamu"></div>
+      <div class="f-grp"><label class="f-lbl">Email</label><input class="f-inp" id="rEmail" type="email" placeholder="email@contoh.com"></div>
+      <div class="f-grp"><label class="f-lbl">Password</label><input class="f-inp" id="rPass" type="password" placeholder="Min 6 karakter"></div>
+      <div class="f-grp"><label class="f-lbl">Ulangi Password</label><input class="f-inp" id="rPass2" type="password" placeholder="Ulangi password" onkeydown="if(event.key==='Enter')doRegister()"></div>
+      <button class="btn btn-primary btn-full" id="regBtn" onclick="doRegister()">Daftar Sekarang</button>
+      <div class="divider">atau</div>
+      <button class="google-btn" onclick="loginGoogle()">
+        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.29-8.16 2.29-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Daftar dengan Google
+      </button>
+      <div class="auth-switch">Sudah punya akun? <a onclick="showLogin()">Masuk</a></div>
+    </div>
+
+    <!-- FORGOT -->
+    <div id="formForgot" style="display:none">
+      <div style="font-size:.82rem;color:var(--t2);margin-bottom:16px;line-height:1.7">Masukkan email kamu, kami kirimkan link reset password.</div>
+      <div class="f-grp"><label class="f-lbl">Email</label><input class="f-inp" id="fEmail" type="email" placeholder="email@contoh.com"></div>
+      <button class="btn btn-primary btn-full" id="forgotBtn" onclick="doForgot()">Kirim Link Reset</button>
+      <div class="auth-switch"><a onclick="showLogin()">← Kembali ke Login</a></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const _FB={apiKey:"AIzaSyCS52l1z6DrfkqIn4WB4SEOE6hdVu2mX6w",authDomain:"yokotofxport.firebaseapp.com",databaseURL:"https://yokotofxport-default-rtdb.firebaseio.com",projectId:"yokotofxport",storageBucket:"yokotofxport.firebasestorage.app",messagingSenderId:"515300744861",appId:"1:515300744861:web:01117e3f5dc7ed755cbe74"};
+const CDN='https://www.gstatic.com/firebasejs/10.12.0';
+const CLD='dapfmzxxc',CLD_P='cshinedomain';
+let _app=null,_auth=null,_db=null,_cfg=null,_me=null;
+
+async function getFB(){
+  if(_app)return{app:_app,auth:_auth,db:_db};
+  const[fa,fau,fd]=await Promise.all([import(CDN+'/firebase-app.js'),import(CDN+'/firebase-auth.js'),import(CDN+'/firebase-database.js')]);
+  _app=fa.getApps().find(x=>x.name==='yoko')||fa.initializeApp(_FB,'yoko');
+  _auth=fau.getAuth(_app);_db=fd.getDatabase(_app);
+  return{app:_app,auth:_auth,db:_db};
+}
+async function getDB(){const fb=await getFB();return fb.db;}
+async function getAuth(){const fb=await getFB();return fb.auth;}
+
+async function dbGet(p){const db=await getDB();const d=await import(CDN+'/firebase-database.js');const s=await d.get(d.ref(db,p));return s.exists()?s.val():null;}
+async function dbSet(p,v){const db=await getDB();const d=await import(CDN+'/firebase-database.js');await d.set(d.ref(db,p),v);}
+async function dbUpdate(p,v){const db=await getDB();const d=await import(CDN+'/firebase-database.js');await d.update(d.ref(db,p),v);}
+async function dbPush(p,v){const db=await getDB();const d=await import(CDN+'/firebase-database.js');const r=await d.push(d.ref(db,p),v);return r.key;}
+async function dbRemove(p){const db=await getDB();const d=await import(CDN+'/firebase-database.js');await d.remove(d.ref(db,p));}
+async function dbListen(p,cb){const db=await getDB();const d=await import(CDN+'/firebase-database.js');d.onValue(d.ref(db,p),s=>cb(s.exists()?s.val():null));return()=>d.off(d.ref(db,p));}
+
+async function getSiteConf(){
+  if(_cfg)return _cfg;
+  _cfg=await dbGet('config')||{};
+  return _cfg;
+}
+async function getCurrentUser(){
+  const fb=await getFB();
+  return new Promise(resolve=>{
+    if(fb.auth.currentUser)return resolve(fb.auth.currentUser);
+    import(CDN+'/firebase-auth.js').then(m=>{const u=m.onAuthStateChanged(fb.auth,usr=>{u();resolve(usr);});});
+  });
+}
+async function getMe(){
+  if(_me)return _me;
+  const u=await getCurrentUser();
+  if(!u)return null;
+  _me=await dbGet('users/'+u.uid)||{};
+  _me.uid=u.uid;_me.email=u.email;
+  _me.photoURL=u.photoURL||_me.photoURL||'';
+  _me.displayName=u.displayName||_me.name||'User';
+  return _me;
+}
+async function requireLogin(to){
+  const u=await getCurrentUser();
+  if(!u){location.replace('auth.html?from='+encodeURIComponent(to||location.pathname.split('/').pop()));return null;}
+  return u;
+}
+async function checkMaintenance(){
+  const cfg=await getSiteConf();
+  if(!cfg.maintenance)return false;
+  const u=await getCurrentUser();
+  if(u){const ud=await dbGet('users/'+u.uid);if(ud&&ud.role==='owner')return false;}
+  if(!location.pathname.includes('maintenance.html'))location.replace('maintenance.html');
+  return true;
+}
+async function uploadCloudinary(file,type){
+  type=type||'image';
+  const fd=new FormData();fd.append('file',file);fd.append('upload_preset',CLD_P);
+  const r=await fetch('https://api.cloudinary.com/v1_1/'+CLD+'/'+type+'/upload',{method:'POST',body:fd});
+  const d=await r.json();return d.secure_url||'';
+}
+function genTRX(pfx){return(pfx||'TRX')+'-'+Date.now().toString(36).toUpperCase().slice(-8);}
+function fmtRp(n){return'Rp '+(n||0).toLocaleString('id');}
+function fmtDate(ts){return ts?new Date(ts).toLocaleString('id-ID'):'—';}
+
+// Theme
+const TK='yoko_theme';
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem(TK,t);document.querySelectorAll('.theme-btn').forEach(b=>{b.textContent=t==='dark'?'☀️':'🌙';});}
+function toggleTheme(){applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');}
+(function(){applyTheme(localStorage.getItem(TK)||'dark');})();
+
+// Notif in-app
+async function sendNotif(uid,data){
+  await dbPush('notifs/'+uid,Object.assign({read:false,ts:Date.now()},data));
+}
+async function markNotifRead(uid,key){await dbUpdate('notifs/'+uid+'/'+key,{read:true});}
+
+// Telegram notif
+async function tgSend(text,imgUrl){
+  const cfg=await getSiteConf();
+  if(!cfg.botToken||!cfg.chatId)return;
+  if(imgUrl){
+    const fd=new FormData();fd.append('chat_id',cfg.chatId);fd.append('photo',imgUrl);fd.append('caption',text);
+    fetch('https://api.telegram.org/bot'+cfg.botToken+'/sendPhoto',{method:'POST',body:fd}).catch(()=>{});
+  }else{
+    fetch('https://api.telegram.org/bot'+cfg.botToken+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:cfg.chatId,text:text,parse_mode:'HTML'})}).catch(()=>{});
+  }
+}
+
+function openLightbox(src){document.getElementById('lbImg').src=src;document.getElementById('lightbox').classList.add('open');}
+
+function showErr(m){const e=document.getElementById('errMsg');e.textContent=m;e.classList.add('show');document.getElementById('okMsg').classList.remove('show');}
+function showOk(m){const e=document.getElementById('okMsg');e.textContent=m;e.classList.add('show');document.getElementById('errMsg').classList.remove('show');}
+function clearMsg(){document.getElementById('errMsg').classList.remove('show');document.getElementById('okMsg').classList.remove('show');}
+function showLogin(){document.getElementById('formLogin').style.display='';document.getElementById('formRegister').style.display='none';document.getElementById('formForgot').style.display='none';document.getElementById('authSub').textContent='Masuk ke akun kamu';clearMsg();}
+function showRegister(){document.getElementById('formLogin').style.display='none';document.getElementById('formRegister').style.display='';document.getElementById('formForgot').style.display='none';document.getElementById('authSub').textContent='Buat akun baru';clearMsg();}
+function showForgot(){document.getElementById('formLogin').style.display='none';document.getElementById('formRegister').style.display='none';document.getElementById('formForgot').style.display='';document.getElementById('authSub').textContent='Reset Password';clearMsg();}
+
+function getRedirect(){return new URLSearchParams(location.search).get('from')||'home.html';}
+
+async function afterLogin(user){
+  // Buat/update profil user di Firebase
+  const existing=await dbGet('users/'+user.uid);
+  if(!existing){
+    await dbSet('users/'+user.uid,{
+      name:user.displayName||user.email.split('@')[0],
+      email:user.email,
+      photoURL:user.photoURL||'',
+      role:'user',saldo:0,
+      level:1,totalSpend:0,
+      banned:false,
+      createdAt:Date.now(),lastLogin:Date.now()
+    });
+  }else{
+    await dbUpdate('users/'+user.uid,{lastLogin:Date.now(),email:user.email,photoURL:user.photoURL||existing.photoURL||''});
+  }
+  // Cek banned
+  const ud=await dbGet('users/'+user.uid);
+  if(ud&&ud.banned){
+    const fau=await import(CDN+'/firebase-auth.js');
+    await fau.signOut((await getFB()).auth);
+    showErr('Akun kamu dibanned. Hubungi admin.');
+    return;
+  }
+  location.replace(getRedirect());
+}
+
+async function loginGoogle(){
+  clearMsg();
+  try{
+    const fb=await getFB();
+    const fau=await import(CDN+'/firebase-auth.js');
+    const provider=new fau.GoogleAuthProvider();
+    const res=await fau.signInWithPopup(fb.auth,provider);
+    await afterLogin(res.user);
+  }catch(e){
+    if(e.code!=='auth/popup-closed-by-user')showErr('Gagal login Google: '+e.message);
+  }
+}
+
+async function doLogin(){
+  const email=document.getElementById('lEmail').value.trim();
+  const pass=document.getElementById('lPass').value;
+  if(!email||!pass){showErr('Email dan password wajib!');return;}
+  const btn=document.getElementById('loginBtn');btn.disabled=true;btn.textContent='Masuk...';
+  try{
+    const fb=await getFB();
+    const fau=await import(CDN+'/firebase-auth.js');
+    const res=await fau.signInWithEmailAndPassword(fb.auth,email,pass);
+    await afterLogin(res.user);
+  }catch(e){
+    const msgs={'auth/user-not-found':'Akun tidak ditemukan.','auth/wrong-password':'Password salah.','auth/too-many-requests':'Terlalu banyak percobaan. Coba lagi nanti.','auth/invalid-email':'Format email tidak valid.','auth/invalid-credential':'Email atau password salah.'};
+    showErr(msgs[e.code]||'Gagal login: '+e.message);
+    btn.disabled=false;btn.textContent='Masuk';
+  }
+}
+
+async function doRegister(){
+  const name=document.getElementById('rName').value.trim();
+  const email=document.getElementById('rEmail').value.trim();
+  const pass=document.getElementById('rPass').value;
+  const pass2=document.getElementById('rPass2').value;
+  if(!name||!email||!pass){showErr('Semua field wajib!');return;}
+  if(pass.length<6){showErr('Password min 6 karakter!');return;}
+  if(pass!==pass2){showErr('Password tidak sama!');return;}
+  const btn=document.getElementById('regBtn');btn.disabled=true;btn.textContent='Mendaftar...';
+  try{
+    const fb=await getFB();
+    const fau=await import(CDN+'/firebase-auth.js');
+    const res=await fau.createUserWithEmailAndPassword(fb.auth,email,pass);
+    await fau.updateProfile(res.user,{displayName:name});
+    await afterLogin(res.user);
+  }catch(e){
+    const msgs={'auth/email-already-in-use':'Email sudah terdaftar.','auth/weak-password':'Password terlalu lemah.'};
+    showErr(msgs[e.code]||'Gagal daftar: '+e.message);
+    btn.disabled=false;btn.textContent='Daftar Sekarang';
+  }
+}
+
+async function doForgot(){
+  const email=document.getElementById('fEmail').value.trim();
+  if(!email){showErr('Masukkan email!');return;}
+  const btn=document.getElementById('forgotBtn');btn.disabled=true;btn.textContent='Mengirim...';
+  try{
+    const fb=await getFB();
+    const fau=await import(CDN+'/firebase-auth.js');
+    await fau.sendPasswordResetEmail(fb.auth,email);
+    document.getElementById('formForgot').innerHTML='<div style="text-align:center;padding:20px 0"><div style="font-size:2.5rem;margin-bottom:12px">📧</div><div style="font-size:.9rem;font-weight:700;color:var(--w);margin-bottom:8px">Email Terkirim!</div><p style="font-size:.8rem;color:var(--t2);line-height:1.7">Cek inbox atau folder spam kamu.</p><button class="btn btn-ghost btn-full" onclick="showLogin()" style="margin-top:16px">← Kembali ke Login</button></div>';
+  }catch(e){
+    showErr(e.code==='auth/user-not-found'?'Email tidak terdaftar.':'Gagal kirim email.');
+    btn.disabled=false;btn.textContent='Kirim Link Reset';
+  }
+}
+
+// Auto redirect kalau sudah login
+(async function(){
+  const u=await getCurrentUser();
+  if(u)location.replace(getRedirect());
+})();
+
+</script>
+</body></html>

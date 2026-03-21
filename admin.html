@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><title>Admin Panel — YOKO STORE</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden;}
+:root,[data-theme=dark]{
+  --bg:#0a0a12;--s1:#111119;--s2:#18181f;--s3:#1e1e28;--s4:#232330;
+  --blue:#4f7aff;--blue2:#738fff;--blue-a:rgba(79,122,255,.15);--blue-b:rgba(79,122,255,.08);
+  --green:#22c55e;--green-a:rgba(34,197,94,.13);
+  --gold:#f59e0b;--gold-a:rgba(245,158,11,.12);
+  --red:#f87171;--red-a:rgba(248,113,113,.12);
+  --purple:#a78bfa;--purple-a:rgba(167,139,250,.12);
+  --w:#ffffff;--t1:#eeeef5;--t2:#8888a8;--t3:#44445a;
+  --brd:rgba(255,255,255,.07);--brd2:rgba(255,255,255,.12);
+  --nav-bg:rgba(10,10,18,.9);--shadow:0 8px 32px rgba(0,0,0,.4);
+  --card-bg:var(--s1);--input-bg:var(--s2);
+}
+[data-theme=light]{
+  --bg:#f0f2ff;--s1:#fff;--s2:#f5f6ff;--s3:#eceeff;--s4:#e6e8ff;
+  --blue:#4060f0;--blue2:#5b78ff;--blue-a:rgba(64,96,240,.1);--blue-b:rgba(64,96,240,.05);
+  --green:#16a34a;--green-a:rgba(22,163,74,.1);
+  --gold:#d97706;--gold-a:rgba(217,119,6,.1);
+  --red:#dc2626;--red-a:rgba(220,38,38,.1);
+  --purple:#7c3aed;--purple-a:rgba(124,58,237,.1);
+  --w:#111;--t1:#1a1a2e;--t2:#555570;--t3:#9999b5;
+  --brd:rgba(0,0,0,.08);--brd2:rgba(0,0,0,.13);
+  --nav-bg:rgba(240,242,255,.92);--shadow:0 4px 24px rgba(0,0,0,.12);
+  --card-bg:#fff;--input-bg:#f5f6ff;
+}
+/* Scrollbar */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--s2);}
+::-webkit-scrollbar-thumb{background:var(--s3);border-radius:3px;}
+/* Ambient orbs */
+.amb{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.6;}
+/* Nav */
+.nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;padding:0 18px;z-index:500;}
+.nav-brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-ic{width:30px;height:30px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;}
+.nav-nm{font-weight:800;font-size:.9rem;color:var(--w);}
+.nav-nm span{color:var(--blue2);}
+.nav-back{font-size:.8rem;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:5px;}
+.nav-back:hover{color:var(--t1);}
+/* Bottom nav */
+.bnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:var(--nav-bg);backdrop-filter:blur(20px);border-top:1px solid var(--brd);display:flex;z-index:500;}
+.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:all .2s;text-decoration:none;color:var(--t3);}
+.bnav-item.active{color:var(--blue2);}
+.bnav-item:hover{color:var(--t1);}
+.bnav-ic{font-size:1.1rem;line-height:1;}
+.bnav-lbl{font-size:.58rem;font-weight:700;letter-spacing:.3px;}
+.bnav-badge{position:absolute;top:-3px;right:-5px;background:var(--red);color:#fff;font-size:.5rem;font-weight:800;padding:1px 4px;border-radius:8px;min-width:14px;text-align:center;}
+/* Cards */
+.card{background:var(--card-bg);border:1px solid var(--brd);border-radius:16px;padding:18px;margin-bottom:12px;}
+.card-sm{background:var(--card-bg);border:1px solid var(--brd);border-radius:12px;padding:14px;}
+/* Buttons */
+.btn{padding:11px 20px;border:none;border-radius:11px;font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;justify-content:center;gap:7px;}
+.btn-full{width:100%;}
+.btn-primary{background:var(--blue);color:#fff;}.btn-primary:hover{background:var(--blue2);}
+.btn-green{background:var(--green);color:#fff;}.btn-green:hover{filter:brightness(1.1);}
+.btn-danger{background:var(--red-a);color:var(--red);border:1px solid rgba(248,113,113,.2);}.btn-danger:hover{background:var(--red);color:#fff;}
+.btn-ghost{background:var(--s2);color:var(--t2);border:1px solid var(--brd2);}.btn-ghost:hover{color:var(--t1);}
+.btn:disabled{opacity:.55;cursor:not-allowed;}
+/* Form */
+.f-grp{margin-bottom:14px;}
+.f-lbl{display:block;font-size:.74rem;font-weight:600;color:var(--t2);margin-bottom:6px;}
+.f-inp{width:100%;padding:11px 14px;background:var(--input-bg);border:1.5px solid var(--brd2);border-radius:11px;color:var(--t1);font-family:inherit;font-size:.85rem;outline:none;transition:border .2s;}
+.f-inp:focus{border-color:var(--blue);}
+.f-inp-icon{position:relative;}.f-inp-icon .f-inp{padding-left:40px;}.f-inp-icon .ic{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:.9rem;color:var(--t3);}
+textarea.f-inp{resize:vertical;min-height:80px;}
+select.f-inp{cursor:pointer;}
+/* Detail rows */
+.dbox{background:var(--s2);border:1px solid var(--brd2);border-radius:12px;overflow:hidden;margin-bottom:12px;}
+.dr{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--brd);}
+.dr:last-child{border-bottom:none;}
+.dk{font-size:.74rem;color:var(--t3);}
+.dv{font-size:.8rem;font-weight:600;color:var(--t1);text-align:right;word-break:break-all;max-width:65%;}
+.dv.mono{font-family:monospace;color:var(--blue2);font-size:.72rem;}
+/* Badges */
+.badge{display:inline-block;padding:3px 9px;border-radius:8px;font-size:.67rem;font-weight:700;}
+.badge-green{background:var(--green-a);color:var(--green);}
+.badge-gold{background:var(--gold-a);color:var(--gold);}
+.badge-red{background:var(--red-a);color:var(--red);}
+.badge-blue{background:var(--blue-a);color:var(--blue2);}
+.badge-purple{background:var(--purple-a);color:var(--purple);}
+/* Alert */
+.alert{border-radius:10px;padding:10px 14px;font-size:.76rem;font-weight:500;margin-bottom:10px;display:none;}
+.alert.show{display:block;}
+.alert-ok{background:var(--green-a);border:1px solid rgba(34,197,94,.2);color:var(--green);}
+.alert-err{background:var(--red-a);border:1px solid rgba(248,113,113,.2);color:var(--red);}
+.alert-warn{background:var(--gold-a);border:1px solid rgba(245,158,11,.2);color:var(--gold);}
+/* Loading */
+.spinner{width:28px;height:28px;border:3px solid var(--brd2);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.pulse-row{display:flex;align-items:center;justify-content:center;gap:5px;}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);animation:pls 1.4s ease-in-out infinite;}
+.pulse-dot:nth-child(2){animation-delay:.2s;}.pulse-dot:nth-child(3){animation-delay:.4s;}
+@keyframes pls{0%,80%,100%{transform:scale(0);opacity:.3;}40%{transform:scale(1);opacity:1;}}
+/* Popup */
+.popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:800;align-items:center;justify-content:center;padding:16px;}
+.popup-overlay.open{display:flex;}
+.popup-box{background:var(--s1);border:1px solid var(--brd2);border-radius:20px;padding:24px;width:100%;max-width:440px;max-height:92vh;overflow-y:auto;}
+.popup-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.popup-title{font-size:.95rem;font-weight:800;color:var(--w);}
+.popup-close{background:var(--s2);border:none;color:var(--t2);width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:.85rem;font-family:inherit;display:flex;align-items:center;justify-content:center;}
+/* Lightbox */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:900;align-items:center;justify-content:center;cursor:zoom-out;}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:94vw;max-height:90vh;border-radius:10px;object-fit:contain;}
+/* Table */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--brd);border-radius:13px;}
+table{width:100%;border-collapse:collapse;}
+th{font-size:.62rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--t3);padding:10px 13px;text-align:left;background:var(--s2);border-bottom:1px solid var(--brd);}
+td{padding:10px 13px;border-bottom:1px solid var(--brd);font-size:.8rem;vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--blue-b);}
+/* Avatar */
+.avatar{border-radius:50%;object-fit:cover;background:var(--s3);}
+.avatar-placeholder{border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;}
+/* Misc */
+.page{padding:70px 0 72px;min-height:100vh;position:relative;z-index:1;}
+.wrap{max-width:540px;margin:0 auto;padding:0 16px;}
+.sec-title{font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--brd);}
+.empty-state{text-align:center;padding:40px 20px;color:var(--t3);}
+.empty-state .ico{font-size:2.5rem;margin-bottom:10px;}
+.empty-state .msg{font-size:.82rem;}
+@media(max-width:480px){.wrap{padding:0 12px;}.popup-box{padding:18px;}}
+
+body{overflow:hidden;}
+.layout{display:flex;height:100vh;overflow:hidden;}
+.sb{width:240px;background:var(--s1);border-right:1px solid var(--brd);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;}
+.sb-brand{padding:16px;border-bottom:1px solid var(--brd);display:flex;align-items:center;gap:10px;}
+.sb-ic{width:32px;height:32px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.sb-nav{padding:8px;flex:1;}
+.sb-grp{font-size:.58rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);padding:10px 8px 5px;}
+.sb-item{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:9px;cursor:pointer;font-size:.8rem;font-weight:600;color:var(--t2);transition:all .2s;margin-bottom:2px;}
+.sb-item:hover{background:var(--s2);color:var(--t1);}
+.sb-item.active{background:var(--blue-a);color:var(--blue2);}
+.sb-item .ic{font-size:.88rem;width:18px;text-align:center;flex-shrink:0;}
+.sb-foot{padding:10px 8px;border-top:1px solid var(--brd);}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.topbar{height:54px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:var(--nav-bg);backdrop-filter:blur(16px);flex-shrink:0;}
+.content{flex:1;overflow-y:auto;padding:20px;}
+.panel{display:none;animation:fadeUp .25s both;}.panel.on{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
+.stat-card{background:var(--s1);border:1px solid var(--brd);border-radius:14px;padding:16px;position:relative;overflow:hidden;}
+.stat-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0;}
+.sc-b::after{background:linear-gradient(90deg,var(--blue),var(--blue2));}
+.sc-g::after{background:linear-gradient(90deg,var(--green),#34d399);}
+.sc-r::after{background:linear-gradient(90deg,var(--red),#f97316);}
+.sc-y::after{background:linear-gradient(90deg,var(--gold),#fbbf24);}
+.stat-num{font-size:1.5rem;font-weight:800;}.sc-b .stat-num{color:var(--blue2);}.sc-g .stat-num{color:var(--green);}.sc-r .stat-num{color:var(--red);}.sc-y .stat-num{color:var(--gold);font-size:.95rem;}
+.stat-lbl{font-size:.62rem;font-weight:600;text-transform:uppercase;color:var(--t3);margin-top:4px;}
+.acard{background:var(--s1);border:1px solid var(--brd);border-radius:14px;padding:18px;margin-bottom:12px;}
+.acard-head{font-size:.86rem;font-weight:700;color:var(--w);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+.btn-save{background:var(--blue);color:#fff;font-family:inherit;font-weight:700;font-size:.8rem;padding:9px 18px;border:none;border-radius:9px;cursor:pointer;transition:all .2s;}
+.btn-save:hover{background:var(--blue2);}.btn-save:disabled{opacity:.6;cursor:not-allowed;}
+.btn-outline{background:var(--s2);color:var(--t2);border:1px solid var(--brd2);padding:9px 14px;border-radius:9px;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;}
+.btn-outline:hover{color:var(--t1);}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pop-overlay{display:none;position:fixed;inset:0;z-index:998;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px;}
+.pop-overlay.open{display:flex;}
+.pop-box{background:var(--s1);border:1px solid var(--brd2);border-radius:18px;padding:22px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;}
+.btn-sm{padding:4px 9px;border-radius:7px;font-size:.72rem;font-weight:700;cursor:pointer;border:1px solid transparent;font-family:inherit;}
+.btn-ok{background:var(--green-a);color:var(--green);border-color:rgba(34,197,94,.2);}
+.btn-ok:hover{background:var(--green);color:#fff;}
+.btn-ng{background:var(--red-a);color:var(--red);border-color:rgba(248,113,113,.2);}
+.btn-ng:hover{background:var(--red);color:#fff;}
+.btn-yw{background:var(--gold-a);color:var(--gold);border-color:rgba(245,158,11,.2);}
+.btn-yw:hover{background:var(--gold);color:#fff;}
+.btn-bl{background:var(--blue-a);color:var(--blue2);border-color:rgba(79,122,255,.2);}
+.btn-bl:hover{background:var(--blue);color:#fff;}
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:98;}
+.toggle-wrap{display:flex;align-items:center;gap:12px;}
+.toggle{position:relative;width:48px;height:26px;cursor:pointer;}
+.toggle input{opacity:0;width:0;height:0;}
+.toggle-track{position:absolute;inset:0;background:var(--brd2);border-radius:26px;transition:all .3s;}
+.toggle input:checked+.toggle-track{background:var(--green);}
+.toggle-thumb{position:absolute;width:20px;height:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:all .3s;}
+.toggle input:checked~.toggle-thumb{left:25px;}
+.stock-item{background:var(--s2);border:1px solid var(--brd2);border-radius:9px;padding:10px 12px;margin-bottom:6px;}
+.stock-body{font-size:.78rem;color:var(--t1);white-space:pre-wrap;word-break:break-word;line-height:1.6;margin-bottom:6px;}
+@media(max-width:900px){
+  .sb{position:fixed;left:-245px;top:0;z-index:99;height:100vh;transition:transform .3s;}
+  .sb.open{transform:translateX(245px);}
+  .sb-overlay.open{display:block;}
+  .stat-grid{grid-template-columns:1fr 1fr;}
+  .content{padding:12px;}
+  .f-row{grid-template-columns:1fr;}
+}
+</style></head><body>
+<div class="amb"><div class="orb" style="width:600px;height:600px;background:radial-gradient(circle,rgba(79,122,255,.1),transparent 70%);top:-200px;right:-200px;"></div></div>
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lbImg" src=""></div>
+
+<div class="sb-overlay" id="sbo" onclick="closeSb()"></div>
+<div class="pop-overlay" id="mainPop"><div class="pop-box"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div class="popup-title" id="mainPopTitle">Detail</div><button class="btn-outline" onclick="closePop()" style="padding:5px 10px">✕</button></div><div id="mainPopContent"></div></div></div>
+
+<div class="layout">
+  <!-- Sidebar -->
+  <div class="sb" id="sb">
+    <div class="sb-brand"><div class="sb-ic">🛍️</div><div><div style="font-weight:800;font-size:.88rem;color:var(--w)">YOKO<span style="color:var(--blue2)">STORE</span></div><div style="font-size:.62rem;color:var(--t3)">Admin Panel</div></div></div>
+    <nav class="sb-nav">
+      <div class="sb-grp">Overview</div>
+      <div class="sb-item active" onclick="showP('dash',this)"><span class="ic">📊</span>Dashboard</div>
+      <div class="sb-grp">Kelola</div>
+      <div class="sb-item" onclick="showP('orders',this)"><span class="ic">📦</span>Transaksi</div>
+      <div class="sb-item" onclick="showP('topups',this)"><span class="ic">💰</span>Topup</div>
+      <div class="sb-item" onclick="showP('users',this)"><span class="ic">👥</span>Users</div>
+      <div class="sb-grp">Produk</div>
+      <div class="sb-item" onclick="showP('cats',this)"><span class="ic">📂</span>Kategori</div>
+      <div class="sb-item" onclick="showP('prods',this)"><span class="ic">🛒</span>Produk & Stok</div>
+      <div class="sb-grp">Config</div>
+      <div class="sb-item" onclick="showP('settings',this)"><span class="ic">⚙️</span>Pengaturan</div>
+      <div class="sb-item" onclick="showP('broadcast',this)"><span class="ic">📢</span>Broadcast</div>
+      <div class="sb-item" onclick="showP('maint',this)"><span class="ic">🔧</span>Maintenance</div>
+      <div class="sb-item" onclick="showP('rules',this)"><span class="ic">🔥</span>Firebase Rules</div>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-item" onclick="location.href='home.html'"><span class="ic">🏠</span>Ke Website</div>
+      <div class="sb-item" style="color:var(--red)" onclick="doLogout()"><span class="ic">🚪</span>Logout</div>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:10px">
+        <button onclick="openSb()" id="menuBtn" style="display:none;background:var(--s1);border:1px solid var(--brd);color:var(--t2);padding:5px 9px;border-radius:7px;cursor:pointer;font-size:.88rem">☰</button>
+        <div style="font-size:.92rem;font-weight:700;color:var(--w)" id="pageTitle">Dashboard</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:.7rem;color:var(--t3)" id="clock"></span>
+        <div id="maintBadge" style="display:none;background:var(--red-a);color:var(--red);font-size:.68rem;font-weight:700;padding:3px 8px;border-radius:6px;border:1px solid rgba(248,113,113,.2)">🔧 MAINTENANCE</div>
+        <button class="btn-outline" style="padding:6px 10px;font-size:.75rem" onclick="toggleTheme()" id="themeBtn">🌙</button>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="panel on" id="panel-dash">
+        <div class="stat-grid">
+          <div class="stat-card sc-b"><div class="stat-num" id="dTotal">—</div><div class="stat-lbl">Total Order</div></div>
+          <div class="stat-card sc-r"><div class="stat-num" id="dPend">—</div><div class="stat-lbl">Pending</div></div>
+          <div class="stat-card sc-g"><div class="stat-num" id="dDone">—</div><div class="stat-lbl">Selesai</div></div>
+          <div class="stat-card sc-y"><div class="stat-num" id="dRev">—</div><div class="stat-lbl">Revenue</div></div>
+        </div>
+        <div class="acard">
+          <div class="acard-head">Order Terbaru</div>
+          <div class="tbl-wrap"><table><thead><tr><th>ID TRX</th><th>User</th><th>Produk</th><th>Total</th><th>Status</th></tr></thead>
+          <tbody id="dashTb"></tbody></table></div>
+        </div>
+      </div>
+
+      <!-- ORDERS -->
+      <div class="panel" id="panel-orders">
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center">
+          <input class="f-inp" style="max-width:200px;padding:8px 12px" id="ordQ" placeholder="🔍 ID TRX / nama / email..." oninput="renderOrds()">
+          <select class="f-inp" style="max-width:130px;padding:8px 12px" id="ordSt" onchange="renderOrds()">
+            <option value="">Semua</option><option value="process">⏳ Proses</option><option value="review">🔍 Tinjau</option>
+            <option value="done">✅ Selesai</option><option value="cancelled">❌ Batal</option><option value="error">⚠️ Error</option>
+          </select>
+          <button class="btn-save" style="padding:7px 14px;font-size:.75rem" onclick="loadOrders()">↻</button>
+        </div>
+        <div class="tbl-wrap"><table><thead><tr><th>ID TRX</th><th>User</th><th>Produk</th><th>Link</th><th>Qty</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
+        <tbody id="ordTb"></tbody></table></div>
+      </div>
+
+      <!-- TOPUP -->
+      <div class="panel" id="panel-topups">
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+          <button class="btn-save" style="padding:7px 14px;font-size:.75rem" onclick="filterT('all')">Semua</button>
+          <button class="btn-save" style="padding:7px 14px;font-size:.75rem;background:var(--gold-a);color:var(--gold);border:1px solid rgba(245,158,11,.2)" onclick="filterT('pend')">⏳ Perlu Approve</button>
+          <button class="btn-save" style="padding:7px 14px;font-size:.75rem;background:var(--green-a);color:var(--green);border:1px solid rgba(34,197,94,.2)" onclick="filterT('done')">✅ Selesai</button>
+          <button class="btn-outline" style="padding:7px 14px;font-size:.75rem" onclick="loadTopups()">↻</button>
+        </div>
+        <div class="tbl-wrap"><table><thead><tr><th>ID</th><th>User</th><th>Nominal</th><th>Saldo Diterima</th><th>Bukti</th><th>Status</th><th>Aksi</th></tr></thead>
+        <tbody id="topTb"></tbody></table></div>
+      </div>
+
+      <!-- USERS -->
+      <div class="panel" id="panel-users">
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+          <input class="f-inp" style="max-width:220px;padding:8px 12px" id="usrQ" placeholder="🔍 Nama / email..." oninput="renderUsrs()">
+          <button class="btn-outline" style="padding:7px 14px;font-size:.75rem" onclick="loadUsers()">↻</button>
+        </div>
+        <div class="tbl-wrap"><table><thead><tr><th>Avatar</th><th>Nama</th><th>Email</th><th>Saldo</th><th>Level</th><th>Role</th><th>Status</th><th>Aksi</th></tr></thead>
+        <tbody id="usrTb"></tbody></table></div>
+      </div>
+
+      <!-- CATEGORIES -->
+      <div class="panel" id="panel-cats">
+        <div class="acard" id="catForm">
+          <div class="acard-head"><span id="catFT">Tambah Kategori</span></div>
+          <div class="f-row">
+            <div class="f-grp"><label class="f-lbl">Nama *</label><input class="f-inp" id="cN" placeholder="Signal, WA Reaction..."></div>
+            <div class="f-grp"><label class="f-lbl">Emoji</label><input class="f-inp" id="cI" placeholder="📶" maxlength="4"></div>
+            <div class="f-grp"><label class="f-lbl">Tipe</label><select class="f-inp" id="cT"><option value="digital">🎫 Digital</option><option value="sosmed">📱 Sosmed</option></select></div>
+            <div class="f-grp"><label class="f-lbl">Deskripsi</label><input class="f-inp" id="cD" placeholder="Deskripsi..."></div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn-save" id="cSaveBtn" onclick="saveCat()">+ Tambah</button>
+            <button class="btn-outline" onclick="cancelCat()">✕</button>
+          </div>
+          <div class="alert alert-ok" id="cOk"></div><div class="alert alert-err" id="cErr"></div>
+        </div>
+        <div class="tbl-wrap"><table><thead><tr><th>Icon</th><th>Nama</th><th>Tipe</th><th>Aksi</th></tr></thead>
+        <tbody id="catTb"></tbody></table></div>
+      </div>
+
+      <!-- PRODUCTS -->
+      <div class="panel" id="panel-prods">
+        <div class="acard" id="prodForm">
+          <div class="acard-head"><span id="pFT">Tambah Produk</span></div>
+          <div class="f-row">
+            <div class="f-grp"><label class="f-lbl">Nama *</label><input class="f-inp" id="pN" placeholder="Nama produk"></div>
+            <div class="f-grp"><label class="f-lbl">Kategori *</label><select class="f-inp" id="pC"><option value="">-- Pilih --</option></select></div>
+            <div class="f-grp"><label class="f-lbl">Harga (Rp) *</label><input class="f-inp" id="pPr" type="number" placeholder="15000"></div>
+            <div class="f-grp"><label class="f-lbl">Emoji</label><input class="f-inp" id="pIc" placeholder="⭐" maxlength="4"></div>
+            <div class="f-grp"><label class="f-lbl">Tipe</label><select class="f-inp" id="pTy" onchange="togPT()"><option value="token">🎫 Token/Digital</option><option value="sosmed">📱 Sosmed</option></select></div>
+            <div class="f-grp"><label class="f-lbl">Platform (untuk sosmed)</label><input class="f-inp" id="pPl" placeholder="tiktok/instagram/..."></div>
+            <div class="f-grp" style="grid-column:1/-1"><label class="f-lbl">Deskripsi</label><input class="f-inp" id="pDs" placeholder="Deskripsi produk"></div>
+          </div>
+          <div id="sosExtras" style="display:none">
+            <div style="background:var(--blue-a);border:1px solid rgba(79,122,255,.15);border-radius:9px;padding:10px 13px;margin-bottom:10px;font-size:.74rem;color:var(--t2)">📱 Detail paket sosmed</div>
+            <div class="f-row">
+              <div class="f-grp"><label class="f-lbl">👁️ Views</label><input class="f-inp" id="pVw" type="number" placeholder="0"></div>
+              <div class="f-grp"><label class="f-lbl">❤️ Likes</label><input class="f-inp" id="pLk" type="number" placeholder="0"></div>
+              <div class="f-grp"><label class="f-lbl">🔁 Shares</label><input class="f-inp" id="pSh" type="number" placeholder="0"></div>
+              <div class="f-grp"><label class="f-lbl">👤 Followers</label><input class="f-inp" id="pFl" type="number" placeholder="0"></div>
+              <div class="f-grp"><label class="f-lbl">👥 Members</label><input class="f-inp" id="pMb" type="number" placeholder="0"></div>
+              <div class="f-grp"><label class="f-lbl">⭐ Reactions</label><input class="f-inp" id="pRc" type="number" placeholder="0"></div>
+              <div class="f-grp"><label class="f-lbl">Min Order</label><input class="f-inp" id="pMn" type="number" placeholder="1"></div>
+              <div class="f-grp"><label class="f-lbl">Max Order</label><input class="f-inp" id="pMx" type="number" placeholder="100"></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn-save" id="pSaveBtn" onclick="saveProd()">+ Tambah</button>
+            <button class="btn-outline" onclick="cancelProd()">✕</button>
+          </div>
+          <div class="alert alert-ok" id="pOk"></div><div class="alert alert-err" id="pErr"></div>
+        </div>
+        <!-- Stock Manager -->
+        <div class="acard" id="stokCard" style="display:none;border-color:rgba(79,122,255,.3)">
+          <div class="acard-head"><span id="stokTitle">Stok</span><span id="stokBadge" class="badge badge-green">0 stok</span></div>
+          <div class="f-grp"><label class="f-lbl">Isi Stok Baru</label><textarea class="f-inp" id="stokContent" rows="5" style="font-family:monospace;font-size:.8rem;resize:vertical" placeholder="Username: xxx&#10;Password: xxx&#10;Cara pakai: xxx"></textarea></div>
+          <div style="display:flex;gap:8px"><button class="btn-save" id="stokSaveBtn" onclick="saveStok()">➕ Tambah</button><button class="btn-outline" onclick="closeStok()">✕ Tutup</button></div>
+          <div class="alert alert-ok" id="stokOk"></div>
+          <div style="margin-top:12px" id="stokList"></div>
+        </div>
+        <div class="tbl-wrap"><table><thead><tr><th>Produk</th><th>Kategori</th><th>Harga</th><th>Info</th><th>Aksi</th></tr></thead>
+        <tbody id="prodTb"></tbody></table></div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="panel" id="panel-settings">
+        <div class="acard">
+          <div class="acard-head">Identitas & Telegram</div>
+          <div class="f-grp"><label class="f-lbl">Nama Website</label><input class="f-inp" id="sNm" placeholder="YOKO STORE"></div>
+          <div class="f-row">
+            <div class="f-grp"><label class="f-lbl">Bot Token</label><input class="f-inp" id="sBt" placeholder="123456:ABCdef..."></div>
+            <div class="f-grp"><label class="f-lbl">Chat ID Admin</label><input class="f-inp" id="sCi" placeholder="-100xxxxxxxxx"></div>
+          </div>
+        </div>
+        <div class="acard">
+          <div class="acard-head">QRIS & CS</div>
+          <div class="f-grp"><label class="f-lbl">URL QRIS</label><input class="f-inp" id="sQr" placeholder="https://i.ibb.co/..." oninput="prvQr(this.value)"></div>
+          <div id="qrPrvWrap" style="display:none;margin-bottom:10px"><img id="qrPrv" style="max-width:140px;border-radius:9px;border:2px solid var(--brd2)"></div>
+          <div class="f-grp"><label class="f-lbl">Nama Penerima QRIS</label><input class="f-inp" id="sQrN" placeholder="YOKO STORE"></div>
+          <div class="f-row">
+            <div class="f-grp"><label class="f-lbl">Link CS Telegram (cepat, &lt;45 menit)</label><input class="f-inp" id="sCs1" placeholder="https://t.me/..."></div>
+            <div class="f-grp"><label class="f-lbl">Link CS Website (&gt;1 jam)</label><input class="f-inp" id="sCs2" placeholder="https://..."></div>
+          </div>
+        </div>
+        <div class="acard">
+          <div class="acard-head">EmailJS (Opsional)</div>
+          <div class="f-row">
+            <div class="f-grp"><label class="f-lbl">Public Key</label><input class="f-inp" id="sEp" placeholder="user_xxxxx"></div>
+            <div class="f-grp"><label class="f-lbl">Service ID</label><input class="f-inp" id="sEs" placeholder="service_xxxxx"></div>
+            <div class="f-grp" style="grid-column:1/-1"><label class="f-lbl">Template ID</label><input class="f-inp" id="sEt" placeholder="template_xxxxx"></div>
+          </div>
+        </div>
+        <button class="btn-save" onclick="saveSettings()">💾 Simpan Pengaturan</button>
+        <div class="alert alert-ok" id="sOk"></div><div class="alert alert-err" id="sErr"></div>
+      </div>
+
+      <!-- BROADCAST -->
+      <div class="panel" id="panel-broadcast">
+        <div class="acard" style="max-width:520px">
+          <div class="acard-head">📢 Broadcast ke Semua User</div>
+          <div class="f-grp"><label class="f-lbl">Judul *</label><input class="f-inp" id="bcT" placeholder="Judul broadcast..."></div>
+          <div class="f-grp"><label class="f-lbl">Pesan *</label><textarea class="f-inp" id="bcB" rows="4" placeholder="Isi pesan..."></textarea></div>
+          <div class="f-grp"><label class="f-lbl">Foto (opsional)</label><input class="f-inp" id="bcI" type="file" accept="image/*" style="padding:9px;cursor:pointer" onchange="prvBcImg(this)"></div>
+          <div id="bcPrv" style="display:none;margin-bottom:12px"><img id="bcPrvImg" style="max-width:180px;border-radius:9px;border:2px solid var(--brd2)"></div>
+          <button class="btn-save" id="bcBtn" onclick="sendBroadcast()">📢 Kirim ke Semua User</button>
+          <div class="alert alert-ok" id="bcOk"></div><div class="alert alert-err" id="bcErr"></div>
+        </div>
+      </div>
+
+      <!-- MAINTENANCE -->
+      <div class="panel" id="panel-maint">
+        <div class="acard" style="max-width:480px">
+          <div class="acard-head">🔧 Mode Maintenance</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;background:var(--s2);border-radius:11px;margin-bottom:14px">
+            <div>
+              <div style="font-size:.86rem;font-weight:700;color:var(--w)" id="maintStatusLbl">Maintenance: OFF</div>
+              <div style="font-size:.72rem;color:var(--t3);margin-top:2px">Aktifkan untuk redirect user ke halaman maintenance. Owner tidak terpengaruh.</div>
+            </div>
+            <label class="toggle" style="flex-shrink:0">
+              <input type="checkbox" id="maintTog" onchange="toggleMaint()">
+              <div class="toggle-track"></div>
+              <div class="toggle-thumb"></div>
+            </label>
+          </div>
+          <div class="f-grp"><label class="f-lbl">Judul</label><input class="f-inp" id="mTitle" placeholder="Sedang Maintenance"></div>
+          <div class="f-grp"><label class="f-lbl">Pesan</label><textarea class="f-inp" id="mMsg" rows="3" placeholder="Website sedang dalam perbaikan..."></textarea></div>
+          <div class="f-grp"><label class="f-lbl">Estimasi Selesai</label><input class="f-inp" id="mEst" placeholder="Senin, 20 Jan 2025 pukul 10:00 WIB"></div>
+          <button class="btn-save" onclick="saveMaint()">💾 Simpan</button>
+          <div class="alert alert-ok" id="mOk"></div>
+        </div>
+      </div>
+
+      <!-- FIREBASE RULES -->
+      <div class="panel" id="panel-rules">
+        <div class="acard"><div class="acard-head">Firebase Realtime Database Rules</div>
+<pre style="background:var(--s2);border:1px solid var(--brd2);border-radius:9px;padding:13px;font-size:.7rem;color:var(--t1);overflow-x:auto;line-height:1.8">{
+  "rules": {
+    ".read": false, ".write": false,
+    "orders":       { ".read": true, ".write": true, ".indexOn": ["uid","timestamp","status"] },
+    "config":       { ".read": true, ".write": true },
+    "users":        { ".read": true, ".write": true },
+    "topups":       { ".read": true, ".write": true, ".indexOn": ["uid","depositId","timestamp"] },
+    "notifs":       { ".read": true, ".write": true },
+    "products":     { ".read": true, ".write": true },
+    "categories":   { ".read": true, ".write": true },
+    "descriptions": { ".read": true, ".write": true }
+  }
+}</pre></div>
+      </div>
+
+    </div><!-- end content -->
+  </div><!-- end main -->
+</div><!-- end layout -->
+<script>const _FB={apiKey:"AIzaSyCS52l1z6DrfkqIn4WB4SEOE6hdVu2mX6w",authDomain:"yokotofxport.firebaseapp.com",databaseURL:"https://yokotofxport-default-rtdb.firebaseio.com",projectId:"yokotofxport",storageBucket:"yokotofxport.firebasestorage.app",messagingSenderId:"515300744861",appId:"1:515300744861:web:01117e3f5dc7ed755cbe74"};
+const CDN='https://www.gstatic.com/firebasejs/10.12.0';
+const CLD='dapfmzxxc',CLD_P='cshinedomain';
+let _app=null,_auth=null,_db=null,_cfg=null,_me=null;
+
+async function getFB(){
+  if(_app)return{app:_app,auth:_auth,db:_db};
+  const[fa,fau,fd]=await Promise.all([import(CDN+'/firebase-app.js'),import(CDN+'/firebase-auth.js'),import(CDN+'/firebase-database.js')]);
+  _app=fa.getApps().find(x=>x.name==='yoko')||fa.initializeApp(_FB,'yoko');
+  _auth=fau.getAuth(_app);_db=fd.getDatabase(_app);
+  return{app:_app,auth:_auth,db:_db};
+}
+async function getDB(){const fb=await getFB();return fb.db;}
+async function getAuth(){const fb=await getFB();return fb.auth;}
+
+async function dbGet(p){const db=await getDB();const d=await import(CDN+'/firebase-database.js');const s=await d.get(d.ref(db,p));return s.exists()?s.val():null;}
+async function dbSet(p,v){const db=await getDB();const d=await import(CDN+'/firebase-database.js');await d.set(d.ref(db,p),v);}
+async function dbUpdate(p,v){const db=await getDB();const d=await import(CDN+'/firebase-database.js');await d.update(d.ref(db,p),v);}
+async function dbPush(p,v){const db=await getDB();const d=await import(CDN+'/firebase-database.js');const r=await d.push(d.ref(db,p),v);return r.key;}
+async function dbRemove(p){const db=await getDB();const d=await import(CDN+'/firebase-database.js');await d.remove(d.ref(db,p));}
+async function dbListen(p,cb){const db=await getDB();const d=await import(CDN+'/firebase-database.js');d.onValue(d.ref(db,p),s=>cb(s.exists()?s.val():null));return()=>d.off(d.ref(db,p));}
+
+async function getSiteConf(){
+  if(_cfg)return _cfg;
+  _cfg=await dbGet('config')||{};
+  return _cfg;
+}
+async function getCurrentUser(){
+  const fb=await getFB();
+  return new Promise(resolve=>{
+    if(fb.auth.currentUser)return resolve(fb.auth.currentUser);
+    import(CDN+'/firebase-auth.js').then(m=>{const u=m.onAuthStateChanged(fb.auth,usr=>{u();resolve(usr);});});
+  });
+}
+async function getMe(){
+  if(_me)return _me;
+  const u=await getCurrentUser();
+  if(!u)return null;
+  _me=await dbGet('users/'+u.uid)||{};
+  _me.uid=u.uid;_me.email=u.email;
+  _me.photoURL=u.photoURL||_me.photoURL||'';
+  _me.displayName=u.displayName||_me.name||'User';
+  return _me;
+}
+async function requireLogin(to){
+  const u=await getCurrentUser();
+  if(!u){location.replace('auth.html?from='+encodeURIComponent(to||location.pathname.split('/').pop()));return null;}
+  return u;
+}
+async function checkMaintenance(){
+  const cfg=await getSiteConf();
+  if(!cfg.maintenance)return false;
+  const u=await getCurrentUser();
+  if(u){const ud=await dbGet('users/'+u.uid);if(ud&&ud.role==='owner')return false;}
+  if(!location.pathname.includes('maintenance.html'))location.replace('maintenance.html');
+  return true;
+}
+async function uploadCloudinary(file,type){
+  type=type||'image';
+  const fd=new FormData();fd.append('file',file);fd.append('upload_preset',CLD_P);
+  const r=await fetch('https://api.cloudinary.com/v1_1/'+CLD+'/'+type+'/upload',{method:'POST',body:fd});
+  const d=await r.json();return d.secure_url||'';
+}
+function genTRX(pfx){return(pfx||'TRX')+'-'+Date.now().toString(36).toUpperCase().slice(-8);}
+function fmtRp(n){return'Rp '+(n||0).toLocaleString('id');}
+function fmtDate(ts){return ts?new Date(ts).toLocaleString('id-ID'):'—';}
+
+// Theme
+const TK='yoko_theme';
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem(TK,t);document.querySelectorAll('.theme-btn').forEach(b=>{b.textContent=t==='dark'?'☀️':'🌙';});}
+function toggleTheme(){applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');}
+(function(){applyTheme(localStorage.getItem(TK)||'dark');})();
+
+// Notif in-app
+async function sendNotif(uid,data){
+  await dbPush('notifs/'+uid,Object.assign({read:false,ts:Date.now()},data));
+}
+async function markNotifRead(uid,key){await dbUpdate('notifs/'+uid+'/'+key,{read:true});}
+
+// Telegram notif
+async function tgSend(text,imgUrl){
+  const cfg=await getSiteConf();
+  if(!cfg.botToken||!cfg.chatId)return;
+  if(imgUrl){
+    const fd=new FormData();fd.append('chat_id',cfg.chatId);fd.append('photo',imgUrl);fd.append('caption',text);
+    fetch('https://api.telegram.org/bot'+cfg.botToken+'/sendPhoto',{method:'POST',body:fd}).catch(()=>{});
+  }else{
+    fetch('https://api.telegram.org/bot'+cfg.botToken+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:cfg.chatId,text:text,parse_mode:'HTML'})}).catch(()=>{});
+  }
+}
+
+function openLightbox(src){document.getElementById('lbImg').src=src;document.getElementById('lightbox').classList.add('open');}
+
+async function adminInit(){
+  const u=await getCurrentUser();
+  if(!u){location.replace('auth.html?from=admin.html');return;}
+  const ud=await dbGet('users/'+u.uid);
+  if(!ud||!(ud.role==='admin'||ud.role==='owner')){alert('Akses ditolak!');location.replace('home.html');return;}
+  setInterval(()=>{document.getElementById('clock').textContent=new Date().toLocaleTimeString('id-ID');},1000);
+  if(window.innerWidth<=900)document.getElementById('menuBtn').style.display='block';
+  loadDash();loadMaintStatus();
+}
+function openSb(){document.getElementById('sb').classList.add('open');document.getElementById('sbo').classList.add('open');}
+function closeSb(){document.getElementById('sb').classList.remove('open');document.getElementById('sbo').classList.remove('open');}
+function closePop(){document.getElementById('mainPop').classList.remove('open');}
+document.getElementById('mainPop').addEventListener('click',function(e){if(e.target===this)closePop();});
+function showAlert(id,dur){const e=document.getElementById(id);if(!e)return;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),dur||3000);}
+
+const PTITLES={dash:'Dashboard',orders:'Transaksi',topups:'Topup Saldo',users:'Data User',cats:'Kategori',prods:'Produk & Stok',settings:'Pengaturan',broadcast:'Broadcast',maint:'Maintenance',rules:'Firebase Rules'};
+function showP(id,el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('on');
+  if(el)el.classList.add('active');
+  document.getElementById('pageTitle').textContent=PTITLES[id]||id;
+  closeSb();
+  if(id==='dash')loadDash();
+  if(id==='orders')loadOrders();
+  if(id==='topups')loadTopups();
+  if(id==='users')loadUsers();
+  if(id==='cats')loadCats();
+  if(id==='prods'){loadProdCatSel();loadProds();}
+  if(id==='settings')loadSettings();
+  if(id==='maint')loadMaintStatus();
+}
+
+// ── DASHBOARD ─────────────────────────────────────────────────────────────────
+async function loadDash(){
+  const[orders,users]=await Promise.all([dbGet('orders'),dbGet('users')]);
+  let tot=0,pend=0,done=0,rev=0,recent=[];
+  Object.entries(orders||{}).forEach(([k,o])=>{tot++;if(o.status==='done'){done++;rev+=o.price||0;}else if(o.status==='process'||o.status==='review')pend++;recent.unshift(Object.assign({key:k},o));});
+  document.getElementById('dTotal').textContent=tot;
+  document.getElementById('dPend').textContent=pend;
+  document.getElementById('dDone').textContent=done;
+  document.getElementById('dRev').textContent=fmtRp(rev);
+  const SC={done:'badge-green',cancelled:'badge-red',error:'badge-red',review:'badge-purple',process:'badge-gold'};
+  const ST={done:'✅',cancelled:'❌',error:'⚠️',review:'🔍',process:'⏳'};
+  document.getElementById('dashTb').innerHTML=recent.slice(0,10).map(o=>
+    '<tr style="cursor:pointer" data-oid="'+o.key+'" onclick="openOrd(this.dataset.oid)">'
+    +'<td style="font-family:monospace;font-size:.7rem;color:var(--blue2)">'+(o.trxId||o.key).slice(-10)+'</td>'
+    +'<td style="font-size:.78rem">'+(o.userName||o.email||'—')+'</td>'
+    +'<td style="font-size:.78rem">'+(o.prodName||o.serviceName||'—')+'</td>'
+    +'<td style="font-weight:700;color:var(--gold)">'+fmtRp(o.price||o.total||0)+'</td>'
+    +'<td><span class="badge '+(SC[o.status]||'badge-gold')+'">'+(ST[o.status]||o.status)+'</span></td>'
+    +'</tr>').join('')||'<tr><td colspan="5" style="text-align:center;color:var(--t3);padding:16px">Belum ada order</td></tr>';
+}
+
+// ── ORDERS ────────────────────────────────────────────────────────────────────
+var _ords=[];
+async function loadOrders(){
+  document.getElementById('ordTb').innerHTML='<tr><td colspan="8" style="text-align:center;padding:20px"><div class="spinner" style="width:20px;height:20px;margin:0 auto"></div></td></tr>';
+  const snap=await dbGet('orders')||{};
+  _ords=Object.entries(snap).map(([k,v])=>Object.assign({key:k},v)).sort((a,b)=>b.timestamp-a.timestamp);
+  renderOrds();
+}
+function renderOrds(){
+  const q=(document.getElementById('ordQ').value||'').toLowerCase();
+  const st=document.getElementById('ordSt').value;
+  const list=_ords.filter(o=>{
+    const mq=!q||(o.trxId||'').toLowerCase().includes(q)||(o.userName||'').toLowerCase().includes(q)||(o.email||'').toLowerCase().includes(q);
+    const ms=!st||o.status===st;return mq&&ms;
+  });
+  const SC={done:'badge-green',cancelled:'badge-red',error:'badge-red',review:'badge-purple',process:'badge-gold'};
+  const ST={done:'✅ Selesai',cancelled:'❌ Batal',error:'⚠️ Error',review:'🔍 Tinjau',process:'⏳ Proses'};
+  document.getElementById('ordTb').innerHTML=list.length?list.map(o=>
+    '<tr style="cursor:pointer" data-oid="'+o.key+'" onclick="openOrd(this.dataset.oid)">'
+    +'<td style="font-family:monospace;font-size:.7rem;color:var(--blue2)">'+(o.trxId||o.key)+'</td>'
+    +'<td><div style="font-size:.78rem;font-weight:600">'+(o.userName||'—')+'</div><div style="font-size:.66rem;color:var(--t3)">'+(o.email||'—')+'</div></td>'
+    +'<td style="font-size:.78rem">'+(o.prodName||o.serviceName||o.service||'—')+'</td>'
+    +'<td style="font-size:.72rem;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(o.link||'—')+'</td>'
+    +'<td style="font-size:.78rem">'+(o.qty?(o.qty).toLocaleString('id')+' '+(o.unit||''):'—')+'</td>'
+    +'<td style="font-weight:700;color:var(--gold)">'+fmtRp(o.price||o.total||0)+'</td>'
+    +'<td><span class="badge '+(SC[o.status]||'badge-gold')+'">'+(ST[o.status]||o.status)+'</span></td>'
+    +'<td onclick="event.stopPropagation()" style="white-space:nowrap">'
+      +'<button class="btn-sm btn-bl" data-k="'+o.key+'" data-s="review" onclick="setOrdSt(this.dataset.k,this.dataset.s)">🔍</button> '
+      +'<button class="btn-sm btn-ok" data-k="'+o.key+'" data-s="done" onclick="setOrdSt(this.dataset.k,this.dataset.s)">✅</button> '
+      +'<button class="btn-sm btn-ng" data-k="'+o.key+'" data-s="cancelled" onclick="setOrdSt(this.dataset.k,this.dataset.s)">❌</button>'
+    +'</td></tr>').join('')
+    :'<tr><td colspan="8" style="text-align:center;color:var(--t3);padding:20px">Tidak ada data</td></tr>';
+}
+
+async function openOrd(key){
+  const o=_ords.find(x=>x.key===key)||await dbGet('orders/'+key);if(!o)return;
+  const ud=o.uid?await dbGet('users/'+o.uid):null;
+  const SC={done:'badge-green',cancelled:'badge-red',error:'badge-red',review:'badge-purple',process:'badge-gold'};
+  const ST={done:'✅ Selesai',cancelled:'❌ Batal',error:'⚠️ Error',review:'🔍 Tinjau',process:'⏳ Proses'};
+  let h='';
+  if(ud&&ud.photoURL)h+='<div style="text-align:center;margin-bottom:14px"><img src="'+ud.photoURL+'" class="avatar" style="width:60px;height:60px;border:3px solid var(--brd2)"><div style="font-size:.74rem;color:var(--t2);margin-top:6px">Level '+(ud.level||1)+' · '+fmtRp(ud.saldo||0)+' saldo</div></div>';
+  h+='<div class="dbox">';
+  h+='<div class="dr"><span class="dk">ID TRX</span><span class="dv mono">'+(o.trxId||key)+'</span></div>';
+  h+='<div class="dr"><span class="dk">UID User</span><span class="dv mono" style="font-size:.65rem">'+(o.uid||'—')+'</span></div>';
+  h+='<div class="dr"><span class="dk">Nama</span><span class="dv">'+(o.userName||'—')+'</span></div>';
+  h+='<div class="dr"><span class="dk">Email</span><span class="dv" style="font-size:.74rem">'+(o.email||'—')+'</span></div>';
+  h+='<div class="dr"><span class="dk">Produk</span><span class="dv">'+(o.prodName||o.serviceName||o.service||'—')+'</span></div>';
+  if(o.link)h+='<div class="dr"><span class="dk">Link Target</span><span class="dv"><a href="'+o.link+'" target="_blank" style="color:var(--blue2);font-size:.72rem;word-break:break-all">'+o.link+'</a></span></div>';
+  if(o.qty)h+='<div class="dr"><span class="dk">Jumlah</span><span class="dv">'+(o.qty).toLocaleString('id')+' '+(o.unit||'')+'</span></div>';
+  h+='<div class="dr"><span class="dk">Total</span><span class="dv" style="color:var(--gold);font-weight:800">'+fmtRp(o.price||o.total||0)+'</span></div>';
+  h+='<div class="dr"><span class="dk">Status</span><span class="dv"><span class="badge '+(SC[o.status]||'badge-gold')+'">'+(ST[o.status]||o.status)+'</span></span></div>';
+  h+='<div class="dr"'+(o.note?'':' style="border:none"')+'><span class="dk">Waktu</span><span class="dv" style="font-size:.72rem">'+fmtDate(o.timestamp)+'</span></div>';
+  if(o.note)h+='<div class="dr" style="border:none"><span class="dk">Catatan User</span><span class="dv">'+(o.note||'—')+'</span></div>';
+  h+='</div>';
+  if(o.descContent)h+='<div style="margin-top:12px"><div style="font-size:.7rem;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Produk Dikirim</div><div style="background:var(--s2);border:1px solid var(--brd2);border-radius:9px;padding:12px;font-family:monospace;font-size:.78rem;white-space:pre-wrap;word-break:break-all">'+o.descContent+'</div></div>';
+  h+='<div class="f-grp" style="margin-top:14px"><label class="f-lbl">Catatan Admin (terkirim ke notif user)</label><textarea class="f-inp" id="aNoteInput" rows="2" placeholder="Catatan untuk user...">'+(o.adminNote||'')+'</textarea></div>';
+  h+='<div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:4px">';
+  ['review','done','cancelled','error'].forEach(s=>{
+    const cls={review:'btn-bl',done:'btn-ok',cancelled:'btn-ng',error:'btn-yw'}[s];
+    const lbl={review:'🔍 Tinjau',done:'✅ Selesai',cancelled:'❌ Batal',error:'⚠️ Error'}[s];
+    h+='<button class="btn-sm '+cls+'" style="padding:7px 12px" data-k="'+key+'" data-s="'+s+'" onclick="setOrdSt(this.dataset.k,this.dataset.s)">'+lbl+'</button>';
+  });
+  h+='</div>';
+  document.getElementById('mainPopTitle').textContent='Detail Order';
+  document.getElementById('mainPopContent').innerHTML=h;
+  document.getElementById('mainPop').classList.add('open');
+}
+
+async function setOrdSt(key,status){
+  const note=document.getElementById('aNoteInput')?.value.trim()||'';
+  const upd={status,updatedAt:Date.now()};if(note)upd.adminNote=note;
+  await dbUpdate('orders/'+key,upd);
+  const o=_ords.find(x=>x.key===key);if(o){o.status=status;if(note)o.adminNote=note;}
+  if(o&&o.uid){
+    const ST={done:'✅ Selesai',cancelled:'❌ Dibatalkan',error:'⚠️ Error',review:'🔍 Sedang Ditinjau'};
+    await sendNotif(o.uid,{type:'order',title:'Status Order Diperbarui',body:(o.prodName||o.service||'Order')+' — '+(ST[status]||status)+(note?' · '+note:''),trxId:o.trxId||key});
+  }
+  renderOrds();closePop();
+}
+
+// ── TOPUP ─────────────────────────────────────────────────────────────────────
+var _tops=[];
+async function loadTopups(){
+  const snap=await dbGet('topups')||{};
+  _tops=Object.entries(snap).map(([k,v])=>Object.assign({key:k},v)).sort((a,b)=>b.timestamp-a.timestamp);
+  renderTops(_tops);
+}
+function filterT(f){renderTops(f==='done'?_tops.filter(t=>t.status==='done'):f==='pend'?_tops.filter(t=>t.status==='pending'||t.status==='pending_admin'):_tops);}
+function renderTops(list){
+  const SC={done:'badge-green',pending:'badge-gold',pending_admin:'badge-red',rejected:'badge-red'};
+  const ST={done:'✅ Selesai',pending:'⏳ Pending',pending_admin:'🔴 Cek Manual',rejected:'❌ Ditolak'};
+  document.getElementById('topTb').innerHTML=list.length?list.map(t=>'<tr>'
+    +'<td style="font-family:monospace;font-size:.7rem;color:var(--blue2)">'+(t.trxId||t.key)+'</td>'
+    +'<td><div style="font-size:.78rem;font-weight:600">'+(t.name||'—')+'</div><div style="font-size:.66rem;color:var(--t3)">'+(t.email||'—')+'</div></td>'
+    +'<td style="font-weight:700;color:var(--gold)">'+fmtRp(t.amount||0)+'<div style="font-size:.66rem;color:var(--t3)">fee '+fmtRp(t.fee||0)+'</div></td>'
+    +'<td style="font-weight:700;color:var(--green)">'+fmtRp(t.getBalance||t.amount||0)+'</td>'
+    +'<td>'+(t.proofUrl?'<img src="'+t.proofUrl+'" style="width:44px;height:44px;object-fit:cover;border-radius:6px;cursor:zoom-in;border:1px solid var(--brd2)" onclick="openLightbox(this.src)">':'<span style="font-size:.7rem;color:var(--t3)">—</span>')+'</td>'
+    +'<td><span class="badge '+(SC[t.status]||'badge-gold')+'">'+(ST[t.status]||t.status)+'</span></td>'
+    +'<td style="display:flex;gap:5px;flex-wrap:wrap">'
+      +(t.status!=='done'&&t.status!=='rejected'?'<button class="btn-sm btn-ok" data-k="'+t.key+'" data-uid="'+t.uid+'" data-bal="'+(t.getBalance||t.amount||0)+'" onclick="approveTop(this.dataset.k,this.dataset.uid,parseInt(this.dataset.bal))">✓</button>':'')
+      +(t.status!=='done'?'<button class="btn-sm btn-ng" data-k="'+t.key+'" onclick="rejectTop(this.dataset.k)">✕</button>':'')
+    +'</td></tr>').join('')
+    :'<tr><td colspan="7" style="text-align:center;color:var(--t3);padding:20px">Tidak ada data</td></tr>';
+}
+async function approveTop(key,uid,amount){
+  if(!confirm('Approve topup '+fmtRp(amount)+'?'))return;
+  const ud=await dbGet('users/'+uid);
+  const ns=((ud&&ud.saldo)||0)+amount;
+  await Promise.all([dbUpdate('users/'+uid,{saldo:ns}),dbUpdate('topups/'+key,{status:'done',approvedAt:Date.now()})]);
+  const t=_tops.find(x=>x.key===key);if(t)t.status='done';
+  await sendNotif(uid,{type:'topup',title:'Topup Approved!',body:'Saldo '+fmtRp(amount)+' berhasil ditambahkan.',amount});
+  renderTops(_tops);
+}
+async function rejectTop(key){
+  if(!confirm('Tolak topup ini?'))return;
+  await dbUpdate('topups/'+key,{status:'rejected',rejectedAt:Date.now()});
+  const t=_tops.find(x=>x.key===key);if(t)t.status='rejected';renderTops(_tops);
+}
+
+// ── USERS ─────────────────────────────────────────────────────────────────────
+var _usrs=[];
+async function loadUsers(){
+  const snap=await dbGet('users')||{};
+  _usrs=Object.entries(snap).map(([k,v])=>Object.assign({uid:k},v));
+  renderUsrs();
+}
+function renderUsrs(){
+  const q=(document.getElementById('usrQ').value||'').toLowerCase();
+  const list=_usrs.filter(u=>!q||(u.name||'').toLowerCase().includes(q)||(u.email||'').toLowerCase().includes(q));
+  const LV=['','🥉','🥈','🥇','💎','👑'];
+  document.getElementById('usrTb').innerHTML=list.length?list.map(u=>'<tr>'
+    +'<td>'+(u.photoURL?'<img src="'+u.photoURL+'" class="avatar" style="width:36px;height:36px">':'<div class="avatar-placeholder" style="width:36px;height:36px;font-size:.8rem">'+((u.name||'U')[0].toUpperCase())+'</div>')+'</td>'
+    +'<td style="font-weight:600;color:var(--w)">'+(u.name||'—')+'</td>'
+    +'<td style="font-size:.76rem;color:var(--t2)">'+(u.email||'—')+'</td>'
+    +'<td style="font-weight:700;color:var(--green)">'+fmtRp(u.saldo||0)+'</td>'
+    +'<td>'+(LV[u.level||1]||'🥉')+' '+(u.level||1)+'</td>'
+    +'<td><span class="badge '+(u.role==='owner'?'badge-purple':u.role==='admin'?'badge-blue':'badge-gold')+'">'+(u.role||'user')+'</span></td>'
+    +'<td>'+(u.banned?'<span class="badge badge-red">🚫 Banned</span>':'<span class="badge badge-green">✅ Aktif</span>')+'</td>'
+    +'<td style="display:flex;gap:5px;flex-wrap:wrap">'
+      +'<button class="btn-sm btn-bl" data-uid="'+u.uid+'" onclick="editSaldo(this.dataset.uid)">💰</button>'
+      +'<button class="btn-sm btn-bl" data-uid="'+u.uid+'" data-r="'+( u.role||'user')+'" onclick="changeRole(this.dataset.uid,this.dataset.r)">👤</button>'
+      +(u.banned?'<button class="btn-sm btn-ok" data-uid="'+u.uid+'" onclick="banUser(this.dataset.uid,false)">🔓</button>':'<button class="btn-sm btn-ng" data-uid="'+u.uid+'" onclick="banUser(this.dataset.uid,true)">🚫</button>')
+    +'</td></tr>').join('')
+    :'<tr><td colspan="8" style="text-align:center;color:var(--t3);padding:20px">Tidak ada user</td></tr>';
+}
+async function editSaldo(uid){
+  const u=_usrs.find(x=>x.uid===uid);if(!u)return;
+  const ns=prompt('Saldo baru untuk '+u.name+' (sekarang: '+fmtRp(u.saldo||0)+')');
+  if(ns===null)return;const v=parseInt(ns);if(isNaN(v)||v<0){alert('Nominal tidak valid!');return;}
+  await dbUpdate('users/'+uid,{saldo:v});u.saldo=v;
+  await sendNotif(uid,{type:'system',title:'Saldo Diperbarui Admin',body:'Saldo kamu diubah menjadi '+fmtRp(v)+'.',amount:v});
+  renderUsrs();
+}
+async function changeRole(uid,cur){
+  const roles=['user','admin','owner'];const next=roles[(roles.indexOf(cur)+1)%roles.length];
+  if(!confirm('Ganti role '+cur+' → '+next+'?'))return;
+  await dbUpdate('users/'+uid,{role:next});
+  const u=_usrs.find(x=>x.uid===uid);if(u)u.role=next;renderUsrs();
+}
+async function banUser(uid,ban){
+  if(!confirm((ban?'Ban':'Unban')+' user ini?'))return;
+  await dbUpdate('users/'+uid,{banned:ban});
+  const u=_usrs.find(x=>x.uid===uid);if(u)u.banned=ban;renderUsrs();
+  if(ban)await sendNotif(uid,{type:'system',title:'Akun Dibanned',body:'Akun kamu dibanned oleh admin. Hubungi CS untuk info lebih lanjut.'});
+}
+
+// ── CATEGORIES ────────────────────────────────────────────────────────────────
+var _cats={},_editCat=null;
+async function loadCats(){
+  _cats=await dbGet('categories')||{};
+  renderCats();
+}
+function renderCats(){
+  document.getElementById('catTb').innerHTML=Object.entries(_cats).length?Object.entries(_cats).map(([k,c])=>'<tr>'
+    +'<td style="font-size:1.2rem">'+(c.icon||'📦')+'</td>'
+    +'<td style="font-weight:600;color:var(--w)">'+(c.name||'—')+'</td>'
+    +'<td><span class="badge '+(c.type==='sosmed'?'badge-blue':'badge-purple')+'">'+(c.type==='sosmed'?'📱 Sosmed':'🎫 Digital')+'</span></td>'
+    +'<td style="display:flex;gap:5px">'
+      +'<button class="btn-sm btn-bl" data-k="'+k+'" onclick="editCat(this.dataset.k)">✏️</button>'
+      +'<button class="btn-sm btn-ng" data-k="'+k+'" onclick="delCat(this.dataset.k)">🗑️</button>'
+    +'</td></tr>').join('')
+    :'<tr><td colspan="4" style="text-align:center;color:var(--t3);padding:20px">Belum ada kategori</td></tr>';
+}
+function editCat(key){
+  _editCat=key;const c=_cats[key];if(!c)return;
+  document.getElementById('cN').value=c.name||'';document.getElementById('cI').value=c.icon||'';
+  document.getElementById('cD').value=c.desc||'';document.getElementById('cT').value=c.type||'digital';
+  document.getElementById('cFT').textContent='Edit Kategori';document.getElementById('cSaveBtn').textContent='💾 Update';
+  document.getElementById('catForm').scrollIntoView({behavior:'smooth'});
+}
+function cancelCat(){_editCat=null;document.getElementById('cN').value='';document.getElementById('cI').value='';document.getElementById('cD').value='';document.getElementById('cFT').textContent='Tambah Kategori';document.getElementById('cSaveBtn').textContent='+ Tambah';}
+async function saveCat(){
+  const name=document.getElementById('cN').value.trim();if(!name){document.getElementById('cErr').textContent='Nama wajib!';showAlert('cErr');return;}
+  const data={name,icon:document.getElementById('cI').value||'📦',desc:document.getElementById('cD').value,type:document.getElementById('cT').value,ts:Date.now()};
+  if(_editCat){await dbUpdate('categories/'+_editCat,data);_cats[_editCat]=data;}
+  else{const k=await dbPush('categories',data);_cats[k]=data;}
+  cancelCat();showAlert('cOk');renderCats();
+}
+async function delCat(key){
+  if(!confirm('Hapus kategori?'))return;
+  await dbRemove('categories/'+key);delete _cats[key];renderCats();
+}
+
+// ── PRODUCTS ─────────────────────────────────────────────────────────────────
+var _prods={},_editProd=null,_curStokProd=null;
+async function loadProdCatSel(){
+  const cats=await dbGet('categories')||{};
+  const sel=document.getElementById('pC');
+  sel.innerHTML='<option value="">-- Pilih Kategori --</option>';
+  Object.entries(cats).forEach(([k,c])=>{const o=document.createElement('option');o.value=k;o.textContent=(c.icon||'')+' '+c.name;sel.appendChild(o);});
+}
+async function loadProds(){
+  _prods=await dbGet('products')||{};
+  const cats=await dbGet('categories')||{};
+  const descs=await dbGet('descriptions')||{};
+  const tb=document.getElementById('prodTb');
+  const entries=Object.entries(_prods);
+  if(!entries.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--t3);padding:20px">Belum ada produk</td></tr>';return;}
+  tb.innerHTML=entries.map(([k,p])=>{
+    const cat=cats[p.categoryId];
+    const stk=descs[k]?Object.keys(descs[k]).length:0;
+    const isSosmed=p.type==='sosmed';
+    const parts=[];
+    if(p.views)parts.push('👁️ '+Number(p.views).toLocaleString('id'));
+    if(p.likes)parts.push('❤️ '+Number(p.likes).toLocaleString('id'));
+    if(p.shares)parts.push('🔁 '+Number(p.shares).toLocaleString('id'));
+    if(p.followers)parts.push('👤 '+Number(p.followers).toLocaleString('id'));
+    if(p.members)parts.push('👥 '+Number(p.members).toLocaleString('id'));
+    const info=isSosmed?'<span class="badge badge-blue">📱 Sosmed</span>'+(parts.length?'<div style="font-size:.66rem;color:var(--t2);margin-top:3px">'+parts.join(' · ')+'</div>':''):'<span class="badge '+(stk===0?'badge-red':stk<3?'badge-gold':'badge-green')+'">'+stk+' stok</span>';
+    return '<tr>'
+      +'<td><div style="font-weight:600;color:var(--w)">'+(p.icon||'📦')+' '+(p.name||'—')+'</div><div style="font-size:.68rem;color:var(--t3)">'+(p.desc||'')+'</div></td>'
+      +'<td style="font-size:.76rem;color:var(--t2)">'+(cat?(cat.icon||'')+' '+cat.name:'—')+'</td>'
+      +'<td style="font-weight:700;color:var(--gold)">'+fmtRp(p.price||0)+'</td>'
+      +'<td>'+info+'</td>'
+      +'<td style="display:flex;gap:5px;flex-wrap:wrap">'
+        +'<button class="btn-sm btn-bl" data-pk="'+k+'" onclick="editProd(this.dataset.pk)">✏️</button>'
+        +(!isSosmed?'<button class="btn-sm btn-ok" data-pk="'+k+'" data-pn="'+(p.name||'Produk')+'" onclick="openStok(this.dataset.pk,this.dataset.pn)">📝 Stok</button>':'')
+        +'<button class="btn-sm btn-ng" data-pk="'+k+'" onclick="delProd(this.dataset.pk)">🗑️</button>'
+      +'</td></tr>';
+  }).join('');
+}
+function togPT(){const isSosmed=document.getElementById('pTy').value==='sosmed';document.getElementById('sosExtras').style.display=isSosmed?'block':'none';}
+async function editProd(key){
+  _editProd=key;const p=_prods[key];if(!p)return;
+  document.getElementById('pN').value=p.name||'';document.getElementById('pC').value=p.categoryId||'';
+  document.getElementById('pPr').value=p.price||'';document.getElementById('pIc').value=p.icon||'';
+  document.getElementById('pTy').value=p.type||'token';document.getElementById('pPl').value=p.platform||'';
+  document.getElementById('pDs').value=p.desc||'';togPT();
+  const sosF=['Vw','Lk','Sh','Fl','Mb','Rc','Mn','Mx'];
+  const sosK=['views','likes','shares','followers','members','reactions','min','max'];
+  sosF.forEach((f,i)=>{const e=document.getElementById('p'+f);if(e)e.value=p[sosK[i]]||'';});
+  document.getElementById('pFT').textContent='Edit Produk';document.getElementById('pSaveBtn').textContent='💾 Update';
+  document.getElementById('prodForm').scrollIntoView({behavior:'smooth'});
+}
+function cancelProd(){_editProd=null;['pN','pPr','pIc','pPl','pDs'].forEach(i=>document.getElementById(i).value='');document.getElementById('pC').value='';document.getElementById('pTy').value='token';['Vw','Lk','Sh','Fl','Mb','Rc','Mn','Mx'].forEach(f=>{const e=document.getElementById('p'+f);if(e)e.value='';});togPT();document.getElementById('pFT').textContent='Tambah Produk';document.getElementById('pSaveBtn').textContent='+ Tambah';}
+async function saveProd(){
+  const name=document.getElementById('pN').value.trim(),price=parseInt(document.getElementById('pPr').value)||0,catId=document.getElementById('pC').value;
+  if(!name||!price||!catId){document.getElementById('pErr').textContent='Nama, harga, kategori wajib!';showAlert('pErr');return;}
+  const ptype=document.getElementById('pTy').value||'token';
+  const data={name,categoryId:catId,price,icon:document.getElementById('pIc').value||'📦',desc:document.getElementById('pDs').value,type:ptype,platform:document.getElementById('pPl').value,ts:Date.now()};
+  if(ptype==='sosmed'){
+    const sf={Vw:'views',Lk:'likes',Sh:'shares',Fl:'followers',Mb:'members',Rc:'reactions',Mn:'min',Mx:'max'};
+    Object.entries(sf).forEach(([f,k])=>{const v=parseInt(document.getElementById('p'+f).value)||0;if(v)data[k]=v;});
+  }
+  if(_editProd){await dbUpdate('products/'+_editProd,data);_prods[_editProd]=data;}
+  else{const k=await dbPush('products',data);_prods[k]=data;}
+  cancelProd();showAlert('pOk');loadProds();
+}
+async function delProd(key){
+  if(!confirm('Hapus produk + stok?'))return;
+  await Promise.all([dbRemove('products/'+key),dbRemove('descriptions/'+key)]);
+  delete _prods[key];loadProds();
+}
+
+// ── STOK MANAGER ──────────────────────────────────────────────────────────────
+var _stokData={},_editStok=null;
+function openStok(key,name){
+  _curStokProd=key;_editStok=null;
+  document.getElementById('stokCard').style.display='block';
+  document.getElementById('stokTitle').textContent='📝 Stok — '+name;
+  document.getElementById('stokContent').value='';
+  document.getElementById('stokSaveBtn').textContent='➕ Tambah Stok';
+  document.getElementById('stokCard').scrollIntoView({behavior:'smooth'});
+  refreshStok();
+}
+function closeStok(){document.getElementById('stokCard').style.display='none';_curStokProd=null;_editStok=null;}
+async function refreshStok(){
+  const list=document.getElementById('stokList');
+  const badge=document.getElementById('stokBadge');
+  const snap=await dbGet('descriptions/'+_curStokProd)||{};
+  _stokData=snap;const cnt=Object.keys(snap).length;
+  badge.textContent=cnt+' stok';badge.className='badge '+(cnt===0?'badge-red':cnt<3?'badge-gold':'badge-green');
+  list.innerHTML=cnt?Object.entries(snap).map(([k,s])=>'<div class="stock-item"><div class="stock-body">'+(s.content||'').replace(/</g,'&lt;')+'</div><div style="display:flex;gap:5px"><button class="btn-sm btn-bl" data-sk="'+k+'" onclick="startEditStok(this.dataset.sk)">✏️ Edit</button><button class="btn-sm btn-ng" data-sk="'+k+'" onclick="delStok(this.dataset.sk)">🗑️</button></div></div>').join('')
+    :'<div style="color:var(--t3);font-size:.78rem;padding:6px">Belum ada stok.</div>';
+}
+function startEditStok(key){_editStok=key;document.getElementById('stokContent').value=(_stokData[key]?.content||'');document.getElementById('stokSaveBtn').textContent='💾 Update Stok';document.getElementById('stokContent').focus();}
+async function saveStok(){
+  const content=document.getElementById('stokContent').value.trim();if(!content){alert('Isi konten stok!');return;}
+  const btn=document.getElementById('stokSaveBtn');btn.disabled=true;
+  if(_editStok){await dbUpdate('descriptions/'+_curStokProd+'/'+_editStok,{content,updatedAt:Date.now()});_editStok=null;}
+  else{await dbPush('descriptions/'+_curStokProd,{content,addedAt:Date.now()});}
+  document.getElementById('stokContent').value='';document.getElementById('stokSaveBtn').textContent='➕ Tambah Stok';
+  showAlert('stokOk');await refreshStok();loadProds();btn.disabled=false;
+}
+async function delStok(key){if(!confirm('Hapus stok?'))return;await dbRemove('descriptions/'+_curStokProd+'/'+key);await refreshStok();loadProds();}
+
+// ── SETTINGS ─────────────────────────────────────────────────────────────────
+async function loadSettings(){
+  const cfg=await getSiteConf();
+  const fv=(id,v)=>{const e=document.getElementById(id);if(e&&v!=null)e.value=v;};
+  fv('sNm',cfg.siteName);fv('sBt',cfg.botToken);fv('sCi',cfg.chatId);
+  fv('sQr',cfg.qrisImage);fv('sQrN',cfg.qrisName);fv('sCs1',cfg.cs1);fv('sCs2',cfg.cs2);
+  fv('sEp',cfg.ejPk);fv('sEs',cfg.ejSv);fv('sEt',cfg.ejTm);
+  if(cfg.qrisImage){document.getElementById('qrPrvWrap').style.display='block';document.getElementById('qrPrv').src=cfg.qrisImage;}
+}
+function prvQr(url){if(url){document.getElementById('qrPrvWrap').style.display='block';document.getElementById('qrPrv').src=url;}else document.getElementById('qrPrvWrap').style.display='none';}
+async function saveSettings(){
+  const gv=id=>document.getElementById(id).value.trim();
+  const ok=await (async()=>{try{await dbUpdate('config',{siteName:gv('sNm')||'YOKO STORE',botToken:gv('sBt'),chatId:gv('sCi'),qrisImage:gv('sQr'),qrisName:gv('sQrN'),cs1:gv('sCs1'),cs2:gv('sCs2'),ejPk:gv('sEp'),ejSv:gv('sEs'),ejTm:gv('sEt')});_cfg=null;return true;}catch(e){return false;}})();
+  showAlert(ok?'sOk':'sErr');
+}
+
+// ── BROADCAST ─────────────────────────────────────────────────────────────────
+function prvBcImg(inp){if(inp.files[0]){document.getElementById('bcPrv').style.display='block';document.getElementById('bcPrvImg').src=URL.createObjectURL(inp.files[0]);}}
+async function sendBroadcast(){
+  const title=document.getElementById('bcT').value.trim();
+  const body=document.getElementById('bcB').value.trim();
+  const imgFile=document.getElementById('bcI').files[0];
+  if(!title||!body){document.getElementById('bcErr').textContent='Judul dan pesan wajib!';showAlert('bcErr');return;}
+  const btn=document.getElementById('bcBtn');btn.disabled=true;btn.textContent='Mengirim...';
+  let imgUrl='';
+  if(imgFile){btn.textContent='Upload foto...';imgUrl=await uploadCloudinary(imgFile,'image');}
+  // Kirim ke semua user
+  const users=await dbGet('users')||{};
+  const uids=Object.keys(users);
+  const promises=uids.map(uid=>sendNotif(uid,{type:'broadcast',title,body,imgUrl,ts:Date.now()}));
+  await Promise.all(promises);
+  // Kirim ke Telegram juga
+  await tgSend('📢 BROADCAST\n'+title+'\n\n'+body,imgUrl);
+  btn.disabled=false;btn.textContent='📢 Kirim ke Semua User';
+  document.getElementById('bcT').value='';document.getElementById('bcB').value='';document.getElementById('bcPrv').style.display='none';
+  document.getElementById('bcI').value='';
+  showAlert('bcOk');
+}
+
+// ── MAINTENANCE ───────────────────────────────────────────────────────────────
+async function loadMaintStatus(){
+  const cfg=await getSiteConf();
+  const tog=document.getElementById('maintTog');
+  tog.checked=!!cfg.maintenance;
+  updateMaintUI(!!cfg.maintenance);
+  document.getElementById('mTitle').value=cfg.maintTitle||'';
+  document.getElementById('mMsg').value=cfg.maintMsg||'';
+  document.getElementById('mEst').value=cfg.maintEst||'';
+}
+function updateMaintUI(on){
+  const lbl=document.getElementById('maintStatusLbl');
+  const badge=document.getElementById('maintBadge');
+  if(lbl)lbl.textContent='Maintenance: '+(on?'ON 🔧':'OFF ✅');
+  if(badge)badge.style.display=on?'block':'none';
+  const track=document.querySelector('.toggle-track');
+  if(track)track.style.background=on?'var(--green)':'var(--brd2)';
+  const thumb=document.querySelector('.toggle-thumb');
+  if(thumb)thumb.style.left=on?'25px':'3px';
+}
+async function toggleMaint(){
+  const on=document.getElementById('maintTog').checked;
+  await dbUpdate('config',{maintenance:on});_cfg=null;
+  updateMaintUI(on);
+}
+async function saveMaint(){
+  await dbUpdate('config',{maintTitle:document.getElementById('mTitle').value,maintMsg:document.getElementById('mMsg').value,maintEst:document.getElementById('mEst').value});
+  _cfg=null;showAlert('mOk');
+}
+
+// ── LOGOUT ───────────────────────────────────────────────────────────────────
+async function doLogout(){
+  if(!confirm('Logout?'))return;
+  const fb=await getFB();const fau=await import(CDN+'/firebase-auth.js');
+  await fau.signOut(fb.auth);location.replace('auth.html');
+}
+
+adminInit();
+</script></body></html>

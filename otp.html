@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><title>OTP Virtual — YOKO STORE</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden;}
+:root,[data-theme=dark]{
+  --bg:#0a0a12;--s1:#111119;--s2:#18181f;--s3:#1e1e28;--s4:#232330;
+  --blue:#4f7aff;--blue2:#738fff;--blue-a:rgba(79,122,255,.15);--blue-b:rgba(79,122,255,.08);
+  --green:#22c55e;--green-a:rgba(34,197,94,.13);
+  --gold:#f59e0b;--gold-a:rgba(245,158,11,.12);
+  --red:#f87171;--red-a:rgba(248,113,113,.12);
+  --purple:#a78bfa;--purple-a:rgba(167,139,250,.12);
+  --w:#ffffff;--t1:#eeeef5;--t2:#8888a8;--t3:#44445a;
+  --brd:rgba(255,255,255,.07);--brd2:rgba(255,255,255,.12);
+  --nav-bg:rgba(10,10,18,.9);--shadow:0 8px 32px rgba(0,0,0,.4);
+  --card-bg:var(--s1);--input-bg:var(--s2);
+}
+[data-theme=light]{
+  --bg:#f0f2ff;--s1:#fff;--s2:#f5f6ff;--s3:#eceeff;--s4:#e6e8ff;
+  --blue:#4060f0;--blue2:#5b78ff;--blue-a:rgba(64,96,240,.1);--blue-b:rgba(64,96,240,.05);
+  --green:#16a34a;--green-a:rgba(22,163,74,.1);
+  --gold:#d97706;--gold-a:rgba(217,119,6,.1);
+  --red:#dc2626;--red-a:rgba(220,38,38,.1);
+  --purple:#7c3aed;--purple-a:rgba(124,58,237,.1);
+  --w:#111;--t1:#1a1a2e;--t2:#555570;--t3:#9999b5;
+  --brd:rgba(0,0,0,.08);--brd2:rgba(0,0,0,.13);
+  --nav-bg:rgba(240,242,255,.92);--shadow:0 4px 24px rgba(0,0,0,.12);
+  --card-bg:#fff;--input-bg:#f5f6ff;
+}
+/* Scrollbar */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--s2);}
+::-webkit-scrollbar-thumb{background:var(--s3);border-radius:3px;}
+/* Ambient orbs */
+.amb{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.6;}
+/* Nav */
+.nav{position:fixed;top:0;left:0;right:0;height:58px;background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;padding:0 18px;z-index:500;}
+.nav-brand{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-ic{width:30px;height:30px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;}
+.nav-nm{font-weight:800;font-size:.9rem;color:var(--w);}
+.nav-nm span{color:var(--blue2);}
+.nav-back{font-size:.8rem;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:5px;}
+.nav-back:hover{color:var(--t1);}
+/* Bottom nav */
+.bnav{position:fixed;bottom:0;left:0;right:0;height:60px;background:var(--nav-bg);backdrop-filter:blur(20px);border-top:1px solid var(--brd);display:flex;z-index:500;}
+.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:all .2s;text-decoration:none;color:var(--t3);}
+.bnav-item.active{color:var(--blue2);}
+.bnav-item:hover{color:var(--t1);}
+.bnav-ic{font-size:1.1rem;line-height:1;}
+.bnav-lbl{font-size:.58rem;font-weight:700;letter-spacing:.3px;}
+.bnav-badge{position:absolute;top:-3px;right:-5px;background:var(--red);color:#fff;font-size:.5rem;font-weight:800;padding:1px 4px;border-radius:8px;min-width:14px;text-align:center;}
+/* Cards */
+.card{background:var(--card-bg);border:1px solid var(--brd);border-radius:16px;padding:18px;margin-bottom:12px;}
+.card-sm{background:var(--card-bg);border:1px solid var(--brd);border-radius:12px;padding:14px;}
+/* Buttons */
+.btn{padding:11px 20px;border:none;border-radius:11px;font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;justify-content:center;gap:7px;}
+.btn-full{width:100%;}
+.btn-primary{background:var(--blue);color:#fff;}.btn-primary:hover{background:var(--blue2);}
+.btn-green{background:var(--green);color:#fff;}.btn-green:hover{filter:brightness(1.1);}
+.btn-danger{background:var(--red-a);color:var(--red);border:1px solid rgba(248,113,113,.2);}.btn-danger:hover{background:var(--red);color:#fff;}
+.btn-ghost{background:var(--s2);color:var(--t2);border:1px solid var(--brd2);}.btn-ghost:hover{color:var(--t1);}
+.btn:disabled{opacity:.55;cursor:not-allowed;}
+/* Form */
+.f-grp{margin-bottom:14px;}
+.f-lbl{display:block;font-size:.74rem;font-weight:600;color:var(--t2);margin-bottom:6px;}
+.f-inp{width:100%;padding:11px 14px;background:var(--input-bg);border:1.5px solid var(--brd2);border-radius:11px;color:var(--t1);font-family:inherit;font-size:.85rem;outline:none;transition:border .2s;}
+.f-inp:focus{border-color:var(--blue);}
+.f-inp-icon{position:relative;}.f-inp-icon .f-inp{padding-left:40px;}.f-inp-icon .ic{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:.9rem;color:var(--t3);}
+textarea.f-inp{resize:vertical;min-height:80px;}
+select.f-inp{cursor:pointer;}
+/* Detail rows */
+.dbox{background:var(--s2);border:1px solid var(--brd2);border-radius:12px;overflow:hidden;margin-bottom:12px;}
+.dr{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--brd);}
+.dr:last-child{border-bottom:none;}
+.dk{font-size:.74rem;color:var(--t3);}
+.dv{font-size:.8rem;font-weight:600;color:var(--t1);text-align:right;word-break:break-all;max-width:65%;}
+.dv.mono{font-family:monospace;color:var(--blue2);font-size:.72rem;}
+/* Badges */
+.badge{display:inline-block;padding:3px 9px;border-radius:8px;font-size:.67rem;font-weight:700;}
+.badge-green{background:var(--green-a);color:var(--green);}
+.badge-gold{background:var(--gold-a);color:var(--gold);}
+.badge-red{background:var(--red-a);color:var(--red);}
+.badge-blue{background:var(--blue-a);color:var(--blue2);}
+.badge-purple{background:var(--purple-a);color:var(--purple);}
+/* Alert */
+.alert{border-radius:10px;padding:10px 14px;font-size:.76rem;font-weight:500;margin-bottom:10px;display:none;}
+.alert.show{display:block;}
+.alert-ok{background:var(--green-a);border:1px solid rgba(34,197,94,.2);color:var(--green);}
+.alert-err{background:var(--red-a);border:1px solid rgba(248,113,113,.2);color:var(--red);}
+.alert-warn{background:var(--gold-a);border:1px solid rgba(245,158,11,.2);color:var(--gold);}
+/* Loading */
+.spinner{width:28px;height:28px;border:3px solid var(--brd2);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.pulse-row{display:flex;align-items:center;justify-content:center;gap:5px;}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);animation:pls 1.4s ease-in-out infinite;}
+.pulse-dot:nth-child(2){animation-delay:.2s;}.pulse-dot:nth-child(3){animation-delay:.4s;}
+@keyframes pls{0%,80%,100%{transform:scale(0);opacity:.3;}40%{transform:scale(1);opacity:1;}}
+/* Popup */
+.popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:800;align-items:center;justify-content:center;padding:16px;}
+.popup-overlay.open{display:flex;}
+.popup-box{background:var(--s1);border:1px solid var(--brd2);border-radius:20px;padding:24px;width:100%;max-width:440px;max-height:92vh;overflow-y:auto;}
+.popup-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.popup-title{font-size:.95rem;font-weight:800;color:var(--w);}
+.popup-close{background:var(--s2);border:none;color:var(--t2);width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:.85rem;font-family:inherit;display:flex;align-items:center;justify-content:center;}
+/* Lightbox */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:900;align-items:center;justify-content:center;cursor:zoom-out;}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:94vw;max-height:90vh;border-radius:10px;object-fit:contain;}
+/* Table */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--brd);border-radius:13px;}
+table{width:100%;border-collapse:collapse;}
+th{font-size:.62rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--t3);padding:10px 13px;text-align:left;background:var(--s2);border-bottom:1px solid var(--brd);}
+td{padding:10px 13px;border-bottom:1px solid var(--brd);font-size:.8rem;vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--blue-b);}
+/* Avatar */
+.avatar{border-radius:50%;object-fit:cover;background:var(--s3);}
+.avatar-placeholder{border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;}
+/* Misc */
+.page{padding:70px 0 72px;min-height:100vh;position:relative;z-index:1;}
+.wrap{max-width:540px;margin:0 auto;padding:0 16px;}
+.sec-title{font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--brd);}
+.empty-state{text-align:center;padding:40px 20px;color:var(--t3);}
+.empty-state .ico{font-size:2.5rem;margin-bottom:10px;}
+.empty-state .msg{font-size:.82rem;}
+@media(max-width:480px){.wrap{padding:0 12px;}.popup-box{padding:18px;}}
+
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.svc-card{background:var(--s1);border:1.5px solid var(--brd);border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .2s;}
+.svc-card:hover{border-color:rgba(79,122,255,.3);transform:translateY(-1px);}
+.svc-card.sel{border-color:var(--blue);background:var(--blue-a);box-shadow:0 0 0 3px var(--blue-a);}
+.svc-ic{font-size:1.4rem;margin-bottom:5px;min-height:32px;display:flex;align-items:center;justify-content:center;}
+.svc-name{font-size:.65rem;font-weight:700;color:var(--t1);}
+.country-list{max-height:400px;overflow-y:auto;border:1px solid var(--brd2);border-radius:12px;padding:4px;}
+.c-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;cursor:pointer;transition:all .15s;}
+.c-row:hover{background:var(--s2);}.c-row.sel{background:var(--blue-a);border:1px solid rgba(79,122,255,.25);}
+.c-row.disabled{opacity:.4;cursor:not-allowed;}
+.c-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;}
+.otp-phone{font-size:1.4rem;font-weight:800;color:var(--blue2);font-family:monospace;letter-spacing:1px;margin:8px 0;}
+.otp-code{font-size:2rem;font-weight:800;color:var(--green);font-family:monospace;letter-spacing:4px;}
+@media(max-width:400px){.svc-grid{grid-template-columns:repeat(2,1fr);}}
+</style></head><body>
+<div class="amb"><div class="orb" style="width:600px;height:600px;background:radial-gradient(circle,rgba(79,122,255,.1),transparent 70%);top:-200px;right:-200px;"></div></div>
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lbImg" src=""></div>
+
+<nav class="nav">
+  <a href="home.html" class="nav-back">← Home</a>
+  <div class="nav-brand"><div class="nav-ic">📲</div><span class="nav-nm">OTP<span>Virtual</span></span></div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div style="background:var(--green-a);border:1px solid rgba(34,197,94,.2);border-radius:20px;padding:5px 11px;font-size:.72rem;font-weight:700;color:var(--green)" id="navSaldo">Rp 0</div>
+    <button class="btn btn-ghost" style="padding:6px 10px;font-size:.75rem" onclick="toggleTheme()" id="themeBtn">🌙</button>
+  </div>
+</nav>
+<div class="page"><div class="wrap">
+
+  <div id="st1">
+    <div style="margin-bottom:14px"><div style="font-size:1rem;font-weight:800;color:var(--w);margin-bottom:3px">📲 Nomor OTP Virtual</div><div style="font-size:.76rem;color:var(--t3)">Terima OTP untuk 1000+ aplikasi. Pilih layanan yang dibutuhkan.</div></div>
+    <div class="svc-grid" id="svcGrid"><div class="empty-state"><div class="spinner"></div></div></div>
+    <button class="btn btn-primary btn-full" onclick="goSt2()">Pilih Negara →</button>
+  </div>
+
+  <div id="st2" style="display:none">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <button class="btn btn-ghost" onclick="setStep(1)">←</button>
+      <div><div style="font-size:.9rem;font-weight:800;color:var(--w)" id="st2Title">Pilih Negara</div>
+        <div style="font-size:.7rem;color:var(--t3)">Harga sudah termasuk biaya layanan (+Rp 1.000)</div></div>
+    </div>
+    <div class="f-grp"><input class="f-inp" id="cSearch" placeholder="🔍 Cari negara..." oninput="filterCountry()"></div>
+    <div class="country-list" id="cList"><div class="empty-state"><div class="spinner"></div></div></div>
+    <button class="btn btn-primary btn-full" style="margin-top:12px" onclick="goSt3()">Lanjut ke Pembayaran →</button>
+  </div>
+
+  <div id="st3" style="display:none">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <button class="btn btn-ghost" onclick="setStep(2)">←</button>
+      <div style="font-size:.9rem;font-weight:800;color:var(--w)">Konfirmasi & Bayar</div>
+    </div>
+    <div id="checkoutArea"><div class="empty-state"><div class="spinner"></div></div></div>
+  </div>
+
+  <div id="st4" style="display:none">
+    <div class="card" style="background:linear-gradient(135deg,var(--blue-a),var(--blue-b));border-color:rgba(79,122,255,.2);text-align:center;padding:22px;margin-bottom:12px">
+      <div style="font-size:.7rem;font-weight:700;color:var(--blue2);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Nomor Virtual Kamu</div>
+      <div class="otp-phone" id="otpPhone">—</div>
+      <div style="font-size:.72rem;color:var(--t3)">Layanan: <span id="otpSvc">—</span> · <span id="otpExp"></span></div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:.88rem;font-weight:700;color:var(--w);margin-bottom:10px">Menunggu OTP...</div>
+      <div class="pulse-row" style="margin-bottom:8px"><div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div></div>
+      <div style="font-size:.74rem;color:var(--t3)" id="pollTxt">Cek otomatis tiap 30 detik</div>
+      <div style="font-size:.76rem;color:var(--gold);margin-top:6px" id="otpPrice"></div>
+    </div>
+    <div class="card" style="background:var(--green-a);border-color:rgba(34,197,94,.25);display:none" id="otpCodeBox">
+      <div style="font-size:.72rem;font-weight:700;color:var(--green);margin-bottom:8px">🎉 KODE OTP MASUK!</div>
+      <div class="otp-code" id="otpCode">—</div>
+      <button id="copyOtpBtn" class="btn btn-green" style="margin-top:12px;width:100%">📋 Salin OTP</button>
+    </div>
+    <div class="card" style="background:var(--blue-a);border-color:rgba(79,122,255,.15)">
+      <div style="font-size:.76rem;color:var(--t2);line-height:1.7">📌 Gunakan nomor di atas untuk daftar/verifikasi di <strong style="color:var(--w)" id="otpSvcHint">aplikasi</strong>. OTP muncul otomatis.</div>
+    </div>
+    <a href="home.html" class="btn btn-ghost btn-full" style="text-decoration:none;margin-top:4px">🏠 Kembali ke Beranda</a>
+  </div>
+</div></div><script>const _FB={apiKey:"AIzaSyCS52l1z6DrfkqIn4WB4SEOE6hdVu2mX6w",authDomain:"yokotofxport.firebaseapp.com",databaseURL:"https://yokotofxport-default-rtdb.firebaseio.com",projectId:"yokotofxport",storageBucket:"yokotofxport.firebasestorage.app",messagingSenderId:"515300744861",appId:"1:515300744861:web:01117e3f5dc7ed755cbe74"};
+const CDN='https://www.gstatic.com/firebasejs/10.12.0';
+const CLD='dapfmzxxc',CLD_P='cshinedomain';
+let _app=null,_auth=null,_db=null,_cfg=null,_me=null;
+
+async function getFB(){
+  if(_app)return{app:_app,auth:_auth,db:_db};
+  const[fa,fau,fd]=await Promise.all([import(CDN+'/firebase-app.js'),import(CDN+'/firebase-auth.js'),import(CDN+'/firebase-database.js')]);
+  _app=fa.getApps().find(x=>x.name==='yoko')||fa.initializeApp(_FB,'yoko');
+  _auth=fau.getAuth(_app);_db=fd.getDatabase(_app);
+  return{app:_app,auth:_auth,db:_db};
+}
+async function getDB(){const fb=await getFB();return fb.db;}
+async function getAuth(){const fb=await getFB();return fb.auth;}
+
+async function dbGet(p){const db=await getDB();const d=await import(CDN+'/firebase-database.js');const s=await d.get(d.ref(db,p));return s.exists()?s.val():null;}
+async function dbSet(p,v){const db=await getDB();const d=await import(CDN+'/firebase-database.js');await d.set(d.ref(db,p),v);}
+async function dbUpdate(p,v){const db=await getDB();const d=await import(CDN+'/firebase-database.js');await d.update(d.ref(db,p),v);}
+async function dbPush(p,v){const db=await getDB();const d=await import(CDN+'/firebase-database.js');const r=await d.push(d.ref(db,p),v);return r.key;}
+async function dbRemove(p){const db=await getDB();const d=await import(CDN+'/firebase-database.js');await d.remove(d.ref(db,p));}
+async function dbListen(p,cb){const db=await getDB();const d=await import(CDN+'/firebase-database.js');d.onValue(d.ref(db,p),s=>cb(s.exists()?s.val():null));return()=>d.off(d.ref(db,p));}
+
+async function getSiteConf(){
+  if(_cfg)return _cfg;
+  _cfg=await dbGet('config')||{};
+  return _cfg;
+}
+async function getCurrentUser(){
+  const fb=await getFB();
+  return new Promise(resolve=>{
+    if(fb.auth.currentUser)return resolve(fb.auth.currentUser);
+    import(CDN+'/firebase-auth.js').then(m=>{const u=m.onAuthStateChanged(fb.auth,usr=>{u();resolve(usr);});});
+  });
+}
+async function getMe(){
+  if(_me)return _me;
+  const u=await getCurrentUser();
+  if(!u)return null;
+  _me=await dbGet('users/'+u.uid)||{};
+  _me.uid=u.uid;_me.email=u.email;
+  _me.photoURL=u.photoURL||_me.photoURL||'';
+  _me.displayName=u.displayName||_me.name||'User';
+  return _me;
+}
+async function requireLogin(to){
+  const u=await getCurrentUser();
+  if(!u){location.replace('auth.html?from='+encodeURIComponent(to||location.pathname.split('/').pop()));return null;}
+  return u;
+}
+async function checkMaintenance(){
+  const cfg=await getSiteConf();
+  if(!cfg.maintenance)return false;
+  const u=await getCurrentUser();
+  if(u){const ud=await dbGet('users/'+u.uid);if(ud&&ud.role==='owner')return false;}
+  if(!location.pathname.includes('maintenance.html'))location.replace('maintenance.html');
+  return true;
+}
+async function uploadCloudinary(file,type){
+  type=type||'image';
+  const fd=new FormData();fd.append('file',file);fd.append('upload_preset',CLD_P);
+  const r=await fetch('https://api.cloudinary.com/v1_1/'+CLD+'/'+type+'/upload',{method:'POST',body:fd});
+  const d=await r.json();return d.secure_url||'';
+}
+function genTRX(pfx){return(pfx||'TRX')+'-'+Date.now().toString(36).toUpperCase().slice(-8);}
+function fmtRp(n){return'Rp '+(n||0).toLocaleString('id');}
+function fmtDate(ts){return ts?new Date(ts).toLocaleString('id-ID'):'—';}
+
+// Theme
+const TK='yoko_theme';
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem(TK,t);document.querySelectorAll('.theme-btn').forEach(b=>{b.textContent=t==='dark'?'☀️':'🌙';});}
+function toggleTheme(){applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');}
+(function(){applyTheme(localStorage.getItem(TK)||'dark');})();
+
+// Notif in-app
+async function sendNotif(uid,data){
+  await dbPush('notifs/'+uid,Object.assign({read:false,ts:Date.now()},data));
+}
+async function markNotifRead(uid,key){await dbUpdate('notifs/'+uid+'/'+key,{read:true});}
+
+// Telegram notif
+async function tgSend(text,imgUrl){
+  const cfg=await getSiteConf();
+  if(!cfg.botToken||!cfg.chatId)return;
+  if(imgUrl){
+    const fd=new FormData();fd.append('chat_id',cfg.chatId);fd.append('photo',imgUrl);fd.append('caption',text);
+    fetch('https://api.telegram.org/bot'+cfg.botToken+'/sendPhoto',{method:'POST',body:fd}).catch(()=>{});
+  }else{
+    fetch('https://api.telegram.org/bot'+cfg.botToken+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:cfg.chatId,text:text,parse_mode:'HTML'})}).catch(()=>{});
+  }
+}
+
+function openLightbox(src){document.getElementById('lbImg').src=src;document.getElementById('lightbox').classList.add('open');}
+
+var curUser=null,curUD=null;
+var selSvc=null,selCountry=null,allCountries=[],pollTimer=null;
+const MARKUP=1000;
+
+async function init(){
+  if(await checkMaintenance())return;
+  curUser=await requireLogin('otp.html');if(!curUser)return;
+  curUD=await getMe();
+  document.getElementById('navSaldo').textContent=fmtRp(curUD.saldo||0);
+  // Real-time saldo
+  const db=await getDB();const d=await import(CDN+'/firebase-database.js');
+  d.onValue(d.ref(db,'users/'+curUser.uid+'/saldo'),s=>{
+    if(curUD)curUD.saldo=s.val()||0;
+    document.getElementById('navSaldo').textContent=fmtRp(s.val()||0);
+  });
+  loadServices();
+}
+
+async function loadServices(){
+  const g=document.getElementById('svcGrid');
+  try{
+    const r=await fetch('/api/rumahotp?action=services');
+    const d=await r.json();
+    if(!d.success||!d.data){g.innerHTML='<div class="empty-state"><div class="ico">❌</div><div class="msg">Gagal load layanan</div></div>';return;}
+    const EM={'whatsapp':'📲','telegram':'✈️','facebook':'👥','instagram':'📷','tiktok':'📱','twitter':'🐦','google':'🔍','shopee':'🛒','tokopedia':'🟢','gojek':'🛵','grab':'🚗'};
+    g.innerHTML=d.data.map(s=>{
+      const n=(s.service_name||'').toLowerCase();
+      const em=Object.entries(EM).find(([k])=>n.includes(k));
+      return '<div class="svc-card" data-code="'+s.service_code+'" data-name="'+s.service_name+'" onclick="selSvc(this)">'
+        +'<div class="svc-ic">'+(em?em[1]:'📱')+'</div>'
+        +'<div class="svc-name">'+(s.service_name||'—')+'</div>'
+        +'</div>';
+    }).join('');
+  }catch(e){g.innerHTML='<div class="empty-state"><div class="ico">❌</div><div class="msg">Error: '+e.message+'</div></div>';}
+}
+
+function selSvc(el){
+  document.querySelectorAll('.svc-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  selSvc={code:el.dataset.code,name:el.dataset.name};
+}
+function goSt2(){if(!selSvc){alert('Pilih layanan dulu!');return;}setStep(2);loadCountries();}
+async function loadCountries(){
+  const l=document.getElementById('cList');l.innerHTML='<div class="empty-state"><div class="spinner"></div></div>';
+  try{
+    const r=await fetch('/api/rumahotp?action=countries&service_id='+selSvc.code);
+    const d=await r.json();
+    if(!d.success||!d.data){l.innerHTML='<div class="empty-state"><div class="ico">❌</div><div class="msg">Gagal load negara</div></div>';return;}
+    allCountries=d.data;renderCountries(allCountries);
+  }catch(e){l.innerHTML='<div class="empty-state"><div class="ico">❌</div><div class="msg">'+e.message+'</div></div>';}
+}
+function renderCountries(data){
+  const l=document.getElementById('cList');
+  if(!data.length){l.innerHTML='<div class="empty-state"><div class="ico">🌍</div><div class="msg">Tidak ada negara tersedia</div></div>';return;}
+  l.innerHTML=data.map(c=>{
+    const prices=c.pricelist||[];
+    let minPrice=Infinity,bestProv=null;
+    prices.forEach(p=>{if(p.price<minPrice&&p.stock>0){minPrice=p.price;bestProv=p;}});
+    if(minPrice===Infinity)minPrice=0;
+    const displayPrice=minPrice+MARKUP;const stock=c.stock_total||0;
+    const sc=stock===0?'badge-red':stock<10?'badge-gold':'badge-green';
+    const flag=c.img?'<img src="'+c.img+'" style="width:24px;height:18px;object-fit:cover;border-radius:3px">':'🏳️';
+    return '<div class="c-row'+(stock===0?' disabled':'')+'" data-id="'+c.number_id+'" data-name="'+c.name+'" data-price="'+displayPrice+'" data-real="'+minPrice+'" data-prov="'+(bestProv?bestProv.provider_id||'1':'1')+'" onclick="selCountry(this)">'
+      +'<span style="width:28px;text-align:center;flex-shrink:0">'+flag+'</span>'
+      +'<span style="flex:1;font-size:.82rem;font-weight:600;color:var(--t1)">'+c.name+'</span>'
+      +'<div class="c-right">'+(displayPrice>MARKUP?'<span style="font-size:.72rem;font-weight:700;color:var(--gold)">'+fmtRp(displayPrice)+'</span>':'')+'<span class="badge '+sc+'">'+stock+' stok</span></div>'
+      +'</div>';
+  }).join('');
+}
+function filterCountry(){const q=document.getElementById('cSearch').value.toLowerCase();renderCountries(allCountries.filter(c=>c.name.toLowerCase().includes(q)));}
+function selCountry(el){
+  if(el.classList.contains('disabled'))return;
+  document.querySelectorAll('.c-row').forEach(r=>r.classList.remove('sel'));
+  el.classList.add('sel');
+  selCountry={id:el.dataset.id,name:el.dataset.name,price:parseInt(el.dataset.price),realPrice:parseInt(el.dataset.real),prov:el.dataset.prov};
+}
+function goSt3(){if(!selCountry){alert('Pilih negara dulu!');return;}setStep(3);buildCheckout();}
+
+async function buildCheckout(){
+  const sec=document.getElementById('checkoutArea');
+  const price=selCountry.price||0;
+  let h='<div class="card"><div class="dbox">';
+  h+='<div class="dr"><span class="dk">Layanan</span><span class="dv">'+selSvc.name+'</span></div>';
+  h+='<div class="dr"><span class="dk">Negara</span><span class="dv">'+selCountry.name+'</span></div>';
+  h+='<div class="dr" style="border:none"><span class="dk">Harga</span><span class="dv" style="color:var(--gold);font-weight:800">'+fmtRp(price)+'</span></div></div></div>';
+  const saldo=curUD.saldo||0;
+  if(saldo>=price){
+    h+='<div class="card" style="border-color:rgba(34,197,94,.2)">';
+    h+='<div style="font-size:.82rem;font-weight:700;color:var(--green);margin-bottom:8px">💰 Bayar Pakai Saldo</div>';
+    h+='<div style="background:var(--green-a);border-radius:10px;padding:10px 13px;font-size:.78rem;color:var(--t2);margin-bottom:12px">Saldo kamu: <strong style="color:var(--green)">'+fmtRp(saldo)+'</strong> ✓ Cukup</div>';
+    h+='<button class="btn btn-primary btn-full" id="orderOtpBtn" onclick="orderOTP()">⚡ Bayar & Dapatkan Nomor</button>';
+    h+='<div class="alert alert-err" id="otpErr" style="margin-top:8px"></div>';
+    h+='</div>';
+  }else{
+    h+='<div class="card" style="border-color:rgba(245,158,11,.2)"><div class="alert alert-warn show">Saldo tidak cukup! Saldo: '+fmtRp(saldo)+' · Butuh: '+fmtRp(price)+'</div><a href="topup.html" class="btn btn-primary btn-full" style="text-decoration:none">💰 Topup Dulu</a></div>';
+  }
+  sec.innerHTML=h;
+}
+
+async function orderOTP(){
+  const btn=document.getElementById('orderOtpBtn');btn.disabled=true;btn.textContent='Memproses...';
+  const errEl=document.getElementById('otpErr');errEl.classList.remove('show');
+  const price=selCountry.price||0;
+  if((curUD.saldo||0)<price){errEl.textContent='Saldo tidak cukup!';errEl.classList.add('show');btn.disabled=false;btn.textContent='⚡ Bayar & Dapatkan Nomor';return;}
+  try{
+    const r=await fetch('/api/rumahotp?action=order&number_id='+selCountry.id+'&provider_id='+selCountry.prov+'&operator_id=1');
+    const d=await r.json();
+    if(!d.success||!d.data){errEl.textContent='Gagal dapat nomor: '+(d.message||'Error');errEl.classList.add('show');btn.disabled=false;btn.textContent='⚡ Bayar & Dapatkan Nomor';return;}
+    const dep=d.data;
+    // Potong saldo
+    const newSaldo=(curUD.saldo||0)-price;
+    await dbUpdate('users/'+curUser.uid,{saldo:newSaldo,totalSpend:(curUD.totalSpend||0)+price});
+    curUD.saldo=newSaldo;
+    const trxId=genTRX('OTP');
+    await dbPush('orders',{uid:curUser.uid,email:curUser.email,userName:(curUD.name||''),trxId,category:'otp',service:selSvc.name,country:selCountry.name,orderId:dep.order_id,phone:dep.phone_number,price,realPrice:selCountry.realPrice,markup:MARKUP,status:'waiting_otp',timestamp:Date.now()});
+    await sendNotif(curUser.uid,{type:'order',title:'OTP Order Diterima',body:'Nomor '+dep.phone_number+' siap digunakan.',trxId,amount:price});
+    await tgSend('📲 ORDER OTP\nID: '+trxId+'\nUser: '+curUser.email+'\nLayanan: '+selSvc.name+'\nNegara: '+selCountry.name+'\nNomor: '+dep.phone_number+'\nHarga: '+fmtRp(price));
+    showStep4(dep,trxId);startPoll(dep.order_id,trxId);
+  }catch(e){errEl.textContent='Error: '+e.message;errEl.classList.add('show');btn.disabled=false;btn.textContent='⚡ Bayar & Dapatkan Nomor';}
+}
+
+function showStep4(dep,trxId){
+  setStep(4);
+  document.getElementById('otpPhone').textContent=dep.phone_number||'—';
+  document.getElementById('otpSvc').textContent=selSvc.name;
+  document.getElementById('otpSvcHint').textContent=selSvc.name;
+  document.getElementById('otpPrice').textContent='Harga: '+fmtRp(selCountry.price||0);
+  if(dep.expires_in_minute)document.getElementById('otpExp').textContent='Berlaku '+dep.expires_in_minute+' menit';
+}
+
+var pollCount=0;
+function startPoll(orderId,trxId){
+  pollCount=0;
+  setTimeout(()=>checkOTP(orderId,trxId),5000);
+  pollTimer=setInterval(()=>{pollCount++;if(pollCount>30){clearInterval(pollTimer);document.getElementById('pollTxt').textContent='⏰ Timeout. OTP tidak masuk.';return;}checkOTP(orderId,trxId);},30000);
+}
+async function checkOTP(orderId,trxId){
+  try{
+    const r=await fetch('/api/rumahotp?action=status&order_id='+orderId);
+    const d=await r.json();
+    const otp=d.data&&(d.data.otp_code||d.data.code||d.data.sms_code);
+    if(otp){
+      clearInterval(pollTimer);
+      document.getElementById('otpCode').textContent=otp;
+      document.getElementById('otpCodeBox').style.display='block';
+      document.getElementById('pollTxt').textContent='✅ OTP berhasil diterima!';
+      document.getElementById('pollTxt').style.color='var(--green)';
+      document.querySelector('.pulse-row').style.display='none';
+      if(trxId)await dbUpdate('orders/'+trxId,{status:'done'});
+      await sendNotif(curUser.uid,{type:'order',title:'OTP Diterima!',body:'Kode OTP: '+otp,trxId});
+      await tgSend('OTP DITERIMA\\nNomor: '+document.getElementById('otpPhone').textContent+'\\nOTP: '+otp+'\\nLayanan: '+selSvc.name);
+      document.getElementById('copyOtpBtn').onclick=function(){navigator.clipboard.writeText(otp).then(()=>{this.textContent='✓ Tersalin!';});};
+    }
+  }catch(e){}
+}
+function setStep(n){[1,2,3,4].forEach(i=>{document.getElementById('st'+i).style.display=i===n?'block':'none';});window.scrollTo({top:0,behavior:'smooth'});}
+init();
+</script></body></html>
