@@ -339,7 +339,11 @@ async function buatQRIS(){
   const btn=document.getElementById('topupBtn');btn.disabled=true;btn.textContent='Membuat QRIS...';
   trxId=genTRX('TOP');
   try{
-    const r=await fetch('/api/atlantik?action=create&reff_id='+trxId+'&nominal='+curAmt+'&type=ewallet&metode=qris',{method:'POST'});
+    const r=await fetch('https://atlantich2h.com/deposit/create',{
+      method:'POST',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:new URLSearchParams({api_key:'cxQBTDEaLJ2GSYzNjIO3AETWQyxQc3UzduMbtzvujl5oBNBELkgo3tzV6MfVYgFEq5Z5XOmGO8MVH0uI58wLkz4yN1oaeImDUt7L',reff_id:trxId,nominal:curAmt,type:'ewallet',method:'qris'}).toString()
+    });
     const d=await r.json();
     if(!d.status||!d.data){alert('Gagal buat QRIS: '+(d.message||'Coba lagi'));btn.disabled=false;btn.textContent='Buat QRIS →';return;}
     const dep=d.data;depId=dep.id;getBalance=dep.get_balance||curAmt;
@@ -410,7 +414,11 @@ function startPoll(depositId){
 
 async function cekStatus(depositId){
   try{
-    const r=await fetch('/api/atlantik?action=status&id='+depositId,{method:'POST'});
+    const r=await fetch('https://atlantich2h.com/deposit/status',{
+      method:'POST',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:new URLSearchParams({api_key:'cxQBTDEaLJ2GSYzNjIO3AETWQyxQc3UzduMbtzvujl5oBNBELkgo3tzV6MfVYgFEq5Z5XOmGO8MVH0uI58wLkz4yN1oaeImDUt7L',id:depositId}).toString()
+    });
     const d=await r.json();
     if(!d.status||!d.data)return;
     const s=d.data.status,el=document.getElementById('pollTxt');
