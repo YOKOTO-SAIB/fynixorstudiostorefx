@@ -1,7 +1,2 @@
-{
-  "version": 2,
-  "functions": {
-    "api/atlantik.js": { "runtime": "nodejs18.x", "memory": 128, "maxDuration": 15 },
-    "api/rumahotp.js": { "runtime": "nodejs18.x", "memory": 128, "maxDuration": 15 }
-  }
-}
+{}
+
