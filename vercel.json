@@ -1,6 +1,11 @@
 {
-  "functions": {
-    "api/atlantik.js": { "memory": 128, "maxDuration": 15 },
-    "api/rumahotp.js": { "memory": 128, "maxDuration": 15 }
-  }
+  "version": 2,
+  "builds": [
+    { "src": "api/*.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/(.*\\.html)", "dest": "/$1" },
+    { "src": "/", "dest": "/index.html" }
+  ]
 }
