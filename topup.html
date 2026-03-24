@@ -302,16 +302,16 @@ async function tgSend(text,imgUrl){
 
 function openLightbox(src){document.getElementById('lbImg').src=src;document.getElementById('lightbox').classList.add('open');}
 
-var curUser=null,curAmt=0,pollTimer=null,depId=null,trxId=null,getBalance=0,topupKey=null;
+var curUser=null,curUD=null,curAmt=0,pollTimer=null,depId=null,trxId=null,getBalance=0,topupKey=null;
 const AMTS=[5000,10000,25000,50000,100000,200000,500000,1000000];
 
 async function init(){
   if(await checkMaintenance())return;
   curUser=await requireLogin('topup.html');
   if(!curUser)return;
-  const ud=await getMe();
-  document.getElementById('saldoVal').textContent=fmtRp(ud.saldo||0);
-  document.getElementById('saldoUser').textContent=ud.name||ud.email;
+  curUD=await getMe();
+  document.getElementById('saldoVal').textContent=fmtRp(curUD.saldo||0);
+  document.getElementById('saldoUser').textContent=curUD.name||curUD.email;
   const g=document.getElementById('amtGrid');
   g.innerHTML=AMTS.map(v=>'<div class="amt-card" data-v="'+v+'" onclick="selAmt(this)"><div class="amt-val">'+fmtRp(v)+'</div></div>').join('');
 }
