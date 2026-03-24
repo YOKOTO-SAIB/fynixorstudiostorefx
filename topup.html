@@ -336,18 +336,31 @@ function updPrev(){
 
 async function buatQRIS(){
   if(curAmt<5000)return;
-  const btn=document.getElementById('topupBtn');btn.disabled=true;btn.textContent='Membuat QRIS...';
+  const btn=document.getElementById('topupBtn');
+  btn.disabled=true;btn.textContent='Memuat QRIS...';
   trxId=genTRX('TOP');
   try{
-    const r=await fetch('/api/atlantik?action=create',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({reff_id:trxId,nominal:curAmt,type:'ewallet',method:'qris'}).toString()});
-    const d=await r.json();
-    if(!d.status||!d.data){alert('Gagal buat QRIS: '+(d.message||'Coba lagi'));btn.disabled=false;btn.textContent='Buat QRIS →';return;}
-    const dep=d.data;depId=dep.id;getBalance=dep.get_balance||curAmt;
-    topupKey=await dbPush('topups',{uid:curUser.uid,email:curUser.email,name:(await getMe()).name||'',trxId,depositId:dep.id,amount:curAmt,fee:dep.fee||0,getBalance,status:'pending',expiredAt:dep.expired_at||'',timestamp:Date.now()});
-    tampilQRIS(dep);startPoll(dep.id);
-  }catch(e){alert('Error: '+e.message);btn.disabled=false;btn.textContent='Buat QRIS →';}
+    const cfg=await getSiteConf();
+    const qrisUrl=cfg.qrisImage||'';
+    const qrisName=cfg.qrisName||'YOKO STORE';
+    if(!qrisUrl){
+      alert('QRIS belum diset oleh admin. Hubungi CS.');
+      btn.disabled=false;btn.textContent='Buat QRIS →';
+      return;
+    }
+    topupKey=await dbPush('topups',{
+      uid:curUser.uid,email:curUser.email,
+      name:(curUD.name||''),trxId,
+      amount:curAmt,getBalance:curAmt,fee:0,
+      status:'pending_manual',payMethod:'qris_manual',
+      timestamp:Date.now()
+    });
+    tampilQRIS({qr_image:qrisUrl,qris_name:qrisName,expired_at:''});
+  }catch(e){
+    alert('Error: '+e.message);
+    btn.disabled=false;btn.textContent='Buat QRIS →';
+  }
 }
-
 function tampilQRIS(dep){
   document.getElementById('s1').style.display='none';
   document.getElementById('s2').style.display='block';
@@ -364,7 +377,7 @@ function tampilQRIS(dep){
   if(fee>0)h+='<div class="dr"><span class="dk">Biaya Admin</span><span class="dv" style="color:var(--red)">-'+fmtRp(fee)+'</span></div>';
   h+='<div class="dr" style="border:none"><span class="dk">Saldo Diterima</span><span class="dv" style="color:var(--green);font-weight:800">'+fmtRp(getBalance)+'</span></div>';
   h+='</div>';
-  h+='<div class="poll-box"><div class="pulse-row"><div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div></div><div style="font-size:.76rem;color:var(--t3);margin-top:8px" id="pollTxt">Memantau pembayaran otomatis tiap 5 detik...</div></div>';
+  h+='<div class="poll-box"><div style="font-size:.82rem;font-weight:700;color:var(--gold);margin-bottom:6px">⚠️ Transfer Manual</div><div style="font-size:.74rem;color:var(--t2);line-height:1.6">Scan QRIS di atas → transfer tepat <strong style="color:var(--gold)">'+fmtRp(curAmt)+'</strong> → upload bukti di bawah → admin konfirmasi dalam 1x24 jam.</div></div>';
   // Upload bukti wajib
   h+='<div class="card" id="buktiCard">';
   h+='<div style="font-size:.85rem;font-weight:700;color:var(--w);margin-bottom:4px">📸 Upload Bukti Transfer</div>';
@@ -398,37 +411,7 @@ async function doUpload(){
   }
 }
 
-function startPoll(depositId){
-  let attempts=0;
-  setTimeout(()=>cekStatus(depositId),3000);
-  pollTimer=setInterval(()=>{
-    attempts++;
-    if(attempts>120){clearInterval(pollTimer);const el=document.getElementById('pollTxt');if(el){el.textContent='⏰ QRIS expired. Sudah bayar? Upload bukti → admin verifikasi manual.';el.style.color='var(--gold)';}if(topupKey)dbUpdate('topups/'+topupKey,{status:'pending_admin'});return;}
-    cekStatus(depositId);
-  },5000);
-}
 
-async function cekStatus(depositId){
-  try{
-    const r=await fetch('/api/atlantik?action=status',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({id:depositId}).toString()});
-    const d=await r.json();
-    if(!d.status||!d.data)return;
-    const s=d.data.status,el=document.getElementById('pollTxt');
-    if(s==='success'){
-      clearInterval(pollTimer);
-      const ud=await getMe();const newSaldo=(ud.saldo||0)+getBalance;
-      await dbUpdate('users/'+curUser.uid,{saldo:newSaldo});
-      if(topupKey)await dbUpdate('topups/'+topupKey,{status:'done',paidAt:Date.now(),processMethod:'auto'});
-      await sendNotif(curUser.uid,{type:'topup',title:'Topup Berhasil!',body:'Saldo '+fmtRp(getBalance)+' berhasil ditambahkan.',trxId,amount:getBalance});
-      await tgSend('💰 TOPUP BERHASIL\nID: '+trxId+'\nUser: '+curUser.email+'\nJumlah: '+fmtRp(getBalance)+'\nSaldo baru: '+fmtRp(newSaldo));
-      tampilSukses(newSaldo);
-    }else if(s==='expired'||s==='failed'){
-      clearInterval(pollTimer);
-      if(topupKey)dbUpdate('topups/'+topupKey,{status:'pending_admin',atlantikStatus:s});
-      if(el){el.textContent='⚠️ Transaksi '+s+'. Upload bukti di bawah untuk verifikasi manual.';el.style.color='var(--gold)';}
-    }else if(el)el.textContent='⏳ Status: '+s+' — cek tiap 5 detik...';
-  }catch(e){}
-}
 
 function cancelTopup(){clearInterval(pollTimer);document.getElementById('s1').style.display='block';document.getElementById('s2').style.display='none';document.getElementById('topupBtn').disabled=false;document.getElementById('topupBtn').textContent='Buat QRIS →';}
 
