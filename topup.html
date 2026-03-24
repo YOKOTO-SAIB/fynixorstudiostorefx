@@ -340,6 +340,7 @@ async function buatQRIS(){
   btn.disabled=true;btn.textContent='Memuat QRIS...';
   trxId=genTRX('TOP');
   try{
+    if(!curUD)curUD=await getMe();
     const cfg=await getSiteConf();
     const qrisUrl=cfg.qrisImage||'';
     const qrisName=cfg.qrisName||'YOKO STORE';
@@ -350,7 +351,7 @@ async function buatQRIS(){
     }
     topupKey=await dbPush('topups',{
       uid:curUser.uid,email:curUser.email,
-      name:(curUD.name||''),trxId,
+      name:((curUD&&curUD.name)||''),trxId,
       amount:curAmt,getBalance:curAmt,fee:0,
       status:'pending_manual',payMethod:'qris_manual',
       timestamp:Date.now()
