@@ -409,71 +409,56 @@ function goStep2(){
 }
 
 function buildPaketGrid(){
-  // Paket hardcode per platform + custom dari Firebase
-  const HARD_PAKETS = {
-    tiktok:[
-      {id:'tk_likes',ic:'❤️',name:'Likes',price:2000,min:1000,max:1000000,step:1000,unit:'likes',label:'Jumlah Likes'},
-      {id:'tk_views',ic:'👁️',name:'Views',price:1000,min:1000,max:1000000,step:1000,unit:'views',label:'Jumlah Views'},
-      {id:'tk_followers',ic:'👤',name:'Followers',price:2000,min:100,max:1000000,step:100,unit:'followers',label:'Jumlah Followers'},
-      {id:'tk_fyp',ic:'⭐',name:'Paket FYP',price:15000,min:1,max:100,step:1,unit:'paket',label:'Jumlah Paket',views:10000,likes:3000,shares:1000},
-    ],
-    instagram:[
-      {id:'ig_followers',ic:'👤',name:'Followers',price:2000,min:100,max:100000,step:100,unit:'followers',label:'Jumlah Followers'},
-      {id:'ig_likes',ic:'❤️',name:'Likes',price:3000,min:100,max:100000,step:100,unit:'likes',label:'Jumlah Likes'},
-    ],
-    telegram:[
-      {id:'tg_members',ic:'👥',name:'Members',price:2000,min:100,max:100000,step:100,unit:'members',label:'Jumlah Members'},
-      {id:'tg_views',ic:'👁️',name:'Views Post',price:1000,min:100,max:1000000,step:100,unit:'views',label:'Jumlah Views'},
-    ],
-    whatsapp:[
-      {id:'wa_members',ic:'👥',name:'Members',price:6000,min:100,max:50000,step:10,unit:'members',label:'Jumlah Members'},
-      {id:'wa_reaction',ic:'⭐',name:'Reactions',price:3000,min:10,max:50000,step:10,unit:'reactions',label:'Jumlah Reactions'},
-    ],
-    facebook:[
-      {id:'fb_followers',ic:'👤',name:'Followers',price:2000,min:100,max:100000,step:100,unit:'followers',label:'Jumlah Followers'},
-      {id:'fb_likes',ic:'❤️',name:'Likes Page',price:3000,min:100,max:100000,step:100,unit:'likes',label:'Jumlah Likes'},
-    ],
-    youtube:[
-      {id:'yt_views',ic:'👁️',name:'Views',price:1500,min:1000,max:1000000,step:1000,unit:'views',label:'Jumlah Views'},
-      {id:'yt_subs',ic:'🔔',name:'Subscribers',price:5000,min:100,max:100000,step:100,unit:'subscribers',label:'Jumlah Subscribers'},
-    ],
-  };
-  const pakets=[...(HARD_PAKETS[selPlatData]||[])];
-  // Tambah custom dari Firebase
-  prodList.filter(p=>p.type==='sosmed'&&(p.platform||'').toLowerCase()===selPlatData).forEach(p=>{
-    pakets.push({id:'custom_'+p.id,ic:p.icon||'⭐',name:p.name,price:p.price,min:p.min||1,max:p.max||100,step:1,unit:'paket',label:'Jumlah Paket',custom:true,fbId:p.id,views:p.views,likes:p.likes,shares:p.shares,followers:p.followers,members:p.members,reactions:p.reactions});
-  });
   const grid=document.getElementById('paketGrid');
-  grid.innerHTML=pakets.map(pk=>
-    '<div class="paket-card" data-id="'+pk.id+'" onclick="selPaket(this)">'
-    +'<div class="pk-ic">'+pk.ic+'</div>'
-    +'<div class="pk-name">'+pk.name+'</div>'
-    +'<div class="pk-price">'+fmtRp(pk.price)+' / '+pk.unit+'</div>'
-    +'<div class="pk-range">Min '+pk.min.toLocaleString('id')+' · Max '+pk.max.toLocaleString('id')+'</div>'
-    +'</div>'
-  ).join('');
-  grid._pakets=pakets;
+  grid.innerHTML='<div style="text-align:center;padding:20px"><div class="spinner" style="width:22px;height:22px;margin:0 auto"></div></div>';
+  // Load dari Firebase - filter by platform
+  dbGet('products').then(function(prods){
+    const list=Object.entries(prods||{})
+      .map(([k,v])=>Object.assign({id:k},v))
+      .filter(function(p){
+        return p.type==='sosmed'
+          && (p.platform||'').toLowerCase()===selPlatData
+          && !p.disabled;
+      });
+    if(!list.length){
+      grid.innerHTML='<div class="empty-state" style="grid-column:1/-1"><div class="ico">📭</div><div class="msg">Belum ada paket untuk platform ini</div></div>';
+      grid._pakets=[];return;
+    }
+    grid.innerHTML=list.map(function(pk){
+      return '<div class="paket-card" data-id="'+pk.id+'" onclick="selPaket(this)">'
+        +'<div class="pk-ic">'+(pk.icon||'⭐')+'</div>'
+        +'<div class="pk-name">'+(pk.name||'—')+'</div>'
+        +'<div class="pk-price">'+fmtRp(pk.price||0)+' / '+(pk.unit||'paket')+'</div>'
+        +'<div class="pk-range">Min '+(pk.min||1).toLocaleString('id')+' · Max '+(pk.max||100).toLocaleString('id')+'</div>'
+        +'</div>';
+    }).join('');
+    grid._pakets=list;
+  }).catch(function(){
+    grid.innerHTML='<div class="empty-state"><div class="ico">❌</div><div class="msg">Gagal load paket</div></div>';
+    grid._pakets=[];
+  });
 }
 
 function selPaket(el){
   document.querySelectorAll('.paket-card').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
   const grid=document.getElementById('paketGrid');
-  selPaketData=grid._pakets.find(p=>p.id===el.dataset.id);
-  document.getElementById('step2Btn').disabled=false;
+  selPaketData=(grid._pakets||[]).find(function(p){return p.id===el.dataset.id;});
+  document.getElementById('step2Btn').disabled=!selPaketData;
 }
 
 function goStep3(){
   if(!selPaketData)return;
   document.getElementById('step2').style.display='none';
   document.getElementById('step3').style.display='block';
-  document.getElementById('step3Title').textContent=PLAT_LABEL[selPlatData]+' — '+selPaketData.name;
+  document.getElementById('step3Title').textContent=(PLAT_LABEL[selPlatData]||selPlatData)+' — '+(selPaketData.name||'Paket');
   document.getElementById('linkLabel').textContent=PLAT_LINK_LABEL[selPlatData]||'Link Target *';
-  document.getElementById('qtyLabel').textContent=selPaketData.label;
-  document.getElementById('qtyHint').textContent='Min: '+selPaketData.min.toLocaleString('id')+' · Max: '+selPaketData.max.toLocaleString('id');
+  document.getElementById('qtyLabel').textContent=selPaketData.label||'Jumlah';
+  const mn=selPaketData.min||1,mx=selPaketData.max||10000,st=selPaketData.step||1;
+  document.getElementById('qtyHint').textContent='Min: '+mn.toLocaleString('id')+' · Max: '+mx.toLocaleString('id');
   const qi=document.getElementById('qtyInput');
-  qi.min=selPaketData.min;qi.max=selPaketData.max;qi.step=selPaketData.step;qi.value=selPaketData.min;
-  document.getElementById('summService').textContent=PLAT_LABEL[selPlatData]+' '+selPaketData.name;
+  qi.min=mn;qi.max=mx;qi.step=st;qi.value=mn;
+  document.getElementById('summService').textContent=(PLAT_LABEL[selPlatData]||selPlatData)+' '+(selPaketData.name||'');
   calcTotal();
 }
 
@@ -487,23 +472,21 @@ function changeQty(d){
 function calcTotal(){
   if(!selPaketData)return;
   const p=selPaketData;
-  const q=Math.max(p.min,Math.min(p.max,parseInt(document.getElementById('qtyInput').value)||p.min));
-  const total=Math.round(q/p.min)*p.price;
-  document.getElementById('summQty').textContent=q.toLocaleString('id')+' '+p.unit;
+  const mn=p.min||1,pr=p.price||0;
+  const q=Math.max(mn,Math.min(p.max||99999,parseInt(document.getElementById('qtyInput').value)||mn));
+  const total=Math.ceil(q/mn)*pr;
+  document.getElementById('summQty').textContent=q.toLocaleString('id')+' '+(p.unit||'');
   document.getElementById('summTotal').textContent=fmtRp(total);
-  // FYP chips
   const fbox=document.getElementById('fypItems');
-  if(p.views||p.likes||p.shares||p.followers||p.members||p.reactions){
-    fbox.style.display='flex';
-    const chips=[];
-    if(p.views)chips.push('👁️ '+(q*p.views).toLocaleString('id')+' Views');
-    if(p.likes)chips.push('❤️ '+(q*p.likes).toLocaleString('id')+' Likes');
-    if(p.shares)chips.push('🔁 '+(q*p.shares).toLocaleString('id')+' Shares');
-    if(p.followers)chips.push('👤 '+(q*p.followers).toLocaleString('id')+' Followers');
-    if(p.members)chips.push('👥 '+(q*p.members).toLocaleString('id')+' Members');
-    if(p.reactions)chips.push('⭐ '+(q*p.reactions).toLocaleString('id')+' Reactions');
-    fbox.innerHTML=chips.map(c=>'<span style="background:var(--blue-a);border-radius:6px;padding:3px 8px">'+c+'</span>').join('');
-  }else fbox.style.display='none';
+  const chips=[];
+  if(p.views)chips.push('👁️ '+(q*(p.views||0)).toLocaleString('id')+' Views');
+  if(p.likes)chips.push('❤️ '+(q*(p.likes||0)).toLocaleString('id')+' Likes');
+  if(p.shares)chips.push('🔁 '+(q*(p.shares||0)).toLocaleString('id')+' Shares');
+  if(p.followers)chips.push('👤 '+(q*(p.followers||0)).toLocaleString('id')+' Followers');
+  if(p.members)chips.push('👥 '+(q*(p.members||0)).toLocaleString('id')+' Members');
+  if(p.reactions)chips.push('⭐ '+(q*(p.reactions||0)).toLocaleString('id')+' Reactions');
+  if(chips.length){fbox.style.display='flex';fbox.innerHTML=chips.map(function(c){return '<span style="background:var(--blue-a);border-radius:6px;padding:3px 8px">'+c+'</span>';}).join('');}
+  else fbox.style.display='none';
 }
 
 async function submitOrder(){
