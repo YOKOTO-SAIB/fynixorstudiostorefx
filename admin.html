@@ -669,6 +669,18 @@ async function setOrdSt(key,status){
   const upd={status,updatedAt:Date.now()};if(note)upd.adminNote=note;
   await dbUpdate('orders/'+key,upd);
   const o=_ords.find(x=>x.key===key);if(o){o.status=status;if(note)o.adminNote=note;}
+  // AUTO REFUND saat cancel atau error
+  let refundAmt=0;
+  if(o&&o.uid&&(status==='cancelled'||status==='error')){
+    const price=o.price||o.total||0;
+    if(price>0&&!o.refunded){
+      const ud=await dbGet('users/'+o.uid);
+      const newSaldo=((ud&&ud.saldo)||0)+price;
+      await dbUpdate('users/'+o.uid,{saldo:newSaldo});
+      await dbUpdate('orders/'+key,{refunded:true,refundAmount:price});
+      refundAmt=price;
+    }
+  }
   if(o&&o.uid){
     const ST={done:'✅ Selesai',cancelled:'❌ Dibatalkan',error:'⚠️ Error',review:'🔍 Sedang Ditinjau'};
     await sendNotif(o.uid,{type:'order',title:'Status Order Diperbarui',body:(o.prodName||o.service||'Order')+' — '+(ST[status]||status)+(note?' · '+note:''),trxId:o.trxId||key});
