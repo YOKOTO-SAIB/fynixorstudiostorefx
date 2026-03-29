@@ -260,7 +260,7 @@ async function init(){
   allProds=Object.entries(prods||{}).map(([k,v])=>{
     const stk=descs&&descs[k]?Object.keys(descs[k]).length:0;
     return Object.assign({id:k,stock:stk},v);
-  }).filter(p=>p.type==='token'||p.type==='digital');
+  }).filter(p=>(p.type==='token'||p.type==='digital')&&!p.disabled);
   buildCatTabs();renderProds(allProds);
 }
 function buildCatTabs(){
