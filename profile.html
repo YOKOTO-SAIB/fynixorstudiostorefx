@@ -177,6 +177,8 @@ tr:hover td{background:var(--blue-b);}
     <a href="topup.html" class="item"><div class="item-ic" style="background:var(--green-a)">💰</div><div><div class="item-title">Topup Saldo</div><div class="item-sub">Isi saldo via QRIS otomatis</div></div><span style="color:var(--t3);margin-left:auto">›</span></a>
     <a href="notif.html" class="item"><div class="item-ic" style="background:var(--purple-a)">🔔</div><div><div class="item-title">Notifikasi</div><div class="item-sub">Pesan dan update transaksi</div></div><span style="color:var(--t3);margin-left:auto">›</span></a>
     <div class="item" onclick="editProfile()"><div class="item-ic" style="background:var(--gold-a)">✏️</div><div><div class="item-title">Edit Profil</div><div class="item-sub">Ganti nama, PP, password</div></div><span style="color:var(--t3);margin-left:auto">›</span></div>
+    <div class="item" id="csItem1" onclick="openCS(1)"><div class="item-ic" style="background:rgba(34,197,94,.15)">✈️</div><div><div class="item-title">CS Telegram</div><div class="item-sub">Respon cepat &lt;45 menit</div></div><span style="color:var(--t3);margin-left:auto">›</span></div>
+    <div class="item" id="csItem2" onclick="openCS(2)"><div class="item-ic" style="background:var(--blue-a)">🌐</div><div><div class="item-title">CS Website</div><div class="item-sub">Respon &gt;1 jam</div></div><span style="color:var(--t3);margin-left:auto">›</span></div>
     <div class="item" onclick="doLogout()" style="border-color:var(--red-a)"><div class="item-ic" style="background:var(--red-a)">🚪</div><div><div class="item-title" style="color:var(--red)">Logout</div></div></div>
   </div>
   <!-- Edit Profile Popup -->
@@ -292,6 +294,8 @@ async function tgSend(text,imgUrl){
 
 function openLightbox(src){document.getElementById('lbImg').src=src;document.getElementById('lightbox').classList.add('open');}
 
+var _cs1='',_cs2='';
+async function openCS(n){const url=n===1?_cs1:_cs2;if(url)window.open(url,'_blank');else alert('Link CS belum diset oleh admin.');}
 async function init(){
   if(await checkMaintenance())return;
   const u=await requireLogin('profile.html');if(!u)return;
@@ -307,6 +311,9 @@ async function init(){
   const snap=await d.get(d.query(d.ref(db,'orders'),d.orderByChild('uid'),d.equalTo(u.uid)));
   const cnt=snap.exists()?Object.keys(snap.val()).length:0;
   document.getElementById('statOrders').textContent=cnt;
+  // Load CS links
+  const cfg=await getSiteConf();
+  _cs1=cfg.cs1||'';_cs2=cfg.cs2||'';
   // Level
   const lvl=ud.level||1;
   const lvlNames=['','Bronze','Silver','Gold','Platinum','Diamond'];
