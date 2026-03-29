@@ -337,6 +337,7 @@ async function tgSend(text,imgUrl){
 function openLightbox(src){document.getElementById('lbImg').src=src;document.getElementById('lightbox').classList.add('open');}
 
 function go(id){location.href="detail_trx.html?id="+id;}
+async function loadCS(){const cfg=await getSiteConf();if(cfg.cs1){document.getElementById('floatCSBtn').href=cfg.cs1;document.getElementById('floatCS').style.display='block';}}
 async function init(){
   if(await checkMaintenance())return;
   const u=await requireLogin('home.html');
@@ -354,6 +355,7 @@ async function init(){
   loadNotifBadge(u.uid);
   // Load riwayat terbaru
   loadRecentTrx(u.uid);
+  loadCS();
 }
 
 async function loadNotifBadge(uid){
@@ -404,4 +406,7 @@ function goNotif(){location.href='notif.html';}
 init();
 
 </script>
+<div id="floatCS" style="position:fixed;bottom:74px;right:16px;z-index:200;display:none">
+  <a id="floatCSBtn" href="#" target="_blank" style="background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;border-radius:50px;padding:11px 18px;font-family:inherit;font-size:.8rem;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(37,211,102,.4);display:flex;align-items:center;gap:7px;text-decoration:none">💬 CS</a>
+</div>
 </body></html>
