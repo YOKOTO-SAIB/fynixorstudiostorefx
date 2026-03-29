@@ -464,8 +464,12 @@ function goStep3(){
 
 function changeQty(d){
   const i=document.getElementById('qtyInput');
-  const p=selPaketData;
-  i.value=Math.max(p.min,Math.min(p.max,(parseInt(i.value)||p.min)+d*p.step));
+  if(!selPaketData)return;
+  const mn=selPaketData.min||1;
+  const mx=selPaketData.max||99999;
+  const st=selPaketData.step||mn;
+  const cur=parseInt(i.value)||mn;
+  i.value=Math.max(mn,Math.min(mx,cur+(d*st)));
   calcTotal();
 }
 
@@ -475,7 +479,7 @@ function calcTotal(){
   const mn=p.min||1,pr=p.price||0;
   const q=Math.max(mn,Math.min(p.max||99999,parseInt(document.getElementById('qtyInput').value)||mn));
   const total=Math.ceil(q/mn)*pr;
-  document.getElementById('summQty').textContent=q.toLocaleString('id')+' '+(p.unit||'');
+  document.getElementById('summQty').textContent=q.toLocaleString('id')+' '+(p.unit||'item');
   document.getElementById('summTotal').textContent=fmtRp(total);
   const fbox=document.getElementById('fypItems');
   const chips=[];
@@ -520,7 +524,7 @@ async function submitOrder(){
       trxId,platform:selPlatData,prodId:selPaketData.id,
       prodName:selPaketData.name,category:'sosmed',
       serviceName:PLAT_LABEL[selPlatData]+' '+selPaketData.name,
-      link,qty:q,unit:selPaketData.unit,
+      link,qty:q,unit:selPaketData.unit||'item',
       price:total,status:'process',note,
       timestamp:Date.now()
     });
