@@ -264,6 +264,9 @@ body{overflow:hidden;}
             <option value="done">✅ Selesai</option><option value="cancelled">❌ Batal</option><option value="error">⚠️ Error</option>
           </select>
           <button class="btn-save" style="padding:7px 14px;font-size:.75rem" onclick="loadOrders()">↻</button>
+          <button class="btn-ng" style="padding:7px 14px;font-size:.75rem;border-radius:9px;font-family:inherit;cursor:pointer" onclick="delSelected()">🗑️ Hapus Dipilih</button>
+          <button class="btn-ng" style="padding:7px 14px;font-size:.75rem;border-radius:9px;font-family:inherit;cursor:pointer;background:var(--red-a);color:var(--red);border:1px solid rgba(248,113,113,.2)" onclick="delAllOrds()">🗑️ Hapus Semua</button>
+          <label style="font-size:.75rem;color:var(--t2);cursor:pointer;display:flex;align-items:center;gap:5px"><input type="checkbox" id="chkAll" onchange="toggleAllChk(this)"> Pilih Semua</label>
         </div>
         <div class="tbl-wrap"><table><thead><tr><th>ID TRX</th><th>User</th><th>Produk</th><th>Link</th><th>Qty</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
         <tbody id="ordTb"></tbody></table></div>
@@ -618,9 +621,11 @@ function renderOrds(){
     +'<td style="font-weight:700;color:var(--gold)">'+fmtRp(o.price||o.total||0)+'</td>'
     +'<td><span class="badge '+(SC[o.status]||'badge-gold')+'">'+(ST[o.status]||o.status)+'</span></td>'
     +'<td onclick="event.stopPropagation()" style="white-space:nowrap">'
+      +'<input type="checkbox" class="ord-chk" data-k="'+o.key+'" style="margin-right:4px;cursor:pointer">'
       +'<button class="btn-sm btn-bl" data-k="'+o.key+'" data-s="review" onclick="setOrdSt(this.dataset.k,this.dataset.s)">🔍</button> '
       +'<button class="btn-sm btn-ok" data-k="'+o.key+'" data-s="done" onclick="setOrdSt(this.dataset.k,this.dataset.s)">✅</button> '
-      +'<button class="btn-sm btn-ng" data-k="'+o.key+'" data-s="cancelled" onclick="setOrdSt(this.dataset.k,this.dataset.s)">❌</button>'
+      +'<button class="btn-sm btn-ng" data-k="'+o.key+'" data-s="cancelled" onclick="setOrdSt(this.dataset.k,this.dataset.s)">❌</button> '
+      +'<button class="btn-sm btn-ng" data-k="'+o.key+'" onclick="delOrd(this.dataset.k)" title="Hapus">🗑️</button>'
     +'</td></tr>').join('')
     :'<tr><td colspan="8" style="text-align:center;color:var(--t3);padding:20px">Tidak ada data</td></tr>';
 }
@@ -819,7 +824,8 @@ async function loadProds(){
     if(p.shares)parts.push('🔁 '+Number(p.shares).toLocaleString('id'));
     if(p.followers)parts.push('👤 '+Number(p.followers).toLocaleString('id'));
     if(p.members)parts.push('👥 '+Number(p.members).toLocaleString('id'));
-    const info=isSosmed?'<span class="badge badge-blue">📱 Sosmed</span>'+(parts.length?'<div style="font-size:.66rem;color:var(--t2);margin-top:3px">'+parts.join(' · ')+'</div>':''):'<span class="badge '+(stk===0?'badge-red':stk<3?'badge-gold':'badge-green')+'">'+stk+' stok</span>';
+    const disabledBadge=p.disabled?'<span class="badge badge-red" style="margin-left:4px">⛔ Disabled</span>':'';
+    const info=isSosmed?'<span class="badge badge-blue">📱 Sosmed</span>'+disabledBadge+(parts.length?'<div style="font-size:.66rem;color:var(--t2);margin-top:3px">'+parts.join(' · ')+'</div>':''):'<span class="badge '+(stk===0?'badge-red':stk<3?'badge-gold':'badge-green')+'">'+stk+' stok</span>'+disabledBadge;
     return '<tr>'
       +'<td><div style="font-weight:600;color:var(--w)">'+(p.icon||'📦')+' '+(p.name||'—')+'</div><div style="font-size:.68rem;color:var(--t3)">'+(p.desc||'')+'</div></td>'
       +'<td style="font-size:.76rem;color:var(--t2)">'+(cat?(cat.icon||'')+' '+cat.name:'—')+'</td>'
@@ -828,6 +834,7 @@ async function loadProds(){
       +'<td style="display:flex;gap:5px;flex-wrap:wrap">'
         +'<button class="btn-sm btn-bl" data-pk="'+k+'" onclick="editProd(this.dataset.pk)">✏️</button>'
         +(!isSosmed?'<button class="btn-sm btn-ok" data-pk="'+k+'" data-pn="'+(p.name||'Produk')+'" onclick="openStok(this.dataset.pk,this.dataset.pn)">📝 Stok</button>':'')
+        +'<button class="btn-sm '+(p.disabled?'btn-ok':'btn-yw')+'" data-pk="'+k+'" data-dis="'+(p.disabled?'1':'0')+'" onclick="toggleDisable(this.dataset.pk,this.dataset.dis)" title="'+(p.disabled?'Aktifkan':'Nonaktifkan')+'">'+(p.disabled?'✅ Aktif':'⛔ Disable')+'</button>'
         +'<button class="btn-sm btn-ng" data-pk="'+k+'" onclick="delProd(this.dataset.pk)">🗑️</button>'
       +'</td></tr>';
   }).join('');
@@ -858,6 +865,13 @@ async function saveProd(){
   if(_editProd){await dbUpdate('products/'+_editProd,data);_prods[_editProd]=data;}
   else{const k=await dbPush('products',data);_prods[k]=data;}
   cancelProd();showAlert('pOk');loadProds();
+}
+async function toggleDisable(key,dis){
+  const isDisabled=dis==='1';
+  const newState=!isDisabled;
+  await dbUpdate('products/'+key,{disabled:newState});
+  if(_prods[key])_prods[key].disabled=newState;
+  loadProds();
 }
 async function delProd(key){
   if(!confirm('Hapus produk + stok?'))return;
@@ -964,6 +978,37 @@ async function toggleMaint(){
 async function saveMaint(){
   await dbUpdate('config',{maintTitle:document.getElementById('mTitle').value,maintMsg:document.getElementById('mMsg').value,maintEst:document.getElementById('mEst').value});
   _cfg=null;showAlert('mOk');
+}
+
+// ── HAPUS TRANSAKSI
+function toggleAllChk(chk){document.querySelectorAll('.ord-chk').forEach(c=>c.checked=chk.checked);}
+async function delOrd(key){
+  if(!confirm('Hapus transaksi ini?'))return;
+  await dbRemove('orders/'+key);
+  _ords=_ords.filter(x=>x.key!==key);
+  renderOrds();
+}
+async function delSelected(){
+  const keys=[...document.querySelectorAll('.ord-chk:checked')].map(c=>c.dataset.k);
+  if(!keys.length){alert('Pilih transaksi dulu!');return;}
+  if(!confirm('Hapus '+keys.length+' transaksi yang dipilih?'))return;
+  await Promise.all(keys.map(k=>dbRemove('orders/'+k)));
+  _ords=_ords.filter(x=>!keys.includes(x.key));
+  renderOrds();
+}
+async function delAllOrds(){
+  const q=document.getElementById('ordQ').value;
+  const st=document.getElementById('ordSt').value;
+  const filtered=_ords.filter(o=>{
+    const mq=!q||(o.trxId||'').toLowerCase().includes(q)||(o.userName||'').toLowerCase().includes(q);
+    const ms=!st||o.status===st;return mq&&ms;
+  });
+  if(!filtered.length){alert('Tidak ada data!');return;}
+  if(!confirm('Hapus SEMUA '+filtered.length+' transaksi yang tampil? Aksi ini tidak bisa dibatalkan!'))return;
+  await Promise.all(filtered.map(o=>dbRemove('orders/'+o.key)));
+  const filteredKeys=filtered.map(o=>o.key);
+  _ords=_ords.filter(x=>!filteredKeys.includes(x.key));
+  renderOrds();
 }
 
 // ── LOGOUT ───────────────────────────────────────────────────────────────────
