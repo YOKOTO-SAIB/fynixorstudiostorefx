@@ -176,12 +176,7 @@ tr:hover td{background:var(--blue-b);}
   <div id="step1">
     <div class="sec-title" style="margin-top:4px">Pilih Platform</div>
     <div class="plat-grid" id="platGrid">
-      <div class="plat-card p-tiktok" data-plat="tiktok" onclick="selPlat(this)"><div class="plat-ic">📱</div><div class="plat-name">TikTok</div></div>
-      <div class="plat-card p-instagram" data-plat="instagram" onclick="selPlat(this)"><div class="plat-ic">📷</div><div class="plat-name">Instagram</div></div>
-      <div class="plat-card p-telegram" data-plat="telegram" onclick="selPlat(this)"><div class="plat-ic">✈️</div><div class="plat-name">Telegram</div></div>
-      <div class="plat-card p-whatsapp" data-plat="whatsapp" onclick="selPlat(this)"><div class="plat-ic">📲</div><div class="plat-name">WhatsApp</div></div>
-      <div class="plat-card p-facebook" data-plat="facebook" onclick="selPlat(this)"><div class="plat-ic">👥</div><div class="plat-name">Facebook</div></div>
-      <div class="plat-card p-youtube" data-plat="youtube" onclick="selPlat(this)"><div class="plat-ic">▶️</div><div class="plat-name">YouTube</div></div>
+      <div style="text-align:center;padding:20px;grid-column:1/-1"><div class="spinner" style="width:22px;height:22px;margin:0 auto"></div></div>
     </div>
     <div id="prodCustomGrid" style="display:none">
       <div class="sec-title">Paket Custom</div>
@@ -365,10 +360,30 @@ async function tgSend(text,imgUrl){
 function openLightbox(src){document.getElementById('lbImg').src=src;document.getElementById('lightbox').classList.add('open');}
 
 var curUser=null,curUD=null;
-var selPlatData=null,selPaketData=null,prodList=[];
+var selPlatData=null,selCatId=null,selPaketData=null,prodList=[];
 
 const PLAT_LABEL={tiktok:'TikTok',instagram:'Instagram',telegram:'Telegram',whatsapp:'WhatsApp',facebook:'Facebook',youtube:'YouTube'};
 const PLAT_LINK_LABEL={tiktok:'Link Video / Akun TikTok',instagram:'Link Profil / Post Instagram',telegram:'Username / Link Channel Telegram',whatsapp:'Link Channel WhatsApp',facebook:'Link Profil / Halaman Facebook',youtube:'Link Channel / Video YouTube'};
+
+async function loadPlatforms(){
+  const g=document.getElementById('platGrid');
+  // Load categories dari Firebase tipe sosmed
+  const cats=await dbGet('categories')||{};
+  const sosmedCats=Object.entries(cats).filter(([k,v])=>v.type==='sosmed');
+  if(!sosmedCats.length){
+    g.innerHTML='<div class="empty-state" style="grid-column:1/-1"><div class="ico">📭</div><div class="msg">Belum ada kategori sosmed</div></div>';
+    return;
+  }
+  g.innerHTML=sosmedCats.map(([k,v])=>{
+    const platKey=(v.name||'').toLowerCase().replace(/\s+/g,'-');
+    const COLORS={tiktok:'p-tiktok',instagram:'p-instagram',telegram:'p-telegram',whatsapp:'p-whatsapp',facebook:'p-facebook',youtube:'p-youtube'};
+    const colorClass=Object.keys(COLORS).find(x=>platKey.includes(x))||'';
+    return '<div class="plat-card '+(COLORS[colorClass]||'')+'" data-plat="'+platKey+'" data-catid="'+k+'" onclick="selPlat(this)">'
+      +'<div class="plat-ic">'+(v.icon||'📱')+'</div>'
+      +'<div class="plat-name">'+(v.name||'—')+'</div>'
+      +'</div>';
+  }).join('');
+}
 
 async function init(){
   if(await checkMaintenance())return;
@@ -376,6 +391,7 @@ async function init(){
   if(!curUser)return;
   curUD=await getMe();
   document.getElementById('saldoDisplay').textContent=fmtRp(curUD.saldo||0);
+  loadPlatforms();
   loadCustomProds();
   // Real-time saldo
   const db=await getDB();
@@ -396,6 +412,7 @@ function selPlat(el){
   document.querySelectorAll('.plat-card').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
   selPlatData=el.dataset.plat;
+  selCatId=el.dataset.catid||null;
   document.getElementById('step1Btn').disabled=false;
 }
 
@@ -403,7 +420,7 @@ function goStep2(){
   if(!selPlatData)return;
   document.getElementById('step1').style.display='none';
   document.getElementById('step2').style.display='block';
-  document.getElementById('step2Title').textContent=PLAT_LABEL[selPlatData]||selPlatData;
+  document.getElementById('step2Title').textContent=document.querySelector('.plat-card.sel .plat-name')?.textContent||selPlatData;
   document.getElementById('step2Sub').textContent='Pilih jenis layanan yang diinginkan';
   buildPaketGrid();
 }
@@ -416,9 +433,13 @@ function buildPaketGrid(){
     const list=Object.entries(prods||{})
       .map(([k,v])=>Object.assign({id:k},v))
       .filter(function(p){
-        return p.type==='sosmed'
-          && (p.platform||'').toLowerCase()===selPlatData
-          && !p.disabled;
+        if(p.disabled)return false;
+        if(p.type!=='sosmed')return false;
+        // Match by categoryId atau platform name
+        const platLower=(p.platform||'').toLowerCase();
+        const catMatch=selCatId&&p.categoryId===selCatId;
+        const platMatch=platLower===selPlatData||platLower.includes(selPlatData)||selPlatData.includes(platLower);
+        return catMatch||platMatch;
       });
     if(!list.length){
       grid.innerHTML='<div class="empty-state" style="grid-column:1/-1"><div class="ico">📭</div><div class="msg">Belum ada paket untuk platform ini</div></div>';
